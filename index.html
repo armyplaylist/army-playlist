@@ -1,509 +1,278 @@
-<!doctype html>
 
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7efff">
-  <title>ARMY Streaming Combo</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>  <header class="topbar">
-    <a class="brand" href="#inicio">
-      <span class="brand-mark">♡</span>
-      <span>ARMY <b>STREAMING COMBO</b></span>
-    </a><button class="menu-toggle" id="menuToggle">☰</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<nav class="desktop-nav" id="mainNav">
-  <button class="nav-link active" data-view="inicio">Inicio</button>
-  <button class="nav-link" data-view="albumes">Álbumes</button>
-  <button class="nav-link" data-view="oficial">Biblioteca oficial</button>
-  <button class="nav-link" data-view="comunidad">Biblioteca ARMY</button>
-  <button class="nav-link" data-view="combos">Combos</button>
-  <button class="nav-link" data-view="objetivos">Objetivos</button>
+<title>ARMY Streaming Combo | BTS</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f4fc;
+    color: #33243d;
+    padding: 20px;
+}
+
+/* ENCABEZADO */
+
+header {
+    text-align: center;
+    padding: 35px 15px;
+    background: linear-gradient(135deg, #6c4388, #b58bd1);
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+header small {
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin: 12px 0;
+}
+
+header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* NAVEGACIÓN */
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #6c4388;
+    background: white;
+    padding: 11px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(80,40,100,.08);
+}
+
+nav a:hover {
+    background: #6c4388;
+    color: white;
+}
+
+/* TÍTULOS */
+
+.section-heading {
+    margin: 30px 0 20px;
+    border-bottom: 2px solid #e6d9ef;
+    padding-bottom: 12px;
+}
+
+.section-heading h2 {
+    color: #6c4388;
+    font-size: 23px;
+}
+
+.section-heading p {
+    color: #8b7c94;
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+/* ÁLBUMES SPOTIFY */
+
+.spotify-albums {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+    );
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.spotify-album-card {
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(80,40,100,.08);
+    transition: transform .2s ease;
+}
+
+.spotify-album-card:hover {
+    transform: translateY(-4px);
+}
+
+.spotify-album-card h3 {
+    margin: 0 0 5px;
+    color: #6c4388;
+    font-size: 19px;
+}
+
+.spotify-album-card p {
+    margin: 0 0 14px;
+    color: #777;
+    font-size: 13px;
+}
+
+.spotify-album-card iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* PIE DE PÁGINA */
+
+footer {
+    text-align: center;
+    margin-top: 45px;
+    padding: 25px 10px;
+    color: #8b7c94;
+    font-size: 13px;
+}
+
+/* CELULARES */
+
+@media(max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .spotify-albums {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <small>BTS · ARMY</small>
+    <h1>ARMY STREAMING COMBO 💜</h1>
+    <p>Un espacio para organizar y disfrutar la música de BTS.</p>
+</header>
+
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#albumes">Álbumes</a>
+    <a href="#biblioteca">Biblioteca ARMY</a>
+    <a href="#objetivos">Objetivos</a>
 </nav>
 
-  </header>  <main class="app-shell"><!-- INICIO -->
-
-<section class="view active" id="inicio">
-
-  <div class="welcome-card">
-    <div class="welcome-copy">
-      <p class="eyebrow">PLAYLISTS • PLANIFICACIÓN • COMUNIDAD</p>
-
-      <h1>Tu música,<br><span>tus combos.</span></h1>
-
-      <p>
-        Encuentra combinaciones de playlists según tu tiempo
-        disponible y tus objetivos de escucha.
-      </p>
-
-      <button class="button button-primary" data-go="combos">
-        Explorar combos →
-      </button>
-    </div>
-
-    <div class="welcome-art">
-      <div class="orb">♪</div>
-      <span class="spark s1">✦</span>
-      <span class="spark s2">♡</span>
-      <span class="spark s3">✧</span>
-      <span class="spark s4">🦋</span>
-    </div>
-  </div>
-
-  <div class="quick-stats">
-    <article class="stat-card">
-      <span class="stat-icon">♡</span>
-      <div>
-        <strong>ARIRANG</strong>
-        <small>Álbum prioritario</small>
-      </div>
-    </article>
-
-    <article class="stat-card">
-      <span class="stat-icon">♫</span>
-      <div>
-        <strong>2 bibliotecas</strong>
-        <small>Oficial y comunitaria</small>
-      </div>
-    </article>
-
-    <article class="stat-card">
-      <span class="stat-icon">✧</span>
-      <div>
-        <strong>A tu ritmo</strong>
-        <small>Combos por tiempo</small>
-      </div>
-    </article>
-  </div>
-
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">EN ESTE MOMENTO</p>
-      <h2>Objetivos ARIRANG</h2>
-    </div>
-
-    <button class="text-button" data-go="objetivos">
-      Ver objetivos →
-    </button>
-  </div>
-
-  <div class="goal-preview" id="homeGoals"></div>
-
-  <div class="notice">
-    Las cantidades son objetivos de planificación y apariciones
-    previstas en playlists; no representan streams garantizados.
-  </div>
-
-</section>
-
-
-<!-- ÁLBUMES -->
-
-<section class="view" id="albumes">
-
-  <div class="page-heading">
-    <p class="eyebrow">CATÁLOGO MUSICAL</p>
-    <h1>Álbumes</h1>
-
-    <p>
-      Explora los álbumes y las distintas ediciones o lanzamientos
-      que contienen cada grabación.
-    </p>
-  </div>
-<div class="section-heading">
-  <h2>Reproductores de Spotify</h2>
-</div>
-
-<div id="spotifyAlbums" class="spotify-albums"></div>
-  <article class="album-feature">
-
-    <div class="album-placeholder">
-      ♡
-      <small>BTS</small>
-    </div>
-
-    <div>
-      <span class="pill">Álbum prioritario</span>
-      <h2>ARIRANG</h2>
-
-      <p>El catálogo inicial de ARMY Streaming Combo.</p>
-
-      <div class="track-chips">
-        <span>SWIM · 6 lanzamientos</span>
-        <span>NORMAL</span>
-        <span>COME OVER</span>
-        <span>B-sides</span>
-      </div>
-    </div>
-
-  </article>
-
-  <div class="section-heading">
-    <h2>Canciones y versiones</h2>
-  </div>
-
-  <div class="track-list">
-
-    <article class="track-card">
-      <div class="track-cover">S</div>
-      <div>
-        <strong>SWIM</strong>
-        <small>6 lanzamientos por registrar</small>
-      </div>
-      <span class="pill">Prioridad alta</span>
-    </article>
-
-    <article class="track-card">
-      <div class="track-cover">N</div>
-      <div>
-        <strong>NORMAL</strong>
-        <small>Versiones por registrar</small>
-      </div>
-      <span class="pill">Prioridad alta</span>
-    </article>
-
-    <article class="track-card">
-      <div class="track-cover">C</div>
-      <div>
-        <strong>COME OVER</strong>
-        <small>Versiones por registrar</small>
-      </div>
-      <span class="pill">Prioridad</span>
-    </article>
-
-    <article class="track-card">
-      <div class="track-cover">♡</div>
-      <div>
-        <strong>B-sides</strong>
-        <small>Catálogo por completar</small>
-      </div>
-      <span class="pill">Prioridad máxima</span>
-    </article>
-
-  </div>
-</section>
-
-
-<!-- BIBLIOTECA OFICIAL -->
-
-<section class="view" id="oficial">
-
-  <div class="page-heading">
-    <p class="eyebrow">SELECCIÓN CURADA</p>
-    <h1>Biblioteca oficial</h1>
-    <p>Playlists registradas por la administración.</p>
-  </div>
-
-  <div class="section-heading">
-    <h2>Playlists oficiales</h2>
-    <span class="count" id="officialCount">0 playlists</span>
-  </div>
-
-  <div class="playlist-grid" id="officialList"></div>
-
-  <details class="form-panel">
-
-    <summary>＋ Registrar playlist oficial</summary>
-
-    <form id="officialForm" class="playlist-form">
-
-      <label>Nombre de la playlist
-        <input
-          name="name"
-          required
-          placeholder="Ej. ARIRANG focus"
-        >
-      </label>
-
-      <label>Enlace de Spotify
-        <input
-          name="url"
-          type="url"
-          required
-          placeholder="https://open.spotify.com/playlist/..."
-        >
-      </label>
-
-      <label>Duración en minutos
-        <input name="duration" type="number" min="1" required>
-      </label>
-
-      <h3>Objetivos principales</h3>
-
-      <div class="form-row">
-
-        <label>SWIM
-          <input name="swim" type="number" min="0" value="0">
-        </label>
-
-        <label>NORMAL
-          <input name="normal" type="number" min="0" value="0">
-        </label>
-
-        <label>COME OVER
-          <input name="come" type="number" min="0" value="0">
-        </label>
-
-      </div>
-
-      <label>Versiones o lanzamientos de SWIM
-        <textarea
-          name="swimVersions"
-          rows="3"
-          placeholder="Escribe cada versión o lanzamiento separado por comas"
-        ></textarea>
-        <small class="helper">
-          Ejemplo: SWIM versión 1, SWIM versión 2, SWIM EP...
-        </small>
-      </label>
-
-      <label>Cantidad de B-sides
-        <input
-          name="bsides"
-          type="number"
-          min="0"
-          value="0"
-        >
-      </label>
-
-      <button class="button button-primary">
-        Guardar playlist
-      </button>
-
-    </form>
-  </details>
-
-</section>
-
-
-<!-- BIBLIOTECA ARMY -->
-
-<section class="view" id="comunidad">
-
-  <div class="page-heading">
-    <p class="eyebrow">HECHO POR ARMY, PARA ARMY</p>
-    <h1>Biblioteca ARMY</h1>
-
-    <p>
-      Comparte tus playlists con la comunidad. Los aportes quedan
-      pendientes de revisión y no se mezclan con la biblioteca oficial.
-    </p>
-  </div>
-
-  <div class="community-banner">
-    <span>♡</span>
-
-    <div>
-      <strong>Una comunidad que comparte música</strong>
-      <small>Envía tu playlist para que pueda ser revisada.</small>
-    </div>
-  </div>
-
-  <div class="section-heading">
-    <h2>Aportes enviados</h2>
-    <span class="count" id="communityCount">0 aportes</span>
-  </div>
-
-  <div class="playlist-grid" id="communityList"></div>
-
-  <details class="form-panel" open>
-
-    <summary>＋ Compartir una playlist</summary>
-
-    <form id="communityForm" class="playlist-form">
-
-      <label>Nombre de la playlist
-        <input
-          name="name"
-          required
-          placeholder="Nombre de tu playlist"
-        >
-      </label>
-
-      <label>Enlace de Spotify
-        <input
-          name="url"
-          type="url"
-          required
-          placeholder="https://open.spotify.com/playlist/..."
-        >
-      </label>
-
-      <label>Duración en minutos
-        <input name="duration" type="number" min="1" required>
-      </label>
-
-      <h3>Objetivos principales</h3>
-
-      <div class="form-row">
-
-        <label>SWIM
-          <input name="swim" type="number" min="0" value="0">
-        </label>
-
-        <label>NORMAL
-          <input name="normal" type="number" min="0" value="0">
-        </label>
-
-        <label>COME OVER
-          <input name="come" type="number" min="0" value="0">
-        </label>
-
-      </div>
-
-      <label>Versiones o lanzamientos de SWIM
-        <textarea
-          name="swimVersions"
-          rows="3"
-          placeholder="Escribe cada versión separada por comas"
-        ></textarea>
-      </label>
-
-      <label>Cantidad de B-sides
-        <input
-          name="bsides"
-          type="number"
-          min="0"
-          value="0"
-        >
-      </label>
+<main id="inicio">
 
-      <button class="button button-primary">
-        Enviar para revisión
-      </button>
+    <!-- ÁLBUMES -->
 
-      <p class="form-message" id="communityMessage"></p>
+    <section id="albumes">
 
-    </form>
-  </details>
+        <div class="section-heading">
+            <h2>💜 Discografía BTS</h2>
+            <p>Escucha los álbumes directamente desde Spotify.</p>
+        </div>
 
-</section>
+        <div class="spotify-albums">
 
+            <!-- ARIRANG -->
 
-<!-- COMBOS -->
+            <div class="spotify-album-card">
+                <h3>ARIRANG</h3>
+                <p>BTS · 2026</p>
 
-<section class="view" id="combos">
+                <iframe
+                    src="https://open.spotify.com/embed/album/ID_DEL_ALBUM"
+                    height="380"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+            </div>
 
-  <div class="page-heading">
-    <p class="eyebrow">ENCUENTRA TU COMBINACIÓN</p>
-    <h1>Buscador de combos</h1>
+            <!-- AGREGA MÁS ÁLBUMES AQUÍ -->
 
-    <p>
-      Selecciona una biblioteca, define tus objetivos y dinos
-      cuánto tiempo tienes.
-    </p>
-  </div>
+            <div class="spotify-album-card">
+                <h3>Álbum de BTS</h3>
+                <p>Agrega aquí otro lanzamiento.</p>
 
-  <div class="planner-card">
+                <iframe
+                    src="https://open.spotify.com/embed/album/ID_DEL_ALBUM"
+                    height="380"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+            </div>
 
-    <div class="form-row">
+        </div>
+    </section>
 
-      <label>Biblioteca
-        <select id="comboSource">
-          <option value="official">Biblioteca oficial</option>
-          <option value="community">Biblioteca ARMY aprobada</option>
-        </select>
-      </label>
+    <!-- BIBLIOTECA -->
 
-      <label>Tiempo disponible
-        <select id="timeSelect">
-          <option value="30">30 minutos</option>
-          <option value="60">1 hora</option>
-          <option value="120" selected>2 horas</option>
-          <option value="180">3 horas</option>
-          <option value="300">5 horas</option>
-          <option value="custom">Personalizado</option>
-        </select>
-      </label>
+    <section id="biblioteca">
 
-    </div>
+        <div class="section-heading">
+            <h2>🎧 Biblioteca ARMY</h2>
+            <p>Espacio para compartir playlists de la comunidad.</p>
+        </div>
 
-    <label id="customTimeLabel" class="hidden">
-      Minutos disponibles
-      <input id="customTime" type="number" min="1" value="120">
-    </label>
+        <div class="spotify-albums">
 
-    <h2>Tus objetivos</h2>
+            <div class="spotify-album-card">
+                <h3>Playlists de ARMY</h3>
+                <p>Inserta aquí el reproductor de una playlist compartida.</p>
 
-    <div class="goal-inputs">
+                <iframe
+                    src="https://open.spotify.com/embed/playlist/ID_DE_PLAYLIST"
+                    height="380"
+                    loading="lazy">
+                </iframe>
+            </div>
 
-      <label>SWIM
-        <input id="goalSwim" type="number" min="0" value="120">
-      </label>
+        </div>
+    </section>
 
-      <label>NORMAL
-        <input id="goalNormal" type="number" min="0" value="80">
-      </label>
+    <!-- OBJETIVOS -->
 
-      <label>COME OVER
-        <input id="goalCome" type="number" min="0" value="20">
-      </label>
+    <section id="objetivos">
 
-    </div>
+        <div class="section-heading">
+            <h2>🎯 Objetivos de streaming</h2>
+            <p>Organiza tus sesiones de escucha y apoya los lanzamientos de BTS.</p>
+        </div>
 
-    <p class="helper">
-      El cálculo utiliza las apariciones y versiones que hayas
-      registrado en cada playlist.
-    </p>
+        <div class="spotify-album-card">
+            <h3>Objetivo ARMY 💜</h3>
+            <p>
+                Escucha música de BTS, disfruta las canciones
+                y participa en las actividades de streaming.
+            </p>
+        </div>
 
-    <button
-      class="button button-primary full-button"
-      id="calculateButton"
-    >
-      Buscar combinaciones ✧
-    </button>
+    </section>
 
-  </div>
+</main>
 
-  <div id="comboResults" class="results-area"></div>
+<footer>
+    <p>ARMY STREAMING COMBO 💜</p>
+    <p>Proyecto independiente creado por y para ARMY.</p>
+    <p>No afiliado oficialmente a BTS, BIGHIT MUSIC ni Spotify.</p>
+</footer>
 
-</section>
-
-
-<!-- OBJETIVOS -->
-
-<section class="view" id="objetivos">
-
-  <div class="page-heading">
-    <p class="eyebrow">PASO A PASO</p>
-    <h1>Objetivos de streaming</h1>
-
-    <p>
-      Consulta las metas de planificación para el álbum prioritario.
-    </p>
-  </div>
-
-  <div class="goal-board" id="goalBoard"></div>
-
-  <div class="notice">
-    El progreso real de streams no se puede verificar desde esta página.
-  </div>
-
-</section>
-
-  </main>  <!-- NAVEGACIÓN MÓVIL -->  <nav class="mobile-nav">
-    <button class="active" data-view="inicio">
-      <span>⌂</span>Inicio
-    </button><button data-view="albumes">
-  <span>♫</span>Álbumes
-</button>
-
-<button data-view="oficial">
-  <span>☆</span>Oficial
-</button>
-
-<button data-view="comunidad">
-  <span>♡</span>ARMY
-</button>
-
-<button data-view="combos">
-  <span>✧</span>Combos
-</button>
-
-  </nav>  <footer>
-    ARMY STREAMING COMBO ♡ BTS × ARMY · Proyecto independiente.
-  </footer></body>
+</body>
 </html>
