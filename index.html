@@ -1,16 +1,402 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7efff">
-  <title>【entity-ARMY¦canonical_name=ARMY】 Streaming Combo</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFF6FB">
+  <title>【ARMY】 Playlist Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFF6FB;
+      --pink: #FFD6E7;
+      --lilac: #E2D1F9;
+      --blue: #C1E7FF;
+      --yellow: #FFF1C1;
+      --ink: #5A4A5A;
+      --muted: #8C7B8D;
+      --white: #FFFCFE;
+      --shadow: 0 12px 28px rgba(112, 78, 112, .10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255,214,231,.48), transparent 23rem),
+        radial-gradient(circle at 95% 28%, rgba(193,231,255,.38), transparent 25rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+    }
+    button, a { font: inherit; }
+    .page { width: min(1120px, calc(100% - 36px)); margin: 0 auto; padding: 42px 0 60px; }
+    header { text-align: center; padding: 26px 12px 34px; }
+    .eyebrow {
+      display: inline-block; padding: 7px 15px; border-radius: 999px;
+      background: rgba(255,255,255,.72); color: #A17C9C; font-size: .78rem;
+      font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(112,78,112,.07);
+    }
+    h1 { font-size: clamp(2.1rem, 6vw, 4rem); line-height: 1.08; margin: 18px 0 10px; font-weight: 900; letter-spacing: -.045em; }
+    h1 .sparkle { color: #D58DB0; }
+    .subtitle { margin: 0; color: var(--muted); font-size: clamp(1rem, 2.5vw, 1.18rem); font-weight: 700; }
+    .tiny-note { margin: 12px auto 0; font-size: .82rem; color: #A18E9F; }
+    .filter-panel {
+      background: rgba(255,255,255,.68); border: 1px solid rgba(255,255,255,.9);
+      border-radius: 30px; padding: 25px clamp(16px, 4vw, 30px); margin: 0 0 20px;
+      box-shadow: var(--shadow); backdrop-filter: blur(8px);
+    }
+    .filter-heading { display: flex; align-items: center; gap: 10px; margin: 0 0 17px; font-size: 1.22rem; font-weight: 900; }
+    .filter-heading span { font-size: 1.35rem; }
+    .filter-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+    .filter-btn {
+      --btn: var(--pink); --edge: #E9AFC9;
+      position: relative; border: 0; border-radius: 17px; padding: 11px 18px 12px;
+      color: var(--ink); background: linear-gradient(145deg, rgba(255,255,255,.75), transparent 58%), var(--btn);
+      border-bottom: 4px solid var(--edge);
+      box-shadow: 0 5px 0 var(--edge), 0 8px 14px rgba(90,74,90,.10), inset 0 2px 0 rgba(255,255,255,.9);
+      font-weight: 900; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+      overflow: hidden;
+    }
+    .filter-btn::after {
+      content: ""; position: absolute; top: 2px; left: 12%; width: 76%; height: 42%;
+      border-radius: 99px; background: linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+    .filter-btn:hover { transform: translateY(-3px); filter: saturate(1.05); box-shadow: 0 8px 0 var(--edge), 0 12px 18px rgba(90,74,90,.12), inset 0 2px 0 white; }
+    .filter-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--edge), 0 4px 8px rgba(90,74,90,.10), inset 0 2px 0 rgba(255,255,255,.8); }
+    .filter-btn[aria-pressed="true"] { outline: 3px solid rgba(140,104,145,.25); transform: translateY(-2px); }
+    .filter-btn.pink { --btn: var(--pink); --edge: #E9AFC9; }
+    .filter-btn.lilac { --btn: var(--lilac); --edge: #BDA5DE; }
+    .filter-btn.blue { --btn: var(--blue); --edge: #91C8E8; }
+    .filter-btn.yellow { --btn: var(--yellow); --edge: #E8D58D; }
+    .filter-btn.clear { --btn: #F5EDF4; --edge: #D9C9D8; color: #887789; }
+    .custom-time {
+      margin-top: 18px; padding: 17px; border-radius: 20px;
+      background: linear-gradient(135deg, #FFF6FB, #F3EBFF);
+      border: 1px solid rgba(226,209,249,.9);
+    }
+    .custom-time[hidden] { display: none; }
+    .custom-time-title { margin: 0 0 12px; font-weight: 900; }
+    .custom-time-fields { display: flex; align-items: end; gap: 10px; flex-wrap: wrap; }
+    .custom-time-fields label { display: grid; gap: 5px; font-size: .8rem; font-weight: 900; color: var(--muted); }
+    .custom-time-fields input {
+      width: 86px; border: 2px solid #E2D1F9; border-radius: 13px;
+      padding: 10px; background: white; color: var(--ink); font: inherit; font-weight: 900;
+    }
+    .time-colon { font-weight: 900; padding-bottom: 10px; }
+    .apply-time {
+      border: 0; border-radius: 13px; padding: 11px 18px; cursor: pointer;
+      color: var(--ink); background: var(--yellow); border-bottom: 3px solid #E8D58D;
+      box-shadow: 0 4px 0 #E8D58D; font-weight: 900;
+    }
+    .custom-time-hint { margin: 11px 0 0; color: var(--muted); font-size: .8rem; font-weight: 700; }
+    .search-panel { display: flex; gap: 10px; align-items: center; margin: 24px 0 18px; padding: 13px 17px; border-radius: 20px; background: rgba(255,255,255,.82); box-shadow: var(--shadow); }
+    .search-panel input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 700; padding: 7px; }
+    .search-panel input::placeholder { color: #A18E9F; }
+    .extra-filter-note { margin: 10px 0 0; color: var(--muted); font-size: .82rem; font-weight: 700; }
+    .results-top { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 34px 4px 17px; }
+    .results-top h2 { margin: 0; font-size: 1.55rem; font-weight: 900; }
+    #resultCount { color: var(--muted); font-size: .9rem; font-weight: 800; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .playlist-card {
+      display: flex; flex-direction: column; min-width: 0; padding: 21px;
+      background: rgba(255,255,255,.86); border: 1px solid white; border-radius: 25px;
+      box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .playlist-card:hover { transform: translateY(-5px); box-shadow: 0 17px 32px rgba(112,78,112,.14); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 13px; }
+    .tag { border-radius: 999px; padding: 6px 11px; background: var(--lilac); font-size: .72rem; font-weight: 900; }
+    .heart { color: #D98EB0; font-size: 1.2rem; }
+    .playlist-card h3 { margin: 0 0 12px; font-size: 1.12rem; line-height: 1.3; font-weight: 900; }
+    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+    .stat { background: #FFF6FB; border-radius: 12px; padding: 7px 10px; font-size: .78rem; font-weight: 900; }
+    .songs-title { font-size: .78rem; color: var(--muted); font-weight: 900; margin: 0 0 7px; text-transform: uppercase; letter-spacing: .06em; }
+    .songs { margin: 0 0 19px; padding-left: 19px; color: #766779; font-size: .88rem; line-height: 1.65; }
+    .card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+    .music-link {
+      flex: 1; min-width: 115px; text-align: center; text-decoration: none; color: var(--ink);
+      padding: 10px 12px; border-radius: 14px; background: var(--pink);
+      border-bottom: 3px solid #E9AFC9; box-shadow: 0 4px 0 #E9AFC9, 0 6px 12px rgba(90,74,90,.08);
+      font-size: .82rem; font-weight: 900; transition: transform .15s ease;
+    }
+    .music-link.apple { background: var(--blue); border-color: #91C8E8; box-shadow: 0 4px 0 #91C8E8, 0 6px 12px rgba(90,74,90,.08); }
+    .music-link:hover { transform: translateY(-2px); }
+    .empty { grid-column: 1/-1; text-align: center; padding: 46px 20px; border-radius: 25px; background: rgba(255,255,255,.75); color: var(--muted); }
+    .empty strong { display: block; color: var(--ink); font-size: 1.15rem; margin-bottom: 5px; }
+    footer { text-align: center; color: #A18E9F; font-size: .82rem; margin-top: 38px; }
+    @media (max-width: 850px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 570px) {
+      .page { width: min(100% - 24px, 500px); padding-top: 20px; }
+      header { padding-top: 20px; }
+      .filter-panel { border-radius: 24px; padding: 20px 16px; }
+      .filter-buttons { gap: 10px; }
+      .filter-btn { flex: 1 1 calc(50% - 10px); padding-inline: 9px; }
+      .grid { grid-template-columns: 1fr; }
+      .results-top { align-items: start; flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#inicio">
-      <span class="brand-mark">♡</span>
-      <span>【entity-ARMY¦canonical_name=ARMY】 <b>STREAMING COMBO</b></span>
-    </a>
+  <main class="page">
+    <header>
+      <div class="eyebrow">♡ made with love for ARMY ♡</div>
+      <h1>【ARMY】 <span class="sparkle">Playlist Finder</span></h1>
+      <p class="subtitle">Encuentra tu playlist perfecta para apoyar a BTS</p>
+      <p class="tiny-note">Un ratito, muchas canciones y mucho amor morado. 💜</p>
+    </header>
+
+    <section class="filter-panel" aria-labelledby="timeHeading">
+      <h2 class="filter-heading" id="timeHeading"><span>⏰</span> ¿Cuánto tiempo tienes?</h2>
+      <div class="filter-buttons" id="timeFilters">
+        <button class="filter-btn pink" data-filter="time" data-value="15" aria-pressed="false">15 min</button>
+        <button class="filter-btn lilac" data-filter="time" data-value="30" aria-pressed="false">30 min</button>
+        <button class="filter-btn blue" data-filter="time" data-value="60" aria-pressed="false">1 hora</button>
+        <button class="filter-btn yellow" data-filter="time" data-value="120" aria-pressed="false">2+ horas</button>
+        <button class="filter-btn pink" data-filter="time" data-value="night" aria-pressed="false">Toda la noche</button>
+        <button class="filter-btn clear" id="customTimeToggle" type="button" aria-expanded="false">✨ Personalizar tiempo</button>
+      </div>
+      <div class="custom-time" id="customTimePanel" hidden>
+        <p class="custom-time-title">¿Cuánto tiempo tienes exactamente?</p>
+        <div class="custom-time-fields">
+          <label>Horas
+            <input id="customHours" type="number" min="0" max="23" value="1" inputmode="numeric">
+          </label>
+          <span class="time-colon">:</span>
+          <label>Minutos
+            <input id="customMinutes" type="number" min="0" max="59" value="30" inputmode="numeric">
+          </label>
+          <button class="apply-time" id="applyCustomTime" type="button">Aplicar ♡</button>
+        </div>
+        <p class="custom-time-hint" id="customTimeHint">Mostraremos playlists que duren ese tiempo o menos.</p>
+      </div>
+    </section>
+
+    <section class="filter-panel" aria-labelledby="goalHeading">
+      <h2 class="filter-heading" id="goalHeading"><span>🎯</span> ¿Cuál es tu meta hoy?</h2>
+      <div class="filter-buttons" id="goalFilters">
+        <button class="filter-btn lilac" data-filter="goal" data-value="focus" aria-pressed="false">Focus</button>
+        <button class="filter-btn blue" data-filter="goal" data-value="10" aria-pressed="false">10 streams</button>
+        <button class="filter-btn pink" data-filter="goal" data-value="50" aria-pressed="false">50 streams</button>
+        <button class="filter-btn yellow" data-filter="goal" data-value="100" aria-pressed="false">100+ streams</button>
+        <button class="filter-btn lilac" data-filter="goal" data-value="party" aria-pressed="false">Streaming Party</button>
+      </div>
+    </section>
+
+    <section class="filter-panel" aria-labelledby="memberHeading">
+      <h2 class="filter-heading" id="memberHeading"><span>💜</span> ¿A quién quieres apoyar hoy?</h2>
+      <div class="filter-buttons" id="memberFilters">
+        <button class="filter-btn pink" data-filter="member" data-value="all" aria-pressed="true">OT7 / Todos</button>
+        <button class="filter-btn lilac" data-filter="member" data-value="rm" aria-pressed="false">RM</button>
+        <button class="filter-btn blue" data-filter="member" data-value="jin" aria-pressed="false">Jin</button>
+        <button class="filter-btn yellow" data-filter="member" data-value="suga" aria-pressed="false">SUGA</button>
+        <button class="filter-btn pink" data-filter="member" data-value="jhope" aria-pressed="false">j-hope</button>
+        <button class="filter-btn lilac" data-filter="member" data-value="jimin" aria-pressed="false">Jimin</button>
+        <button class="filter-btn blue" data-filter="member" data-value="v" aria-pressed="false">V</button>
+        <button class="filter-btn yellow" data-filter="member" data-value="jungkook" aria-pressed="false">Jungkook</button>
+      </div>
+    </section>
+
+    <section class="filter-panel" aria-labelledby="playsHeading">
+      <h2 class="filter-heading" id="playsHeading"><span>🔁</span> ¿Cuántas reproducciones por canción buscas?</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn pink" data-filter="plays" data-value="1" aria-pressed="false">1 reproducción</button>
+        <button class="filter-btn lilac" data-filter="plays" data-value="3" aria-pressed="false">3 reproducciones</button>
+        <button class="filter-btn blue" data-filter="plays" data-value="5" aria-pressed="false">5 reproducciones</button>
+        <button class="filter-btn yellow" data-filter="plays" data-value="10" aria-pressed="false">10+ reproducciones</button>
+      </div>
+      <p class="extra-filter-note">Estimación orientativa por canción dentro de la playlist; los resultados son ejemplos de planificación.</p>
+    </section>
+
+    <section class="filter-panel" aria-labelledby="comboHeading">
+      <h2 class="filter-heading" id="comboHeading"><span>🎀</span> Combos y playlists intermedias</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn pink" data-filter="combo" data-value="solo-ot7" aria-pressed="false">Solo + OT7</button>
+        <button class="filter-btn lilac" data-filter="combo" data-value="vocal" aria-pressed="false">Vocal line mix</button>
+        <button class="filter-btn blue" data-filter="combo" data-value="rap" aria-pressed="false">Rap line mix</button>
+        <button class="filter-btn yellow" data-filter="combo" data-value="intermediate" aria-pressed="false">Nivel intermedio</button>
+      </div>
+    </section>
+
+    <div class="search-panel">
+      <span aria-hidden="true">🔎</span>
+      <input id="playlistSearch" type="search" placeholder="Busca una canción, integrante o playlist..." aria-label="Buscar playlists">
+      <button class="filter-btn clear" id="clearSearch" type="button">Limpiar</button>
+    </div>
+
+    <div class="results-top">
+      <h2>♡ Tu playlist ideal</h2>
+      <span id="resultCount" aria-live="polite">12 playlists</span>
+    </div>
+    <section class="grid" id="playlistGrid" aria-label="Galería de playlists"></section>
+    <footer>Hecho con 💜 por y para ARMY · Datos de ejemplo para esta demo</footer>
+  </main>
+
+  <script>
+    // Duraciones y streams son aproximados y sirven como datos de demostración.
+    const playlists = [
+      { title: "Focus on Jungkook - Seven", playsPerSong: 1, combo: "solo-ot7", level: "beginner", minutes: 20, streams: 6, tag: "Solo focus", goals: ["focus","10"], songs: ["Seven (feat. Latto) — Jungkook","3D (feat. Jack Harlow) — Jungkook","Standing Next to You — Jungkook","Still With You — Jungkook"], search: "Jungkook Seven 3D Standing Next to You Still With You" },
+      { title: "Jimin's Soft Hours", playsPerSong: 1, combo: "solo-ot7", level: "beginner", minutes: 30, streams: 9, tag: "Jimin solo", goals: ["focus","10"], songs: ["Like Crazy — Jimin","Who — Jimin","Set Me Free Pt.2 — Jimin","Serendipity — BTS"], search: "Jimin Like Crazy Who Set Me Free Pt.2 Serendipity" },
+      { title: "Violet Vibes with V", playsPerSong: 2, combo: "solo-ot7", level: "beginner", minutes: 45, streams: 13, tag: "V solo", goals: ["10","50"], songs: ["Love Me Again — V","Rainy Days — V","Slow Dancing — V","Singularity — BTS"], search: "V Love Me Again Rainy Days Slow Dancing Singularity" },
+      { title: "BTS Café: Cozy & Calm", playsPerSong: 2, combo: "vocal", level: "intermediate", minutes: 60, streams: 17, tag: "OT7 chill", goals: ["10","50"], songs: ["Life Goes On — BTS","Coffee — BTS","00:00 (Zero O’Clock) — BTS","Spring Day — BTS"], search: "BTS Life Goes On Coffee Zero O Clock Spring Day" },
+      { title: "OT7 Power Hour", playsPerSong: 2, combo: "solo-ot7", level: "intermediate", minutes: 60, streams: 18, tag: "OT7 energy", goals: ["10","50","party"], songs: ["Dynamite — BTS","Butter — BTS","Permission to Dance — BTS","MIC Drop — BTS"], search: "BTS Dynamite Butter Permission to Dance MIC Drop" },
+      { title: "Golden Maknae Marathon", playsPerSong: 3, combo: "solo-ot7", level: "intermediate", minutes: 90, streams: 26, tag: "Jungkook mix", goals: ["50","100"], songs: ["Euphoria — BTS","Seven — Jungkook","3D — Jungkook","Standing Next to You — Jungkook"], search: "Jungkook Euphoria Seven 3D Standing Next to You" },
+      { title: "Rap Line Appreciation", playsPerSong: 3, combo: "rap", level: "intermediate", minutes: 75, streams: 21, tag: "Rap line", goals: ["50"], songs: ["Daechwita — Agust D","Wild Flower — RM","MORE — j-hope","UGH! — BTS"], search: "Agust D Daechwita RM Wild Flower j-hope MORE BTS UGH" },
+      { title: "Bangtan Classics Forever", playsPerSong: 4, combo: "solo-ot7", level: "intermediate", minutes: 120, streams: 34, tag: "OT7 classics", goals: ["50","100","party"], songs: ["I NEED U — BTS","RUN — BTS","Blood Sweat & Tears — BTS","FAKE LOVE — BTS"], search: "BTS I NEED U RUN Blood Sweat Tears FAKE LOVE" },
+      { title: "Streaming Party: Purple Ocean", playsPerSong: 5, combo: "vocal", level: "intermediate", minutes: 150, streams: 43, tag: "Streaming party", goals: ["50","100","party"], songs: ["Take Two — BTS","Yet To Come — BTS","For Youth — BTS","Mikrokosmos — BTS"], search: "BTS Take Two Yet To Come For Youth Mikrokosmos" },
+      { title: "All Night with Bangtan", playsPerSong: 8, combo: "solo-ot7", level: "advanced", minutes: 240, streams: 68, tag: "Toda la noche", goals: ["100","party"], songs: ["Black Swan — BTS","ON — BTS","IDOL — BTS","Run BTS — BTS"], search: "BTS Black Swan ON IDOL Run BTS" },
+      { title: "Jin's Moonlight Moments", playsPerSong: 1, combo: "solo-ot7", level: "beginner", minutes: 35, streams: 10, tag: "Jin solo", goals: ["focus","10"], songs: ["The Astronaut — Jin","Epiphany — BTS","Awake — BTS","Moon — BTS"], search: "Jin The Astronaut Epiphany Awake Moon BTS" },
+      { title: "Hope World: Feel-Good Mix", playsPerSong: 4, combo: "rap", level: "intermediate", minutes: 125, streams: 36, tag: "j-hope solo", goals: ["50","100","party"], songs: ["MORE — j-hope","Arson — j-hope","on the street — j-hope","Chicken Noodle Soup — j-hope"], search: "j-hope MORE Arson on the street Chicken Noodle Soup" },
+      { title: "Purple Balance: Solo + OT7", playsPerSong: 3, combo: "solo-ot7", level: "intermediate", minutes: 95, streams: 27, tag: "Combo intermedio", goals: ["50"], songs: ["Like Crazy — Jimin","Seven — Jungkook","Spring Day — BTS","The Astronaut — Jin"], search: "Jimin Like Crazy Jungkook Seven BTS Spring Day Jin The Astronaut" },
+      { title: "Vocal Line to OT7", playsPerSong: 3, combo: "vocal", level: "intermediate", minutes: 105, streams: 30, tag: "Vocal line + OT7", goals: ["50","party"], songs: ["Stigma — V","Serendipity — BTS","Epiphany — BTS","Yet To Come — BTS"], search: "V Stigma Serendipity Epiphany Yet To Come BTS" },
+      { title: "Rap & Bangtan Mix", playsPerSong: 3, combo: "rap", level: "intermediate", minutes: 110, streams: 31, tag: "Rap line + OT7", goals: ["50","party"], songs: ["Wild Flower — RM","Daechwita — Agust D","MORE — j-hope","UGH! — BTS"], search: "RM Wild Flower Agust D Daechwita j-hope MORE BTS UGH" },
+      { title: "Indigo Dreams with RM", playsPerSong: 2, combo: "solo-ot7", level: "intermediate", minutes: 55, streams: 16, tag: "RM solo", goals: ["10","50"], songs: ["Wild Flower (with youjeen) — RM","Still Life (with Anderson .Paak) — RM","Closer (with Paul Blanco, Mahalia) — RM","Lonely — RM"], search: "RM Indigo Wild Flower Still Life Closer Lonely" }
+    ];
+
+    const selected = { time: null, goal: null, member: "all", plays: null, combo: null };
+
+    const memberTerms = {
+      rm: ["rm", "wild flower"],
+      jin: ["jin", "the astronaut", "epiphany", "awake", "moon"],
+      suga: ["suga", "agust d", "daechwita"],
+      jhope: ["j-hope", "jhope", "hope world", "arson", "on the street", "chicken noodle soup"],
+      jimin: ["jimin", "like crazy", "who", "set me free", "serendipity"],
+      v: ["v —", " v ", "love me again", "rainy days", "slow dancing", "singularity"],
+      jungkook: ["jungkook", "seven", "3d", "standing next to you", "still with you"]
+    };
+    const grid = document.getElementById("playlistGrid");
+    const count = document.getElementById("resultCount");
+
+    function matchesTime(item, filter) {
+      if (!filter) return true;
+      if (String(filter).startsWith("custom:")) return item.minutes <= Number(String(filter).split(":")[1]);
+      if (filter === "15") return item.minutes <= 20;
+      if (filter === "30") return item.minutes <= 35;
+      if (filter === "60") return item.minutes <= 60;
+      if (filter === "120") return item.minutes >= 60;
+      if (filter === "night") return item.minutes >= 120;
+      return true;
+    }
+    function matchesGoal(item, filter) {
+      if (!filter) return true;
+      if (filter === "10") return item.streams >= 6 && item.streams <= 18;
+      if (filter === "50") return item.streams >= 18 && item.streams <= 50;
+      if (filter === "100") return item.streams >= 34;
+      return item.goals.includes(filter);
+    }
+    function matchesPlays(item, target) {
+      if (!target) return true;
+      if (target === "10") return item.playsPerSong >= 5;
+      return item.playsPerSong >= Number(target);
+    }
+    function matchesCombo(item, combo) {
+      if (!combo) return true;
+      if (combo === "intermediate") return item.level === "intermediate";
+      return item.combo === combo;
+    }
+    function matchesSearch(item, query) {
+      if (!query) return true;
+      const haystack = `${item.title} ${item.tag} ${item.songs.join(" ")} ${item.search}`.toLocaleLowerCase();
+      return haystack.includes(query.toLocaleLowerCase());
+    }
+    function matchesMember(item, member) {
+      if (!member || member === "all") return true;
+      const text = `${item.title} ${item.tag} ${item.songs.join(" ")} ${item.search}`.toLowerCase();
+      return memberTerms[member].some(term => text.includes(term));
+    }
+    function durationLabel(minutes) {
+      if (minutes < 60) return `${minutes} min`;
+      const hours = Math.floor(minutes / 60), mins = minutes % 60;
+      return `${hours}h${mins ? ` ${mins}m` : ""}`;
+    }
+    function render() {
+      const filtered = playlists.filter(p =>
+        matchesTime(p, selected.time) &&
+        matchesGoal(p, selected.goal) &&
+        matchesMember(p, selected.member) &&
+        matchesPlays(p, selected.plays) &&
+        matchesCombo(p, selected.combo) &&
+        matchesSearch(p, document.getElementById("playlistSearch").value.trim())
+      );
+      count.textContent = `${filtered.length} ${filtered.length === 1 ? "playlist" : "playlists"}`;
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="empty"><strong>¡Aún no encontramos una combinación! ♡</strong>Prueba quitar uno de los filtros para descubrir más playlists.</div>`;
+        return;
+      }
+      grid.innerHTML = filtered.map(p => {
+        const spotify = `https://open.spotify.com/search/${encodeURIComponent(p.search)}`;
+        const apple = `https://music.apple.com/search?term=${encodeURIComponent(p.search)}`;
+        return `<article class="playlist-card">
+          <div class="card-top"><span class="tag">${p.tag}</span><span class="heart" aria-hidden="true">♥</span></div>
+          <h3>${p.title}</h3>
+          <div class="stats"><span class="stat">◷ ${durationLabel(p.minutes)}</span><span class="stat">♫ ~${p.streams} streams</span><span class="stat">🔁 ~${p.playsPerSong} por canción</span></div>
+          <p class="songs-title">Incluye</p>
+          <ul class="songs">${p.songs.map(song => `<li>${song}</li>`).join("")}</ul>
+          <div class="card-actions">
+            <a class="music-link" href="${spotify}" target="_blank" rel="noopener noreferrer">Spotify ↗</a>
+            <a class="music-link apple" href="${apple}" target="_blank" rel="noopener noreferrer">Apple Music ↗</a>
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    const customToggle = document.getElementById("customTimeToggle");
+    const customPanel = document.getElementById("customTimePanel");
+    const customHours = document.getElementById("customHours");
+    const customMinutes = document.getElementById("customMinutes");
+
+    customToggle.addEventListener("click", () => {
+      const isOpen = !customPanel.hidden;
+      customPanel.hidden = isOpen;
+      customToggle.setAttribute("aria-expanded", String(!isOpen));
+      if (!isOpen) {
+        document.querySelectorAll('.filter-btn[data-filter="time"]').forEach(b => b.setAttribute("aria-pressed", "false"));
+        selected.time = null;
+        render();
+      }
+    });
+
+    document.getElementById("applyCustomTime").addEventListener("click", () => {
+      const hours = Math.max(0, Math.min(23, Number(customHours.value) || 0));
+      const minutes = Math.max(0, Math.min(59, Number(customMinutes.value) || 0));
+      const total = hours * 60 + minutes;
+      if (total < 1) {
+        document.getElementById("customTimeHint").textContent = "Elige al menos 1 minuto para filtrar. ♡";
+        return;
+      }
+      selected.time = `custom:${total}`;
+      document.querySelectorAll('.filter-btn[data-filter="time"]').forEach(b => b.setAttribute("aria-pressed", "false"));
+      customToggle.setAttribute("aria-pressed", "true");
+      document.getElementById("customTimeHint").textContent = `Filtro aplicado: ${hours} h y ${minutes} min. Mostrando playlists de hasta ${hours ? hours + " h " : ""}${minutes} min.`;
+      render();
+    });
+
+    document.querySelectorAll(".filter-btn[data-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        const type = button.dataset.filter;
+        const value = button.dataset.value;
+        selected[type] = selected[type] === value ? (type === "member" ? "all" : null) : value;
+        if (type === "time") {
+          customPanel.hidden = true;
+          customToggle.setAttribute("aria-expanded", "false");
+          customToggle.setAttribute("aria-pressed", "false");
+        }
+        document.querySelectorAll(`.filter-btn[data-filter="${type}"]`).forEach(other => {
+          other.setAttribute("aria-pressed", String(other.dataset.value === selected[type]));
+        });
+        if (selected[type] === null) button.setAttribute("aria-pressed", "false");
+        render();
+      });
+    });
+    document.getElementById("playlistSearch").addEventListener("input", render);
+    document.getElementById("clearSearch").addEventListener("click", () => {
+      document.getElementById("playlistSearch").value = "";
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
