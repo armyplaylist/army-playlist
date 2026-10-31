@@ -17,6 +17,19 @@
 @keyframes armybomb-float{0%{opacity:0;transform:translate(0,8px) scale(.35) rotate(-18deg)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-58px) scale(1.1) rotate(var(--rot))}}
 @media(max-width:720px){.profile-shortcuts{gap:10px}.profile-shortcut.member-cover{padding:7px;border-radius:19px}.profile-shortcut.member-cover span{font-size:.86rem;padding:7px 3px 5px}}
 @media(prefers-reduced-motion:reduce){.armybomb-particle{animation:none;display:none}.profile-shortcut.member-cover,.profile-shortcut.member-cover img{transition:none}}
+
+/* Minimal lavender: tarjetas de perfiles */
+.profile-shortcuts{gap:14px;margin:4px 0 22px}
+.profile-shortcut.member-cover{min-height:0;padding:8px!important;border:1px solid #e9def5!important;border-radius:18px!important;background:#fff!important;box-shadow:0 3px 12px #5d477515!important;overflow:hidden;display:flex;flex-direction:column;gap:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.profile-shortcut.member-cover:before,.profile-shortcut.member-cover:after{display:none!important}
+.profile-shortcut.member-cover:hover{transform:translateY(-3px)!important;border-color:#cdb8e8!important;box-shadow:0 8px 18px #5d47751c!important}
+.profile-shortcut.member-cover img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:12px!important;box-shadow:none!important;transition:transform .25s ease}
+.profile-shortcut.member-cover:hover img{transform:scale(1.015);filter:none}
+.profile-shortcut.member-cover span{width:100%;margin-top:8px;padding:7px 3px 5px;border-radius:10px;background:#f5effb!important;color:#63458c!important;font-size:.92rem;letter-spacing:.01em;text-align:center;box-shadow:none!important}
+.profile-shortcut.member-cover small{color:#9883ad!important;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:720px){.profile-shortcuts{gap:9px}.profile-shortcut.member-cover{padding:6px!important;border-radius:15px!important}.profile-shortcut.member-cover img{border-radius:10px!important}.profile-shortcut.member-cover span{font-size:.82rem;padding:6px 2px 4px}}
+@media(prefers-reduced-motion:reduce){.profile-shortcut.member-cover,.profile-shortcut.member-cover img{transition:none}}
+
 </style></head><body><main class="page"><header><div class="eyebrow">♡ made with love for ARMY ♡</div><h1>【ARMY】 <span>Playlist Finder</span></h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. 💜</p></header>
 <section class="profile-shortcuts" aria-label="Perfiles grupales e individuales">
 <button class="profile-shortcut member-cover group-cover" type="button" data-group="Combo ARIRANG · 12 B-sides"><img src="https://img.zeit.de/feuilleton/2026-03/arirang-bts-album-musik-k-pop-bild/square__960x960" alt="BTS, los siete integrantes en la era ARIRANG"><span>BTS<br><small>Grupal · OT7</small></span></button>
