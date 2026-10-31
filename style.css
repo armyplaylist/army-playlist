@@ -804,3 +804,57 @@ footer span {
 
   footer { padding-bottom: 85px; }
 }
+
+async function loadSpotifyAlbums() {
+  const container = document.getElementById("spotifyAlbums");
+
+  if (!container) return;
+
+  try {
+    const response = await fetch("./albums.json");
+
+    if (!response.ok) {
+      throw new Error("No se pudo cargar albums.json");
+    }
+
+    const data = await response.json();
+
+    container.innerHTML = "";
+
+    data.albums
+      .filter(album => album.visible)
+      .forEach(album => {
+        const card = document.createElement("article");
+
+        card.className = "spotify-album-card";
+
+        const title = document.createElement("h3");
+        title.textContent = album.title;
+
+        const artist = document.createElement("p");
+        artist.textContent = album.artist;
+
+        const iframe = document.createElement("iframe");
+
+        iframe.src = album.embedUrl;
+        iframe.width = "100%";
+        iframe.height = "352";
+        iframe.style.borderRadius = "12px";
+        iframe.frameBorder = "0";
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+        iframe.allow =
+          "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+
+        card.append(title, artist, iframe);
+        container.appendChild(card);
+      });
+
+  } catch (error) {
+    console.error("Error cargando álbumes:", error);
+    container.textContent = "No se pudieron cargar los álbumes.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadSpotifyAlbums);
+
