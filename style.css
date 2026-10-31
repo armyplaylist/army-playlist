@@ -138,3 +138,39 @@ footer {
   text-align: center;
   background: #eadcf7;
 }
+/* DISEÑO PARA CELULARES */
+@media (max-width: 600px) {
+  header {
+    padding: 18px 10px;
+  }
+
+  header h1 {
+    font-size: 25px;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 13px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px 7px;
+  }
+
+  footer {
+    font-size: 12px;
+  }
+}
+
+/* EFECTOS DE TABLAS */
+tbody tr:hover {
+  background: #fff0f7;
+  transition: 0.3s;
+}
