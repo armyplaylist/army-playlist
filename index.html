@@ -1,523 +1,317 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARMY PLAYLIST 💜 - BTS Stream Hub</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter / Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        army: {
-                            50: '#faf5ff',
-                            100: '#f3e8ff',
-                            200: '#e9d5ff',
-                            300: '#d8b4fe',
-                            400: '#c084fc',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                            800: '#6b21a8',
-                            900: '#581c87',
-                            accent: '#eadcf7' // Color de tu CSS original
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Estilos personalizados y emulación de tu CSS original con mejoras */
-        body {
-            background: linear-gradient(135deg, #0f0716 0%, #1a0b2e 50%, #120326 100%);
-            color: #f3e8ff;
-            min-height: 100vh;
-        }
-
-        /* Estilos exactos del CSS de la foto adaptados */
-        footer {
-            padding: 25px;
-            text-align: center;
-            background: #eadcf7;
-            color: #3b0764;
-        }
-
-        /* DISEÑO PARA CELULARES (max-width: 600px) como en tu captura original */
-        @media (max-width: 600px) {
-            header {
-                padding: 18px 10px !important;
-            }
-            header h1 {
-                font-size: 22px !important;
-            }
-            nav {
-                gap: 10px !important;
-            }
-            nav a {
-                font-size: 13px !important;
-            }
-            table {
-                font-size: 13px !important;
-            }
-            th, td {
-                padding: 10px 7px !important;
-            }
-            footer {
-                font-size: 12px !important;
-                padding: 18px 10px !important;
-            }
-        }
-
-        .army-glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(216, 180, 254, 0.15);
-        }
-
-        .army-gradient-text {
-            background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 50%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .pulse-live {
-            animation: pulse-animation 2s infinite;
-        }
-
-        @keyframes pulse-animation {
-            0% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.7); }
-            70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0); }
-        }
-
-        /* Personalización de scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a0b2e;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #7e22ce;
-            border-radius: 4px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7efff">
+  <title>ARMY Streaming Combo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body class="font-sans antialiased selection:bg-army-500 selection:text-white flex flex-col justify-between">
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">♡</span>
+      <span>ARMY <b>STREAMING COMBO</b></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <nav class="desktop-nav" id="mainNav">
+      <button class="nav-link active" data-view="inicio">Inicio</button>
+      <button class="nav-link" data-view="albumes">Álbumes</button>
+      <button class="nav-link" data-view="oficial">Biblioteca oficial</button>
+      <button class="nav-link" data-view="comunidad">Biblioteca ARMY</button>
+      <button class="nav-link" data-view="combos">Combos</button>
+      <button class="nav-link" data-view="objetivos">Objetivos</button>
+    </nav>
+  </header>
 
-    <!-- HEADER / NAVEGACIÓN -->
-    <header class="sticky top-0 z-50 bg-[#120326]/90 backdrop-blur-md border-b border-army-800/40 px-6 py-5 transition-all">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3">
-                <span class="text-3xl text-army-400">💜</span>
-                <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-                    ARMY <span class="army-gradient-text">PLAYLIST</span>
-                </h1>
-            </div>
-            
-            <!-- Navegación Adaptable -->
-            <nav class="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-sm font-medium">
-                <a href="#inicio" class="hover:text-army-300 transition-colors py-1 px-2 rounded-md hover:bg-army-900/50">Inicio</a>
-                <a href="#integrantes" class="hover:text-army-300 transition-colors py-1 px-2 rounded-md hover:bg-army-900/50">Integrantes</a>
-                <a href="#discografia" class="hover:text-army-300 transition-colors py-1 px-2 rounded-md hover:bg-army-900/50">Discografía</a>
-                <a href="#streams" class="hover:text-army-300 transition-colors py-1 px-2 bg-army-700/40 text-army-200 border border-army-500/30 rounded-full hover:bg-army-600">
-                    <i class="fa-brands fa-spotify text-green-400 mr-1"></i> Streams Live
-                </a>
-            </nav>
+  <main class="app-shell">
+
+    <section class="view active" id="inicio">
+      <div class="welcome-card">
+        <div class="welcome-copy">
+          <p class="eyebrow">PLAYLISTS • PLANIFICACIÓN • COMUNIDAD</p>
+          <h1>Tu música,<br><span>tus combos.</span></h1>
+          <p>Encuentra combinaciones de playlists según tu tiempo disponible y tus objetivos de escucha.</p>
+          <button class="button button-primary" data-go="combos">Explorar combos →</button>
         </div>
-    </header>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-6xl mx-auto px-4 py-8 space-y-16 w-full flex-grow">
-
-        <!-- 1. SECCIÓN INICIO / HERO -->
-        <section id="inicio" class="relative rounded-3xl p-8 md:p-12 overflow-hidden army-glass border border-army-500/20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="space-y-4 max-w-xl">
-                <span class="bg-army-900/80 text-army-300 border border-army-500/40 text-xs font-semibold px-3 py-1.5 rounded-full inline-block">
-                    ✨ The BTS Universe & Goal Tracker
-                </span>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
-                    Bienvenidx a <span class="army-gradient-text">ARMY Playlist</span>
-                </h2>
-                <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                    Plataforma dedicada a coordinar reproducciones masivas, consultar la discografía oficial y monitorear los datos de Spotify en tiempo real para apoyar a BTS en todo el mundo.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2 justify-center md:justify-start">
-                    <a href="#streams" class="bg-gradient-to-r from-army-600 to-army-800 hover:from-army-500 hover:to-army-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 text-sm flex items-center">
-                        <i class="fa-solid fa-play mr-2"></i> Ver Streams Hoy
-                    </a>
-                    <a href="#discografia" class="bg-army-900/60 hover:bg-army-800/80 text-army-200 border border-army-700 px-6 py-3 rounded-xl transition-all text-sm flex items-center">
-                        Explorar Álbumes
-                    </a>
-                </div>
-            </div>
-            <!-- Logo / Decoración ARMY -->
-            <div class="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
-                <div class="absolute inset-0 bg-army-600/20 rounded-full blur-3xl"></div>
-                <div class="relative w-36 h-36 bg-gradient-to-tr from-army-600 to-purple-400 rounded-3xl transform rotate-12 flex items-center justify-center shadow-2xl border border-white/20">
-                    <i class="fa-solid fa-compact-disc text-6xl text-white animate-spin" style="animation-duration: 12s;"></i>
-                </div>
-            </div>
-        </section>
-
-<!-- 2. SECCIÓN INTEGRANTES -->
-<section id="integrantes" class="space-y-6">
-  <div class="text-center space-y-2">
-    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Integrantes</h2>
-    <p class="text-army-300 text-xs md:text-sm">7 miembros, 1 solo corazón. BTS RM, Jin, SUGA, j-hope, Jimin, V, Jungkook</p>
-  </div>
-
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-    <!-- RM -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/rm.jpg" alt="RM" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">RM</h3>
-      <p class="text-xs text-army-300 font-medium">Kim Namjoon</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Líder / Rapero</span>
-    </div>
-
-    <!-- Jin -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/jin.jpg" alt="Jin" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">Jin</h3>
-      <p class="text-xs text-army-300 font-medium">Kim Seokjin</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Vocalista</span>
-    </div>
-
-    <!-- SUGA -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/suga.jpg" alt="SUGA" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">SUGA</h3>
-      <p class="text-xs text-army-300 font-medium">Min Yoongi</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Rapero / Productor</span>
-    </div>
-
-    <!-- j-hope -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/j-hope.jpg" alt="j-hope" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">j-hope</h3>
-      <p class="text-xs text-army-300 font-medium">Jung Hoseok</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Rapero / Bailarín</span>
-    </div>
-
-    <!-- Jimin -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/jimin.jpg" alt="Jimin" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">Jimin</h3>
-      <p class="text-xs text-army-300 font-medium">Park Jimin</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Vocalista / Bailarín</span>
-    </div>
-
-    <!-- V -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/v.jpg" alt="V" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">V</h3>
-      <p class="text-xs text-army-300 font-medium">Kim Taehyung</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Vocalista</span>
-    </div>
-
-    <!-- Jungkook -->
-    <div class="army-glass p-4 rounded-2xl border border-army-700/30 text-center hover:border-army-400 transition-all">
-      <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full overflow-hidden bg-army-900 border-2 border-army-400/50">
-        <img src="https://bighitsmusic.com/assets/images/bts/members/jungkook.jpg" alt="Jungkook" class="w-full h-full object-cover">
-      </div>
-      <h3 class="font-bold text-white text-base md:text-lg">Jungkook</h3>
-      <p class="text-xs text-army-300 font-medium">Jeon Jungkook</p>
-      <span class="inline-block mt-2 text-[10px] bg-army-800/80 text-army-200 px-2.5 py-0.5 rounded-full">Vocalista / Maknae</span>
-    </div>
-  </div>
-</section>
-
-
-        <!-- 3. SECCIÓN DISCOGRAFÍA -->
-        <section id="discografia" class="space-y-6">
-            <div class="text-center space-y-2">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Discografía Destacada</h2>
-                <p class="text-army-300 text-xs md:text-sm">Explora los álbumes más icónicos de la era BTS.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Álbum 1 -->
-                <div class="army-glass rounded-2xl p-4 border border-army-700/30 flex flex-col justify-between hover:border-army-500 transition-all">
-                    <div>
-                        <div class="h-44 w-full bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 rounded-xl mb-3 flex items-center justify-center text-white font-black text-xl shadow-md p-4 text-center">
-                            LOVE YOURSELF: ANSWER
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Love Yourself: Answer</h3>
-                        <p class="text-xs text-army-300 mb-2">2018 • Repackage Album</p>
-                        <p class="text-xs text-gray-300 line-clamp-2">Incluye hits globales como Idol, Answer: Love Myself y Euphoria.</p>
-                    </div>
-                    <a href="https://open.spotify.com/album/2v6ANhWhZ2KkgWYGL9d0Cg" target="_blank" class="mt-4 w-full py-2 bg-army-900/80 hover:bg-army-800 text-army-200 text-xs font-semibold rounded-lg text-center border border-army-700 block">
-                        Escuchar en Spotify <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
-                    </a>
-                </div>
-
-                <!-- Álbum 2 -->
-                <div class="army-glass rounded-2xl p-4 border border-army-700/30 flex flex-col justify-between hover:border-army-500 transition-all">
-                    <div>
-                        <div class="h-44 w-full bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-900 rounded-xl mb-3 flex items-center justify-center text-white font-black text-xl shadow-md p-4 text-center">
-                            MAP OF THE SOUL: 7
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Map of the Soul: 7</h3>
-                        <p class="text-xs text-army-300 mb-2">2020 • Studio Album</p>
-                        <p class="text-xs text-gray-300 line-clamp-2">Álbum récord con temas principales como ON, Black Swan y Boy With Luv.</p>
-                    </div>
-                    <a href="https://open.spotify.com/album/6hbE29wWy0FVD9C9zfZm2W" target="_blank" class="mt-4 w-full py-2 bg-army-900/80 hover:bg-army-800 text-army-200 text-xs font-semibold rounded-lg text-center border border-army-700 block">
-                        Escuchar en Spotify <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
-                    </a>
-                </div>
-
-                <!-- Álbum 3 -->
-                <div class="army-glass rounded-2xl p-4 border border-army-700/30 flex flex-col justify-between hover:border-army-500 transition-all">
-                    <div>
-                        <div class="h-44 w-full bg-gradient-to-br from-slate-200 via-gray-400 to-slate-700 rounded-xl mb-3 flex items-center justify-center text-slate-900 font-black text-xl shadow-md p-4 text-center">
-                            BE
-                        </div>
-                        <h3 class="font-bold text-white text-lg">BE</h3>
-                        <p class="text-xs text-army-300 mb-2">2020 • Studio Album</p>
-                        <p class="text-xs text-gray-300 line-clamp-2">Un mensaje de consuelo global con Life Goes On y Dynamite.</p>
-                    </div>
-                    <a href="https://open.spotify.com/album/2btatv2kh8OoPvQQm07Bv9" target="_blank" class="mt-4 w-full py-2 bg-army-900/80 hover:bg-army-800 text-army-200 text-xs font-semibold rounded-lg text-center border border-army-700 block">
-                        Escuchar en Spotify <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
-                    </a>
-                </div>
-
-                <!-- Álbum 4 -->
-                <div class="army-glass rounded-2xl p-4 border border-army-700/30 flex flex-col justify-between hover:border-army-500 transition-all">
-                    <div>
-                        <div class="h-44 w-full bg-gradient-to-br from-purple-900 via-black to-army-900 rounded-xl mb-3 flex items-center justify-center text-white font-black text-xl shadow-md p-4 text-center border border-purple-500/30">
-                            PROOF
-                        </div>
-                        <h3 class="font-bold text-white text-lg">Proof</h3>
-                        <p class="text-xs text-army-300 mb-2">2022 • Anthology Album</p>
-                        <p class="text-xs text-gray-300 line-clamp-2">Álbum antológico que celebra 9 años de historia con Yet To Come.</p>
-                    </div>
-                    <a href="https://open.spotify.com/album/623To227zjh4c3Z7yL6St8" target="_blank" class="mt-4 w-full py-2 bg-army-900/80 hover:bg-army-800 text-army-200 text-xs font-semibold rounded-lg text-center border border-army-700 block">
-                        Escuchar en Spotify <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SECCIÓN SPOTIFY STREAMS (TIEMPO REAL) -->
-        <section id="streams" class="space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-army-800 pb-4">
-                <div>
-                    <div class="flex items-center space-x-2">
-                        <span class="w-3 h-3 bg-green-500 rounded-full pulse-live inline-block"></span>
-                        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Spotify Stream Counter</h2>
-                    </div>
-                    <p class="text-army-300 text-xs md:text-sm mt-1">Monitoreo de canciones top y streams globales en tiempo real.</p>
-                </div>
-                <!-- Botón simulador de sync -->
-                <div class="flex items-center space-x-3 w-full md:w-auto">
-                    <button id="btn-sync" onclick="manualSync()" class="w-full md:w-auto bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center justify-center space-x-2 transition-all shadow-md">
-                        <i class="fa-solid fa-rotate" id="sync-icon"></i>
-                        <span>Actualizar Datos</span>
-                    </button>
-                    <button onclick="toggleApiGuide()" class="bg-army-800 hover:bg-army-700 text-army-200 px-3 py-2 rounded-xl text-xs border border-army-600 flex items-center">
-                        <i class="fa-solid fa-code mr-1"></i> ¿API Real?
-                    </button>
-                </div>
-            </div>
-
-            <!-- TABLA DE STREAMS RESPONSIVA (Soporta scroll horizontal si el celular es muy angosto) -->
-            <div class="army-glass rounded-2xl overflow-hidden border border-army-700/40 shadow-xl">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-army-900/90 text-army-300 text-xs uppercase tracking-wider border-b border-army-700/50">
-                                <th class="p-4">#</th>
-                                <th class="p-4">Canción</th>
-                                <th class="p-4">Álbum</th>
-                                <th class="p-4 text-right">Streams Totales</th>
-                                <th class="p-4 text-right">Diarios (Est.)</th>
-                                <th class="p-4 text-center">Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="streams-table-body" class="divide-y divide-army-800/40 text-sm">
-                            <!-- Inyectado por JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- REPRODUCTORES EMBEBIDOS SPOTIFY -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                <div class="army-glass p-3 rounded-2xl">
-                    <p class="text-xs text-army-300 mb-2 font-medium flex items-center">
-                        <i class="fa-brands fa-spotify text-green-400 mr-2 text-base"></i> Reproductor En Vivo - Dynamite
-                    </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4saklk62R223wrmmGYeeN5?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-
-                <div class="army-glass p-3 rounded-2xl">
-                    <p class="text-xs text-army-300 mb-2 font-medium flex items-center">
-                        <i class="fa-brands fa-spotify text-green-400 mr-2 text-base"></i> Reproductor En Vivo - Butter
-                    </p>
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3VqeTFIZVH6eEUtvXwF2h9?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-            </div>
-
-            <!-- GUÍA DE INTEGRACIÓN SPOTIFY API (Oculta por defecto) -->
-            <div id="api-guide" class="hidden army-glass p-6 rounded-2xl border border-green-500/30 space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-white flex items-center">
-                        <i class="fa-brands fa-spotify text-green-400 mr-2"></i> Cómo conectar la Spotify Web API Real
-                    </h3>
-                    <button onclick="toggleApiGuide()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p class="text-xs text-gray-300 leading-relaxed">
-                    Spotify no expone directamente el número absoluto de <em>Total Streams</em> acumulados mediante la Web API pública estándar por razones de copyright (solo proporciona la métrica de <code>popularity</code> de 0 a 100 y previews de audio). Sin embargo, para obtener datos en tiempo real existen dos métodos utilizados por la comunidad ARMY:
-                </p>
-                <ol class="list-decimal list-inside text-xs text-army-200 space-y-2">
-                    <li><strong>Método Spotify Web API (Popularidad y Track Info):</strong> Crea una app en el portal de desarrolladores de Spotify (Developer Dashboard) para obtener un <code>Client ID</code> y <code>Client Secret</code>. Haz un llamado HTTP GET a <code>https://api.spotify.com/v1/tracks/{id}</code> para refrescar metadata automáticamente.</li>
-                    <li><strong>Método Web Scraping / Kworb integration:</strong> Sitios como Kworb o Spotifycharts recopilan métricas diarias. Puedes realizar un fetch a un backend propio (servidor Node.js o PHP) que procese las métricas diarias para pasarlas a este frontend.</li>
-                </ol>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER (Diseño acorde a tu CSS original) -->
-    <footer>
-        <div class="max-w-6xl mx-auto space-y-2">
-            <p class="font-bold text-sm md:text-base">ARMY PLAYLIST 💜 - BTS Fanbase Project</p>
-            <p class="text-xs opacity-80">Diseñado para celulares y escritorio • Hecho con amor para BTS & ARMY</p>
-            <div class="text-[11px] opacity-60 pt-2">
-                © 2026 ARMY Playlist. Todos los derechos de música pertenecen a BIGHIT MUSIC / HYBE.
-            </div>
+        <div class="welcome-art">
+          <div class="orb">♪</div>
+          <span class="spark s1">✦</span>
+          <span class="spark s2">♡</span>
+          <span class="spark s3">✧</span>
+          <span class="spark s4">🦋</span>
         </div>
-    </footer>
+      </div>
 
-    <!-- JAVASCRIPT: LÓGICA DE SIMULACIÓN Y ACTUALIZACIÓN DE STREAMS -->
-    <script>
-        // Datos de canciones de BTS para la tabla
-        const btsTracks = [
-            { id: 1, title: "Dynamite", album: "BE", streams: 1890450120, daily: 840120, link: "https://open.spotify.com/track/4saklk62R223wrmmGYeeN5" },
-            { id: 2, title: "Butter", album: "Butter (Single)", streams: 1210980400, daily: 620450, link: "https://open.spotify.com/track/3VqeTFIZVH6eEUtvXwF2h9" },
-            { id: 3, title: "Boy With Luv (feat. Halsey)", album: "MOTS: Persona", streams: 1120340900, daily: 480100, link: "https://open.spotify.com/track/5KawlOMHjLmDUATv7vEsvj" },
-            { id: 4, title: "Left and Right (CP feat. JK)", album: "Charlie's Track", streams: 980120450, daily: 510300, link: "https://open.spotify.com/track/5LY27y4QlyU9i3E0j9zNrh" },
-            { id: 5, title: "My Universe (Coldplay x BTS)", album: "Music of the Spheres", streams: 1150400300, daily: 490200, link: "https://open.spotify.com/track/3Fe9232fhUdFKG8y8GAb23" },
-            { id: 6, title: "Spring Day (봄날)", album: "YNWA", streams: 540980200, daily: 310500, link: "https://open.spotify.com/track/0L1T2TnoWs828fSc6j2FDE" },
-            { id: 7, title: "Fake Love", album: "Love Yourself: Tear", streams: 780450100, daily: 390100, link: "https://open.spotify.com/track/3ee8Jmje8o58R6L85v86io" }
-        ];
+      <div class="quick-stats">
+        <article class="stat-card">
+          <span class="stat-icon">♡</span>
+          <div><strong>ARIRANG</strong><small>Álbum prioritario</small></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">♫</span>
+          <div><strong>2 bibliotecas</strong><small>Oficial y comunitaria</small></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">✧</span>
+          <div><strong>A tu ritmo</strong><small>Combos por tiempo</small></div>
+        </article>
+      </div>
 
-        // Función para formatear números con comas
-        function formatNumber(num) {
-            return num.toLocaleString('en-US');
-        }
+      <div class="section-heading">
+        <div><p class="eyebrow">EN ESTE MOMENTO</p><h2>Objetivos ARIRANG</h2></div>
+        <button class="text-button" data-go="objetivos">Ver objetivos →</button>
+      </div>
+      <div class="goal-preview" id="homeGoals"></div>
 
-        // Renderizar la tabla de reproducciones
-        function renderTable() {
-            const tbody = document.getElementById('streams-table-body');
-            tbody.innerHTML = '';
+      <div class="notice">
+        Las cantidades son objetivos de planificación y apariciones previstas en playlists; no representan streams garantizados.
+      </div>
+    </section>
 
-            btsTracks.forEach((track, index) => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-army-800/30 transition-colors";
-                tr.innerHTML = `
-                    <td class="p-4 text-army-400 font-bold">${index + 1}</td>
-                    <td class="p-4 font-semibold text-white">${track.title}</td>
-                    <td class="p-4 text-army-300 text-xs">${track.album}</td>
-                    <td class="p-4 text-right font-mono font-bold text-purple-200" id="stream-total-${track.id}">
-                        ${formatNumber(track.streams)}
-                    </td>
-                    <td class="p-4 text-right font-mono text-green-400 text-xs" id="stream-daily-${track.id}">
-                        +${formatNumber(track.daily)}
-                    </td>
-                    <td class="p-4 text-center">
-                        <a href="${track.link}" target="_blank" class="text-green-400 hover:text-green-300 bg-green-950/60 p-2 rounded-lg border border-green-700/40 inline-block transition-transform transform active:scale-95" title="Escuchar en Spotify">
-                            <i class="fa-brands fa-spotify"></i>
-                        </a>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
+    <section class="view" id="albumes">
+      <div class="page-heading">
+        <p class="eyebrow">CATÁLOGO MUSICAL</p>
+        <h1>Álbumes</h1>
+        <p>Explora los álbumes y las distintas ediciones o lanzamientos que contienen cada grabación.</p>
+      </div>
 
-        // Simulación de actualización constante en tiempo real (Live Stream simulation)
-        function startLiveSimulation() {
-            setInterval(() => {
-                // Elegir una canción aleatoria para aumentar sus streams
-                const randomIndex = Math.floor(Math.random() * btsTracks.length);
-                const track = btsTracks[randomIndex];
-                
-                // Incrementar reproducciones
-                const increment = Math.floor(Math.random() * 5) + 1;
-                track.streams += increment;
-                track.daily += increment;
+      <article class="album-feature">
+        <div class="album-placeholder">♡<small>BTS</small></div>
+        <div>
+          <span class="pill">Álbum prioritario</span>
+          <h2>ARIRANG</h2>
+          <p>El catálogo inicial de ARMY Streaming Combo.</p>
+          <div class="track-chips">
+            <span>SWIM · 6 lanzamientos</span>
+            <span>NORMAL</span>
+            <span>COME OVER</span>
+            <span>B-sides</span>
+          </div>
+        </div>
+      </article>
 
-                // Actualizar valor en el DOM con pequeño efecto
-                const totalEl = document.getElementById(`stream-total-${track.id}`);
-                const dailyEl = document.getElementById(`stream-daily-${track.id}`);
+      <div class="section-heading"><h2>Canciones y versiones</h2></div>
 
-                if (totalEl && dailyEl) {
-                    totalEl.innerText = formatNumber(track.streams);
-                    dailyEl.innerText = `+${formatNumber(track.daily)}`;
-                    
-                    // Efecto visual rápido
-                    totalEl.classList.add('text-green-300');
-                    setTimeout(() => {
-                        totalEl.classList.remove('text-green-300');
-                    }, 400);
-                }
-            }, 1500); // Cada 1.5 segundos
-        }
+      <div class="track-list">
+        <article class="track-card">
+          <div class="track-cover">S</div>
+          <div><strong>SWIM</strong><small>6 lanzamientos por registrar</small></div>
+          <span class="pill">Prioridad alta</span>
+        </article>
 
-        // Botón para sincronización manual con animación
-        function manualSync() {
-            const icon = document.getElementById('sync-icon');
-            icon.classList.add('fa-spin');
-            
-            setTimeout(() => {
-                btsTracks.forEach(track => {
-                    track.streams += Math.floor(Math.random() * 150) + 50;
-                    track.daily += Math.floor(Math.random() * 30) + 10;
-                });
-                renderTable();
-                icon.classList.remove('fa-spin');
-            }, 800);
-        }
+        <article class="track-card">
+          <div class="track-cover">N</div>
+          <div><strong>NORMAL</strong><small>Versiones por registrar</small></div>
+          <span class="pill">Prioridad alta</span>
+        </article>
 
-        // Alternar visualización de la guía de la API de Spotify
-        function toggleApiGuide() {
-            const guide = document.getElementById('api-guide');
-            guide.classList.toggle('hidden');
-        }
+        <article class="track-card">
+          <div class="track-cover">C</div>
+          <div><strong>COME OVER</strong><small>Versiones por registrar</small></div>
+          <span class="pill">Prioridad</span>
+        </article>
 
-        // Inicializar cuando se carga la ventana
-        window.onload = function() {
-            renderTable();
-            startLiveSimulation();
-        };
-    </script>
+        <article class="track-card">
+          <div class="track-cover">♡</div>
+          <div><strong>B-sides</strong><small>Catálogo por completar</small></div>
+          <span class="pill">Prioridad máxima</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="oficial">
+      <div class="page-heading">
+        <p class="eyebrow">SELECCIÓN CURADA</p>
+        <h1>Biblioteca oficial</h1>
+        <p>Playlists registradas por la administración.</p>
+      </div>
+
+      <div class="section-heading">
+        <h2>Playlists oficiales</h2>
+        <span class="count" id="officialCount">0 playlists</span>
+      </div>
+
+      <div class="playlist-grid" id="officialList"></div>
+
+      <details class="form-panel">
+        <summary>＋ Registrar playlist oficial</summary>
+        <form id="officialForm" class="playlist-form">
+
+          <label>Nombre de la playlist
+            <input name="name" required placeholder="Ej. ARIRANG focus">
+          </label>
+
+          <label>Enlace de Spotify
+            <input name="url" type="url" required placeholder="https://open.spotify.com/playlist/...">
+          </label>
+
+          <label>Duración en minutos
+            <input name="duration" type="number" min="1" required>
+          </label>
+
+          <div class="form-row">
+            <label>SWIM
+              <input name="swim" type="number" min="0" value="0">
+            </label>
+            <label>NORMAL
+              <input name="normal" type="number" min="0" value="0">
+            </label>
+            <label>COME OVER
+              <input name="come" type="number" min="0" value="0">
+            </label>
+          </div>
+
+          <button class="button button-primary">Guardar playlist</button>
+        </form>
+      </details>
+    </section>
+
+    <section class="view" id="comunidad">
+      <div class="page-heading">
+        <p class="eyebrow">HECHO POR ARMY, PARA ARMY</p>
+        <h1>Biblioteca ARMY</h1>
+        <p>Comparte tus playlists con la comunidad. Los aportes quedan pendientes de revisión y no se mezclan con la biblioteca oficial.</p>
+      </div>
+
+      <div class="community-banner">
+        <span>♡</span>
+        <div>
+          <strong>Una comunidad que comparte música</strong>
+          <small>Envía tu playlist para que pueda ser revisada.</small>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h2>Aportes enviados</h2>
+        <span class="count" id="communityCount">0 aportes</span>
+      </div>
+
+      <div class="playlist-grid" id="communityList"></div>
+
+      <details class="form-panel" open>
+        <summary>＋ Compartir una playlist</summary>
+
+        <form id="communityForm" class="playlist-form">
+
+          <label>Nombre de la playlist
+            <input name="name" required placeholder="Nombre de tu playlist">
+          </label>
+
+          <label>Enlace de Spotify
+            <input name="url" type="url" required placeholder="https://open.spotify.com/playlist/...">
+          </label>
+
+          <label>Duración en minutos
+            <input name="duration" type="number" min="1" required>
+          </label>
+
+          <div class="form-row">
+            <label>SWIM
+              <input name="swim" type="number" min="0" value="0">
+            </label>
+            <label>NORMAL
+              <input name="normal" type="number" min="0" value="0">
+            </label>
+            <label>COME OVER
+              <input name="come" type="number" min="0" value="0">
+            </label>
+          </div>
+
+          <button class="button button-primary">Enviar para revisión</button>
+          <p class="form-message" id="communityMessage"></p>
+        </form>
+      </details>
+    </section>
+
+    <section class="view" id="combos">
+      <div class="page-heading">
+        <p class="eyebrow">ENCUENTRA TU COMBINACIÓN</p>
+        <h1>Buscador de combos</h1>
+        <p>Selecciona una biblioteca, define tus objetivos y dinos cuánto tiempo tienes.</p>
+      </div>
+
+      <div class="planner-card">
+        <div class="form-row">
+
+          <label>Biblioteca
+            <select id="comboSource">
+              <option value="official">Biblioteca oficial</option>
+              <option value="community">Biblioteca ARMY aprobada</option>
+            </select>
+          </label>
+
+          <label>Tiempo disponible
+            <select id="timeSelect">
+              <option value="30">30 minutos</option>
+              <option value="60">1 hora</option>
+              <option value="120" selected>2 horas</option>
+              <option value="180">3 horas</option>
+              <option value="300">5 horas</option>
+              <option value="custom">Personalizado</option>
+            </select>
+          </label>
+        </div>
+
+        <label id="customTimeLabel" class="hidden">
+          Minutos disponibles
+          <input id="customTime" type="number" min="1" value="120">
+        </label>
+
+        <h2>Tus objetivos</h2>
+
+        <div class="goal-inputs">
+          <label>SWIM
+            <input id="goalSwim" type="number" min="0" value="120">
+          </label>
+          <label>NORMAL
+            <input id="goalNormal" type="number" min="0" value="80">
+          </label>
+          <label>COME OVER
+            <input id="goalCome" type="number" min="0" value="20">
+          </label>
+        </div>
+
+        <p class="helper">
+          El cálculo utiliza las apariciones que hayas registrado en cada playlist.
+        </p>
+
+        <button class="button button-primary full-button" id="calculateButton">
+          Buscar combinaciones ✧
+        </button>
+      </div>
+
+      <div id="comboResults" class="results-area"></div>
+    </section>
+
+    <section class="view" id="objetivos">
+      <div class="page-heading">
+        <p class="eyebrow">PASO A PASO</p>
+        <h1>Objetivos de streaming</h1>
+        <p>Consulta las metas de planificación para el álbum prioritario.</p>
+      </div>
+
+      <div class="goal-board" id="goalBoard"></div>
+
+      <div class="notice">
+        El progreso real de streams no se puede verificar desde esta página.
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="mobile-nav">
+    <button class="active" data-view="inicio"><span>⌂</span>Inicio</button>
+    <button data-view="albumes"><span>♫</span>Álbumes</button>
+    <button data-view="oficial"><span>☆</span>Oficial</button>
+    <button data-view="comunidad"><span>♡</span>ARMY</button>
+    <button data-view="combos"><span>✧</span>Combos</button>
+  </nav>
+
+  <footer>
+    ARMY STREAMING COMBO ♡ BTS × ARMY · Proyecto independiente.
+  </footer>
+
 </body>
 </html>
-```
