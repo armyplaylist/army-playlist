@@ -18,6 +18,21 @@
 @media(max-width:720px){.profile-shortcuts{gap:10px}.profile-shortcut.member-cover{padding:7px;border-radius:19px}.profile-shortcut.member-cover span{font-size:.86rem;padding:7px 3px 5px}}
 @media(prefers-reduced-motion:reduce){.armybomb-particle{animation:none;display:none}.profile-shortcut.member-cover,.profile-shortcut.member-cover img{transition:none}}
 
+/* Animaciones suaves de entrada y movimiento */
+@keyframes lavenderRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lavenderGlow{0%,100%{box-shadow:0 3px 12px #5d477515}50%{box-shadow:0 7px 20px #8b69bd26}}
+header{animation:lavenderRise .75s ease both}
+.panel{animation:lavenderRise .65s ease both}
+.profile-shortcut.member-cover{animation:lavenderRise .6s ease both}
+.profile-shortcut.member-cover:nth-child(2){animation-delay:.06s}
+.profile-shortcut.member-cover:nth-child(3){animation-delay:.12s}
+.profile-shortcut.member-cover:nth-child(4){animation-delay:.18s}
+.profile-shortcut.member-cover:nth-child(5){animation-delay:.24s}
+.profile-shortcut.member-cover:nth-child(6){animation-delay:.30s}
+.profile-shortcut.member-cover:nth-child(7){animation-delay:.36s}
+.profile-shortcut.member-cover:nth-child(8){animation-delay:.42s}
+.action:hover,.spotify-link:hover{filter:brightness(1.08)}
+@media(prefers-reduced-motion:reduce){header,.panel,.profile-shortcut.member-cover{animation:none!important}}
 /* Minimal lavender: tarjetas de perfiles */
 .profile-shortcuts{gap:14px;margin:4px 0 22px}
 .profile-shortcut.member-cover{min-height:0;padding:8px!important;border:1px solid #e9def5!important;border-radius:18px!important;background:#fff!important;box-shadow:0 3px 12px #5d477515!important;overflow:hidden;display:flex;flex-direction:column;gap:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
