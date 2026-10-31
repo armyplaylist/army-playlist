@@ -765,6 +765,6 @@ function renderGoals() {
 
 // INICIALIZAR
 
-renderAlbumCatalog();
+loadDiscography();
 renderLibraries();
 renderGoals();
