@@ -5,22 +5,7 @@
 <section class="panel"><h2>🔎 Buscador por canción y reproducciones</h2><div class="request-row"><input id="songInput" type="search" placeholder="Escribe una canción (ej. Like Crazy)" aria-label="Nombre de la canción"><input id="playsInput" type="number" min="1" max="100" value="3" aria-label="Repeticiones deseadas"><button class="action" id="addRequest" type="button">Sumar petición +</button></div><p class="hint">Agrega todas las canciones que quieras y cuántas veces deseas repetir cada una. Las peticiones se acumulan para encontrar playlists que se ajusten a tu lista.</p><div id="requestList" class="request-list"></div><div id="matches" class="results" aria-live="polite"><div class="empty">Añade una canción y sus repeticiones para encontrar playlists. ♡</div></div><div id="comboResult"></div></section><div class="footer">Hecho con 💜 por y para ARMY · Las playlists son sugerencias de planificación.</div></main>
 <script>
 const playlists=[
-["Focus on Jungkook - Seven",1,20,"Jungkook solo + OT7",["Seven — Jungkook","3D — Jungkook","Standing Next to You — Jungkook","Still With You — Jungkook"]],
-["Jimin's Soft Hours",1,30,"Jimin solo + OT7",["Like Crazy — Jimin","Who — Jimin","Set Me Free Pt.2 — Jimin","Serendipity — BTS"]],
-["Violet Vibes with V",2,45,"V solo + OT7",["Love Me Again — V","Rainy Days — V","Slow Dancing — V","Singularity — BTS"]],
-["BTS Café: Cozy & Calm",2,60,"Vocal line + OT7",["Life Goes On — BTS","Coffee — BTS","00:00 (Zero O'Clock) — BTS","Spring Day — BTS"]],
-["OT7 Power Hour",2,60,"OT7",["Dynamite — BTS","Butter — BTS","Permission to Dance — BTS","MIC Drop — BTS"]],
-["Golden Maknae Marathon",3,90,"Jungkook + OT7",["Euphoria — BTS","Seven — Jungkook","3D — Jungkook","Standing Next to You — Jungkook"]],
-["Rap Line Appreciation",3,75,"Rap line + OT7",["Daechwita — Agust D","Wild Flower — RM","MORE — j-hope","UGH! — BTS"]],
-["Bangtan Classics Forever",4,120,"OT7 classics",["I NEED U — BTS","RUN — BTS","Blood Sweat & Tears — BTS","FAKE LOVE — BTS"]],
-["Streaming Party: Purple Ocean",5,150,"Vocal line + OT7",["Take Two — BTS","Yet To Come — BTS","For Youth — BTS","Mikrokosmos — BTS"]],
-["All Night with Bangtan",8,240,"OT7 · larga duración",["Black Swan — BTS","ON — BTS","IDOL — BTS","Run BTS — BTS"]],
-["Jin's Moonlight Moments",1,35,"Jin solo + OT7",["The Astronaut — Jin","Epiphany — BTS","Awake — BTS","Moon — BTS"]],
-["Hope World: Feel-Good Mix",4,125,"j-hope + rap line",["MORE — j-hope","Arson — j-hope","on the street — j-hope","Chicken Noodle Soup — j-hope"]],
-["Purple Balance: Solo + OT7",3,95,"Combo solo + OT7",["Like Crazy — Jimin","Seven — Jungkook","Spring Day — BTS","The Astronaut — Jin"]],
-["Vocal Line to OT7",3,105,"Vocal line + OT7",["Stigma — V","Serendipity — BTS","Epiphany — BTS","Yet To Come — BTS"]],
-["Rap & Bangtan Mix",3,110,"Rap line + OT7",["Wild Flower — RM","Daechwita — Agust D","MORE — j-hope","UGH! — BTS"]],
-["Indigo Dreams with RM",2,55,"RM solo + OT7",["Wild Flower — RM","Still Life — RM","Closer — RM","Lonely — RM"]],
+
 ["13 h 58 min · Swim x100 · Normal x20 · Come Over x10 · ARIRANG B-sides",100,838,"Swim · Normal · Come Over · ARIRANG B-sides",["Swim","Normal","Come Over","ARIRANG B-sides"],"https://open.spotify.com/playlist/5JT6WlfPo06qxKegJwzHsf"],
 ["4 h 3 min · Swim x20 · ARIRANG B-sides x5",20,243,"Swim · ARIRANG B-sides",["Swim","ARIRANG B-sides"],"https://open.spotify.com/playlist/1C27A6XcMMSeohsOZul2C9"],
 ["3 h 11 min · ARIRANG B-sides x5",5,191,"ARIRANG B-sides",["ARIRANG B-sides"],"https://open.spotify.com/playlist/4rsgC3xuKfCtEKyrdExAU5"]
