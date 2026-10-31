@@ -1,4 +1,3 @@
-
 const discography=[
 {id:'arirang',title:'ARIRANG',year:2026,era:'arirang',type:'Álbum prioritario',color:'#d8c2ff',tracks:['SWIM','NORMAL','COME OVER','Hooligan','Aliens','FYA','2.0','no.29','Merry Go Round',"they don't know 'bout us",'One More Night','Please','Into the Sun']},
 {id:'proof',title:'Proof',year:2022,era:'solo',type:'Anthology',color:'#ffe6f0',tracks:['Yet To Come','Run BTS','For Youth','Born Singer']},
