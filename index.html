@@ -127,71 +127,54 @@
 
       <p>El catálogo inicial de ARMY Streaming Combo.</p>
 
-      <div class="track-chips">
-        <span>SWIM · 6 lanzamientos</span>
-        <span>NORMAL · 4 lanzamientos</span>
-        <span>COME OVER · 1 lanzamiento</span>
-        <span>Hooligan · 2 lanzamientos</span>
-        <span>Aliens · 2 lanzamiento</span>
-        <span>FYA · 2 lanzamientos</span>
-        <span>Aliens · 2 lanzamientos</span>
-        <span>2.0 · 2 lanzamientos</span>
-        <span>no.29 · 2 lanzamientos</span>
-        <span>Merry Go Round · 2 lanzamientos</span>
-        <span>they don't know 'bout us · 2 lanzamientos</span>
-        <span>One More Night · 2 lanzamientos</span>
-        <span>Please · 2 lanzamientos</span>
-        <span>Into the Sun · 2 lanzamientos</span>
-      </div>
-    </div>
+        <article>
+        <div class="section-heading">
+            <h2>Canciones y versiones</h2>
+        </div>
 
-  </article>
-
-  <div class="section-heading">
-    <h2>Canciones y versiones</h2>
-  </div>
-
-  <div class="track-list">
-
-    <article class="track-card">
-      <div class="track-cover">S</div>
-      <div>
-        <strong>SWIM</strong>
-        <small>6 lanzamientos por registrar</small>
-      </div>
-      <span class="pill">Prioridad alta</span>
+        <!-- Aquí es donde se inyectan los cuadritos manteniendo tu diseño original -->
+        <div class="track-list">
+            <div class="grid" id="discographyGrid">
+                <div class="loading-state">Cargando catálogo...</div>
+            </div>
+        </div>
     </article>
 
-    <article class="track-card">
-      <div class="track-cover">N</div>
-      <div>
-        <strong>NORMAL</strong>
-        <small>Versiones por registrar</small>
-      </div>
-      <span class="pill">Prioridad alta</span>
-    </article>
+    <script>
+        let catalogData = [];
+        let activeFilter = 'all';
+        const grid = document.getElementById('discographyGrid');
 
-    <article class="track-card">
-      <div class="track-cover">C</div>
-      <div>
-        <strong>COME OVER</strong>
-        <small>Versiones por registrar</small>
-      </div>
-      <span class="pill">Prioridad</span>
-    </article>
+        // Carga los datos directamente desde tu archivo discography.json
+        fetch('discography.json')
+            .then(res => res.json())
+            .then(data => {
+                catalogData = data;
+                renderGrid(catalogData);
+            })
+            .catch(err => {
+                grid.innerHTML = '<div class="loading-state" style="color:#ff5555;">Error al cargar discography.json</div>';
+            });
 
-    <article class="track-card">
-      <div class="track-cover">♡</div>
-      <div>
-        <strong>B-sides</strong>
-        <small>Catálogo por completar</small>
-      </div>
-      <span class="pill">Prioridad máxima</span>
-    </article>
-
-  </div>
-</section>
-
+        function renderGrid(items) {
+            grid.innerHTML = '';
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="loading-state">No hay elementos en esta categoría.</div>';
+                return;
+            }
+            items.forEach(item => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="card-info">
+                            <h3>${item.title}</h3>
+                            <p>${item.year} • ${item.artist}</p>
+                        </div>
+                        <a href="${item.spotifyUrl}" target="_blank" class="spotify-btn">Escuchar</a>
+                    </div>
+                `;
+            });
+        }
 
 <!-- BIBLIOTECA OFICIAL -->
 
