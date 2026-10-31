@@ -3,26 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTS & Solo Complete Discography Guide</title>
+    <title>ARMY Hub & Discography</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #121212;
             color: #ffffff;
-            padding: 20px;
+            display: flex;
+            min-height: 100vh;
         }
-        header { text-align: center; padding: 40px 0 20px 0; }
-        header h1 { font-size: 2.5rem; color: #d8b4fe; margin-bottom: 8px; }
-        header p { color: #a7a7a7; font-size: 1rem; }
-        
-        .controls {
-            max-width: 1200px;
-            margin: 20px auto;
+
+        /* Barra lateral de navegación (Sidebar estilo plataforma) */
+        sidebar {
+            width: 250px;
+            background-color: #000000;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            border-right: 1px solid #282828;
+        }
+        .logo h2 {
+            color: #d8b4fe;
+            font-size: 1.5rem;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            text-align: left;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background-color: #282828;
+            color: #fff;
+        }
+
+        /* Contenido Principal */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #d8b4fe;
+            margin-bottom: 8px;
+        }
+        header p {
+            color: #a7a7a7;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* Controles de la sección de discografía */
+        .discography-controls {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            align-items: center;
+            margin-bottom: 30px;
         }
         .search-input {
             padding: 12px 20px;
@@ -31,28 +90,25 @@
             background-color: #242424;
             color: #fff;
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             font-size: 0.95rem;
             outline: none;
         }
         .search-input:focus { border-color: #1db954; }
 
-        /* Botones de filtro por categoría/artista */
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            justify-content: center;
-            max-width: 900px;
         }
         .filter-btn {
             background-color: #242424;
             color: #b3b3b3;
             border: none;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             transition: all 0.2s ease;
         }
@@ -61,17 +117,16 @@
             color: #000;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; }
+        /* Cuadrícula de la discografía */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 30px;
         }
         .card {
             background-color: #181818;
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -86,53 +141,98 @@
             aspect-ratio: 1/1;
             border-radius: 8px;
             object-fit: cover;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        .card-info h3 { font-size: 1rem; margin-bottom: 4px; color: #fff; }
-        .card-info p { font-size: 0.8rem; color: #b3b3b3; margin-bottom: 12px; }
+        .card-info h3 { font-size: 0.95rem; margin-bottom: 4px; color: #fff; }
+        .card-info p { font-size: 0.75rem; color: #b3b3b3; margin-bottom: 10px; }
         .spotify-btn {
             display: block;
             text-align: center;
             background-color: #1db954;
             color: #000;
             font-weight: bold;
-            padding: 8px 0;
+            padding: 7px 0;
             border-radius: 20px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .spotify-btn:hover { background-color: #1ed760; }
-        .loading { text-align: center; grid-column: 1 / -1; color: #b3b3b3; padding: 40px; }
+        
+        .loading { color: #b3b3b3; grid-column: 1 / -1; padding: 20px; }
+
+        /* Estilo para la pestaña de Inicio */
+        .home-banner {
+            background: linear-gradient(135deg, #2e1065, #181818);
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+        .home-banner h2 { font-size: 1.8rem; margin-bottom: 10px; color: #d8b4fe; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>BTS & Solo Discography Guide</h1>
-            <p>Explora la discografía grupal y canciones individuales</p>
-        </header>
+    <!-- Menú lateral tipo plataforma -->
+    <sidebar>
+        <div class="logo">
+            <h2>ARMY Hub</h2>
+        </div>
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="switchSection('home', this)">Inicio</button>
+            <button class="nav-btn" onclick="switchSection('discography', this)">Discografía</button>
+            <button class="nav-btn" onclick="switchSection('about', this)">Acerca de</button>
+        </div>
+    </sidebar>
 
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar canción, álbum o año...">
-            
-            <!-- Botones de Filtro (puedes agregar o quitar según tus categorías en el JSON) -->
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">Todo</button>
-                <button class="filter-btn" data-filter="BTS">BTS (Grupal)</button>
-                <button class="filter-btn" data-filter="Jung Kook">Jung Kook</button>
-                <button class="filter-btn" data-filter="Jimin">Jimin</button>
-                <button class="filter-btn" data-filter="V">V</button>
-                <button class="filter-btn" data-filter="SUGA">SUGA / Agust D</button>
-                <button class="filter-btn" data-filter="j-hope">j-hope</button>
-                <button class="filter-btn" data-filter="RM">RM</button>
-                <button class="filter-btn" data-filter="Jin">Jin</button>
+    <!-- Contenido Principal -->
+    <div class="main-content">
+
+        <!-- SECCIÓN INICIO -->
+        <div id="home" class="section active">
+            <div class="home-banner">
+                <h2>Bienvenido a tu espacio ARMY</h2>
+                <p>Disfruta de la música, explora la discografía completa grupal e individual y mantente al día con todo el contenido.</p>
+            </div>
+            <p style="color: #b3b3b3;">Selecciona <strong>Discografía</strong> en el menú lateral para explorar todos los álbumes y canciones.</p>
+        </div>
+
+        <!-- SECCIÓN DISCOGRAFÍA (Espacio dedicado) -->
+        <div id="discography" class="section">
+            <header>
+                <h1>Espacio de Discografía</h1>
+                <p>Busca, filtra y explora el catálogo completo</p>
+            </header>
+
+            <div class="discography-controls">
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar canción, álbum o año...">
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todo</button>
+                    <button class="filter-btn" data-filter="BTS">BTS (Grupal)</button>
+                    <button class="filter-btn" data-filter="Jung Kook">Jung Kook</button>
+                    <button class="filter-btn" data-filter="Jimin">Jimin</button>
+                    <button class="filter-btn" data-filter="V">V</button>
+                    <button class="filter-btn" data-filter="SUGA">SUGA / Agust D</button>
+                    <button class="filter-btn" data-filter="j-hope">j-hope</button>
+                    <button class="filter-btn" data-filter="RM">RM</button>
+                    <button class="filter-btn" data-filter="Jin">Jin</button>
+                </div>
+            </div>
+
+            <div class="grid" id="discographyGrid">
+                <div class="loading">Cargando catálogo...</div>
             </div>
         </div>
 
-        <div class="grid" id="discographyGrid">
-            <div class="loading">Cargando catálogo...</div>
+        <!-- SECCIÓN ACERCA DE -->
+        <div id="about" class="section">
+            <header>
+                <h1>Acerca de este proyecto</h1>
+                <p>Plataforma creada por y para fans</p>
+            </header>
+            <p style="color: #b3b3b3; line-height: 1.6;">Este sitio web está diseñado en GitHub Pages para ofrecer un espacio limpio, rápido y organizado de la música de BTS.</p>
         </div>
+
     </div>
 
     <script>
@@ -140,7 +240,16 @@
         let currentFilter = 'all';
         const grid = document.getElementById('discographyGrid');
 
-        // Cargar datos del archivo discography.json
+        // Cambiar entre pestañas/secciones del sitio
+        function switchSection(sectionId, btnElement) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // Cargar datos de la discografía
         fetch('discography.json')
             .then(response => response.json())
             .then(data => {
@@ -148,7 +257,7 @@
                 renderCards(allMusicData);
             })
             .catch(error => {
-                grid.innerHTML = '<div class="loading" style="color:#ff5555;">Error al cargar el archivo discography.json.</div>';
+                grid.innerHTML = '<div class="loading" style="color:#ff5555;">No se pudo cargar el archivo discography.json.</div>';
             });
 
         function renderCards(items) {
@@ -165,13 +274,12 @@
                             <h3>${item.title}</h3>
                             <p>${item.year} • ${item.artist}</p>
                         </div>
-                        <a href="${item.spotifyUrl}" target="_blank" class="spotify-btn">Escuchar en Spotify</a>
+                        <a href="${item.spotifyUrl}" target="_blank" class="spotify-btn">Escuchar</a>
                     </div>
                 `;
             });
         }
 
-        // Función combinada de búsqueda y filtros
         function filterAndRender() {
             const term = document.getElementById('searchInput').value.toLowerCase();
             
@@ -186,11 +294,9 @@
             renderCards(filtered);
         }
 
-        // Evento de búsqueda
         document.getElementById('searchInput').addEventListener('input', filterAndRender);
 
-        // Eventos de los botones de categoría
-        document.querySelectorAll('.filter-btn').forEach(button => {
+        document.querySelectorAll('.filter-btn').get?.forEach || document.querySelectorAll('.filter-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
