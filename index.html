@@ -1,186 +1,515 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARMY Playlist</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0 20px 0;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            color: #d8b4fe;
-            margin-bottom: 8px;
-        }
-        header p {
-            color: #a7a7a7;
-            font-size: 1rem;
-        }
-
-        .controls-wrapper {
-            margin: 20px 0 30px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .search-input {
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #333;
-            background-color: #242424;
-            color: #fff;
-            width: 100%;
-            max-width: 450px;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .search-input:focus { border-color: #1db954; }
-
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        .filter-btn {
-            background-color: #242424;
-            color: #b3b3b3;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background-color: #1db954;
-            color: #000;
-        }
-
-        /* Espacio dedicado para la discografía */
-        .discography-section {
-            margin-top: 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: #181818;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-        .card:hover {
-            background-color: #282828;
-            transform: translateY(-4px);
-        }
-        .card img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-bottom: 12px;
-        }
-        .card-info h3 {
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-            color: #fff;
-        }
-        .card-info p {
-            font-size: 0.8rem;
-            color: #b3b3b3;
-            margin-bottom: 12px;
-        }
-
-        .spotify-btn {
-            display: block;
-            text-align: center;
-            background-color: #1db954;
-            color: #000;
-            font-weight: bold;
-            padding: 8px 0;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-        .spotify-btn:hover { background-color: #1ed760; }
-
-        .loading-state {
-            text-align: center;
-            grid-column: 1 / -1;
-            color: #b3b3b3;
-            padding: 40px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7efff">
+  <title>ARMY Streaming Combo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
+<body>  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">♡</span>
+      <span>ARMY <b>STREAMING COMBO</b></span>
+    </a><button class="menu-toggle" id="menuToggle">☰</button>
 
-    <div class="container">
-        <header>
-            <h1>BTS & Solo Discography Guide</h1>
-            <p>Explora la discografía grupal y canciones individuales</p>
-        </header>
+<nav class="desktop-nav" id="mainNav">
+  <button class="nav-link active" data-view="inicio">Inicio</button>
+  <button class="nav-link" data-view="albumes">Álbumes</button>
+  <button class="nav-link" data-view="oficial">Biblioteca oficial</button>
+  <button class="nav-link" data-view="comunidad">Biblioteca ARMY</button>
+  <button class="nav-link" data-view="combos">Combos</button>
+  <button class="nav-link" data-view="objetivos">Objetivos</button>
+</nav>
 
-        <div class="controls-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Buscar por título, artista o año...">
-            
-            <div class="filter-group">
-                <button class="filter-btn active" data-filter="all">Todo</button>
-                <button class="filter-btn" data-filter="BTS">BTS (Grupal)</button>
-                <button class="filter-btn" data-filter="Jung Kook">Jung Kook</button>
-                <button class="filter-btn" data-filter="Jimin">Jimin</button>
-                <button class="filter-btn" data-filter="V">V</button>
-                <button class="filter-btn" data-filter="SUGA">SUGA / Agust D</button>
-                <button class="filter-btn" data-filter="j-hope">j-hope</button>
-                <button class="filter-btn" data-filter="RM">RM</button>
-                <button class="filter-btn" data-filter="Jin">Jin</button>
-            </div>
-        </div>
+  </header>  <main class="app-shell"><!-- INICIO -->
 
-        <!-- Área dedicada a la discografía -->
-        <main class="discography-section">
-            <div class="grid" id="discographyGrid">
-                <div class="loading-state">Cargando catálogo...</div>
-            </div>
-        </main>
+<section class="view active" id="inicio">
+
+  <div class="welcome-card">
+    <div class="welcome-copy">
+      <p class="eyebrow">PLAYLISTS • PLANIFICACIÓN • COMUNIDAD</p>
+
+      <h1>Tu música,<br><span>tus combos.</span></h1>
+
+      <p>
+        Encuentra combinaciones de playlists según tu tiempo
+        disponible y tus objetivos de escucha.
+      </p>
+
+      <button class="button button-primary" data-go="combos">
+        Explorar combos →
+      </button>
     </div>
 
-    <script>
-        let catalogData = [];
-        let activeFilter = 'all';
-        const grid = document.getElementById('discographyGrid');
+    <div class="welcome-art">
+      <div class="orb">♪</div>
+      <span class="spark s1">✦</span>
+      <span class="spark s2">♡</span>
+      <span class="spark s3">✧</span>
+      <span class="spark s4">🦋</span>
+    </div>
+  </div>
 
-        fetch('discography.json')
-            .then(res => res.json())
-            .then(data => {
-                catalogData = data;
-                renderGrid(catalogData);
-            })
-            .catch(err => {
-                grid.innerHTML = '<div class="loading-state">Asegúrate de que discography.json exista en el repositorio.</div>';
-            
+  <div class="quick-stats">
+    <article class="stat-card">
+      <span class="stat-icon">♡</span>
+      <div>
+        <strong>ARIRANG</strong>
+        <small>Álbum prioritario</small>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <span class="stat-icon">♫</span>
+      <div>
+        <strong>2 bibliotecas</strong>
+        <small>Oficial y comunitaria</small>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <span class="stat-icon">✧</span>
+      <div>
+        <strong>A tu ritmo</strong>
+        <small>Combos por tiempo</small>
+      </div>
+    </article>
+  </div>
+
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">EN ESTE MOMENTO</p>
+      <h2>Objetivos ARIRANG</h2>
+    </div>
+
+    <button class="text-button" data-go="objetivos">
+      Ver objetivos →
+    </button>
+  </div>
+
+  <div class="goal-preview" id="homeGoals"></div>
+
+  <div class="notice">
+    Las cantidades son objetivos de planificación y apariciones
+    previstas en playlists.
+  </div>
+
+</section>
+
+
+<!-- ÁLBUMES -->
+
+<section class="view" id="albumes">
+
+  <div class="page-heading">
+    <p class="eyebrow">CATÁLOGO MUSICAL</p>
+    <h1>Álbumes</h1>
+
+    <p>
+      Explora los álbumes y las distintas ediciones o lanzamientos
+      que contienen cada grabación.
+    </p>
+  </div>
+
+  <article class="album-feature">
+
+    <div class="album-placeholder">
+      ♡
+      <small>BTS</small>
+    </div>
+
+    <div>
+      <span class="pill">Álbum prioritario</span>
+      <h2>ARIRANG</h2>
+
+      <p>El catálogo inicial de ARMY Streaming Combo.</p>
+
+      <div class="track-chips">
+        <span>SWIM · 6 lanzamientos</span>
+        <span>NORMAL · 4 lanzamientos</span>
+        <span>COME OVER · 1 lanzamiento</span>
+        <span>Hooligan · 2 lanzamientos</span>
+        <span>Aliens · 2 lanzamiento</span>
+        <span>FYA · 2 lanzamientos</span>
+        <span>Aliens · 2 lanzamientos</span>
+        <span>2.0 · 2 lanzamientos</span>
+        <span>no.29 · 2 lanzamientos</span>
+        <span>Merry Go Round · 2 lanzamientos</span>
+        <span>they don't know 'bout us · 2 lanzamientos</span>
+        <span>One More Night · 2 lanzamientos</span>
+        <span>Please · 2 lanzamientos</span>
+        <span>Into the Sun · 2 lanzamientos</span>
+      </div>
+    </div>
+
+  </article>
+
+  <div class="section-heading">
+    <h2>Canciones y versiones</h2>
+  </div>
+
+  <div class="track-list">
+
+    <article class="track-card">
+      <div class="track-cover">S</div>
+      <div>
+        <strong>SWIM</strong>
+        <small>6 lanzamientos por registrar</small>
+      </div>
+      <span class="pill">Prioridad alta</span>
+    </article>
+
+    <article class="track-card">
+      <div class="track-cover">N</div>
+      <div>
+        <strong>NORMAL</strong>
+        <small>Versiones por registrar</small>
+      </div>
+      <span class="pill">Prioridad alta</span>
+    </article>
+
+    <article class="track-card">
+      <div class="track-cover">C</div>
+      <div>
+        <strong>COME OVER</strong>
+        <small>Versiones por registrar</small>
+      </div>
+      <span class="pill">Prioridad</span>
+    </article>
+
+    <article class="track-card">
+      <div class="track-cover">♡</div>
+      <div>
+        <strong>B-sides</strong>
+        <small>Catálogo por completar</small>
+      </div>
+      <span class="pill">Prioridad máxima</span>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- BIBLIOTECA OFICIAL -->
+
+<section class="view" id="oficial">
+
+  <div class="page-heading">
+    <p class="eyebrow">SELECCIÓN CURADA</p>
+    <h1>Biblioteca oficial</h1>
+    <p>Playlists registradas por la administración.</p>
+  </div>
+
+  <div class="section-heading">
+    <h2>Playlists oficiales</h2>
+    <span class="count" id="officialCount">0 playlists</span>
+  </div>
+
+  <div class="playlist-grid" id="officialList"></div>
+
+  <details class="form-panel">
+
+    <summary>＋ Registrar playlist oficial</summary>
+
+    <form id="officialForm" class="playlist-form">
+
+      <label>Nombre de la playlist
+        <input
+          name="name"
+          required
+          placeholder="Ej. ARIRANG focus"
+        >
+      </label>
+
+      <label>Enlace de Spotify
+        <input
+          name="url"
+          type="url"
+          required
+          placeholder="https://open.spotify.com/playlist/..."
+        >
+      </label>
+
+      <label>Duración en minutos
+        <input name="duration" type="number" min="1" required>
+      </label>
+
+      <h3>Objetivos principales</h3>
+
+      <div class="form-row">
+
+        <label>SWIM
+          <input name="swim" type="number" min="0" value="0">
+        </label>
+
+        <label>NORMAL
+          <input name="normal" type="number" min="0" value="0">
+        </label>
+
+        <label>COME OVER
+          <input name="come" type="number" min="0" value="0">
+        </label>
+
+      </div>
+
+      <label>Versiones o lanzamientos de SWIM
+        <textarea
+          name="swimVersions"
+          rows="3"
+          placeholder="Escribe cada versión o lanzamiento separado por comas"
+        ></textarea>
+        <small class="helper">
+          Ejemplo: SWIM versión 1, SWIM versión 2, SWIM EP...
+        </small>
+      </label>
+
+      <label>Cantidad de B-sides
+        <input
+          name="bsides"
+          type="number"
+          min="0"
+          value="0"
+        >
+      </label>
+
+      <button class="button button-primary">
+        Guardar playlist
+      </button>
+
+    </form>
+  </details>
+
+</section>
+
+
+<!-- BIBLIOTECA ARMY -->
+
+<section class="view" id="comunidad">
+
+  <div class="page-heading">
+    <p class="eyebrow">HECHO POR ARMY, PARA ARMY</p>
+    <h1>Biblioteca ARMY</h1>
+
+    <p>
+      Comparte tus playlists con la comunidad. Los aportes quedan
+      pendientes de revisión y no se mezclan con la biblioteca oficial.
+    </p>
+  </div>
+
+  <div class="community-banner">
+    <span>♡</span>
+
+    <div>
+      <strong>Una comunidad que comparte música</strong>
+      <small>Envía tu playlist para que pueda ser revisada.</small>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <h2>Aportes enviados</h2>
+    <span class="count" id="communityCount">0 aportes</span>
+  </div>
+
+  <div class="playlist-grid" id="communityList"></div>
+
+  <details class="form-panel" open>
+
+    <summary>＋ Compartir una playlist</summary>
+
+    <form id="communityForm" class="playlist-form">
+
+      <label>Nombre de la playlist
+        <input
+          name="name"
+          required
+          placeholder="Nombre de tu playlist"
+        >
+      </label>
+
+      <label>Enlace de Spotify
+        <input
+          name="url"
+          type="url"
+          required
+          placeholder="https://open.spotify.com/playlist/..."
+        >
+      </label>
+
+      <label>Duración en minutos
+        <input name="duration" type="number" min="1" required>
+      </label>
+
+      <h3>Objetivos principales</h3>
+
+      <div class="form-row">
+
+        <label>SWIM
+          <input name="swim" type="number" min="0" value="0">
+        </label>
+
+        <label>NORMAL
+          <input name="normal" type="number" min="0" value="0">
+        </label>
+
+        <label>COME OVER
+          <input name="come" type="number" min="0" value="0">
+        </label>
+
+      </div>
+
+      <label>Versiones o lanzamientos de SWIM
+        <textarea
+          name="swimVersions"
+          rows="3"
+          placeholder="Escribe cada versión separada por comas"
+        ></textarea>
+      </label>
+
+      <label>Cantidad de B-sides
+        <input
+          name="bsides"
+          type="number"
+          min="0"
+          value="0"
+        >
+      </label>
+
+      <button class="button button-primary">
+        Enviar para revisión
+      </button>
+
+      <p class="form-message" id="communityMessage"></p>
+
+    </form>
+  </details>
+
+</section>
+
+
+<!-- COMBOS -->
+
+<section class="view" id="combos">
+
+  <div class="page-heading">
+    <p class="eyebrow">ENCUENTRA TU COMBINACIÓN</p>
+    <h1>Buscador de combos</h1>
+
+    <p>
+      Selecciona una biblioteca, define tus objetivos y dinos
+      cuánto tiempo tienes.
+    </p>
+  </div>
+
+  <div class="planner-card">
+
+    <div class="form-row">
+
+      <label>Biblioteca
+        <select id="comboSource">
+          <option value="official">Biblioteca oficial</option>
+          <option value="community">Biblioteca ARMY aprobada</option>
+        </select>
+      </label>
+
+      <label>Tiempo disponible
+        <select id="timeSelect">
+          <option value="30">30 minutos</option>
+          <option value="60">1 hora</option>
+          <option value="120" selected>2 horas</option>
+          <option value="180">3 horas</option>
+          <option value="300">5 horas</option>
+          <option value="custom">Personalizado</option>
+        </select>
+      </label>
+
+    </div>
+
+    <label id="customTimeLabel" class="hidden">
+      Minutos disponibles
+      <input id="customTime" type="number" min="1" value="120">
+    </label>
+
+    <h2>Tus objetivos</h2>
+
+    <div class="goal-inputs">
+
+      <label>SWIM
+        <input id="goalSwim" type="number" min="0" value="120">
+      </label>
+
+      <label>NORMAL
+        <input id="goalNormal" type="number" min="0" value="80">
+      </label>
+
+      <label>COME OVER
+        <input id="goalCome" type="number" min="0" value="20">
+      </label>
+
+    </div>
+
+    <p class="helper">
+      El cálculo utiliza las apariciones y versiones que hayas
+      registrado en cada playlist.
+    </p>
+
+    <button
+      class="button button-primary full-button"
+      id="calculateButton"
+    >
+      Buscar combinaciones ✧
+    </button>
+
+  </div>
+
+  <div id="comboResults" class="results-area"></div>
+
+</section>
+
+
+<!-- OBJETIVOS -->
+
+<section class="view" id="objetivos">
+
+  <div class="page-heading">
+    <p class="eyebrow">PASO A PASO</p>
+    <h1>Objetivos de streaming</h1>
+
+    <p>
+      Consulta las metas de planificación para el álbum prioritario.
+    </p>
+  </div>
+
+  <div class="goal-board" id="goalBoard"></div>
+
+  <div class="notice">
+    El progreso real de streams no se puede verificar desde esta página.
+  </div>
+
+</section>
+
+  </main>  <!-- NAVEGACIÓN MÓVIL -->  <nav class="mobile-nav">
+    <button class="active" data-view="inicio">
+      <span>⌂</span>Inicio
+    </button><button data-view="albumes">
+  <span>♫</span>Álbumes
+</button>
+
+<button data-view="oficial">
+  <span>☆</span>Oficial
+</button>
+
+<button data-view="comunidad">
+  <span>♡</span>ARMY
+</button>
+
+<button data-view="combos">
+  <span>✧</span>Combos
+</button>
+
+  </nav>  <footer>
+    ARMY STREAMING COMBO ♡ BTS × ARMY · Proyecto independiente.
+  </footer></body>
+</html>
