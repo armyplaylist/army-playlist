@@ -4,24 +4,42 @@ const STORAGE_KEYS = {
 };
 
 
-// CATÁLOGO ARIRANG
+// CATÁLOGO MUSICAL DESDE JSON
 
-const ARIRANG_TRACKS = [
-  { name: "Body to Body", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "Hooligan", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "Aliens", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "FYA", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "2.0", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "No. 29", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "SWIM", type: "main", versions: ["Clean", "Explicit"] },
-  { name: "Merry Go Round", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "NORMAL", type: "main", versions: ["Clean", "Explicit"] },
-  { name: "Like Animals", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "they don't know ’bout us", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "One More Night", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "Please", type: "bside", versions: ["Clean", "Explicit"] },
-  { name: "Into the Sun", type: "bside", versions: ["Clean", "Explicit"] }
-];
+let ARIRANG_TRACKS = [];
+
+async function loadDiscography() {
+try {
+const response = await fetch("discografia.json");
+
+if (!response.ok) {
+  throw new Error("No se pudo cargar la discografía");
+}
+
+const data = await response.json();
+
+const bts = data.artists.find(
+  artist => artist.id === "bts"
+);
+
+const arirang = bts.releases.find(
+  release => release.id === "arirang-2026"
+);
+
+ARIRANG_TRACKS = arirang.tracks.map(track => ({
+  name: track.title,
+  type: ["SWIM", "NORMAL"].includes(track.title)
+    ? "main"
+    : "bside",
+  versions: []
+}));
+
+renderAlbumCatalog();
+
+} catch (error) {
+console.error("Error cargando discografía:", error);
+}
+}
 
 
 // PLAYLISTS DE EJEMPLO
