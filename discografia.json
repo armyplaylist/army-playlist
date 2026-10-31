@@ -1,80 +1,240 @@
-{
-"version": 1,
-"artists": [
-{
-"id": "bts",
-"name": "BTS",
-"type": "group",
-"releases": [
-{
-"id": "arirang-2026",
-"title": "ARIRANG",
-"releaseDate": "2026-03-20",
-"type": "album",
-"language": "Korean",
-"tracks": [
-{"number": 1, "title": "Body to Body"},
-{"number": 2, "title": "Hooligan"},
-{"number": 3, "title": "Aliens"},
-{"number": 4, "title": "FYA"},
-{"number": 5, "title": "2.0"},
-{"number": 6, "title": "No. 29"},
-{"number": 7, "title": "SWIM"},
-{"number": 8, "title": "Merry Go Round"},
-{"number": 9, "title": "NORMAL"},
-{"number": 10, "title": "Like Animals"},
-{"number": 11, "title": "they don't know 'bout us"},
-{"number": 12, "title": "One More Night"},
-{"number": 13, "title": "Please"},
-{"number": 14, "title": "Into the Sun"}
+[
+  {
+    "title": "2 Cool 4 Skool",
+    "artist": "BTS",
+    "year": "2013",
+    "image": "https://i.scdn.co/image/ab67616d0000b273060ea29994c97970fa457ae8",
+    "spotifyUrl": "https://open.spotify.com/album/3V0u8q9rUvS5zJ3R74O6Wk"
+  },
+  {
+    "title": "O!RUL8,2?",
+    "artist": "BTS",
+    "year": "2013",
+    "image": "https://i.scdn.co/image/ab67616d0000b27320bca307c917ee72f3f72151",
+    "spotifyUrl": "https://open.spotify.com/album/5b357v57fK2Fj0o2p9u2j5"
+  },
+  {
+    "title": "Skool Luv Affair",
+    "artist": "BTS",
+    "year": "2014",
+    "image": "https://i.scdn.co/image/ab67616d0000b273b5f7e7150c9509b531405e3f",
+    "spotifyUrl": "https://open.spotify.com/album/32n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Dark & Wild",
+    "artist": "BTS",
+    "year": "2014",
+    "image": "https://i.scdn.co/image/ab67616d0000b273822830f3c5f4b50c058c49e2",
+    "spotifyUrl": "https://open.spotify.com/album/2I0Z5tYx8hF6nL2M2k7P5x"
+  },
+  {
+    "title": "The Most Beautiful Moment in Life, Pt. 1",
+    "artist": "BTS",
+    "year": "2015",
+    "image": "https://i.scdn.co/image/ab67616d0000b27363f8ec41103f6f966144e511",
+    "spotifyUrl": "https://open.spotify.com/album/6N33pWcZ19g5lYwGq4M720"
+  },
+  {
+    "title": "The Most Beautiful Moment in Life, Pt. 2",
+    "artist": "BTS",
+    "year": "2015",
+    "image": "https://i.scdn.co/image/ab67616d0000b27352df5efcdcb655e00300dfca",
+    "spotifyUrl": "https://open.spotify.com/album/1pLdZ4R9201E3o6Jv30432"
+  },
+  {
+    "title": "The Most Beautiful Moment in Life: Young Forever",
+    "artist": "BTS",
+    "year": "2016",
+    "image": "https://i.scdn.co/image/ab67616d0000b2731ce3ef724a2ef1fb1d428984",
+    "spotifyUrl": "https://open.spotify.com/album/32n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "WINGS",
+    "artist": "BTS",
+    "year": "2016",
+    "image": "https://i.scdn.co/image/ab67616d0000b2730d0725514f76269dfda19688",
+    "spotifyUrl": "https://open.spotify.com/album/0K59P2QzTzPjQ2LzN4O5Wz"
+  },
+  {
+    "title": "You Never Walk Alone",
+    "artist": "BTS",
+    "year": "2017",
+    "image": "https://i.scdn.co/image/ab67616d0000b273c5ea65ff9d47932c0287d353",
+    "spotifyUrl": "https://open.spotify.com/album/5J0bI0R4x2PzQ2LzN4O5Wz"
+  },
+  {
+    "title": "Love Yourself 承 'Her'",
+    "artist": "BTS",
+    "year": "2017",
+    "image": "https://i.scdn.co/image/ab67616d0000b27376c66914ee8f6e89cdfb703e",
+    "spotifyUrl": "https://open.spotify.com/album/28n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Face Yourself",
+    "artist": "BTS",
+    "year": "2018",
+    "image": "https://i.scdn.co/image/ab67616d0000b273570624a1b0728c310468305c",
+    "spotifyUrl": "https://open.spotify.com/album/6K59P2QzTzPjQ2LzN4O5Wz"
+  },
+  {
+    "title": "Love Yourself 轉 'Tear'",
+    "artist": "BTS",
+    "year": "2018",
+    "image": "https://i.scdn.co/image/ab67616d0000b27387f6517a26f03d52366838a3",
+    "spotifyUrl": "https://open.spotify.com/album/2k71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Love Yourself 結 'Answer'",
+    "artist": "BTS",
+    "year": "2018",
+    "image": "https://i.scdn.co/image/ab67616d0000b2733d92b0e3be0a6e30b80517e4",
+    "spotifyUrl": "https://open.spotify.com/album/25n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "MAP OF THE SOUL : PERSONA",
+    "artist": "BTS",
+    "year": "2019",
+    "image": "https://i.scdn.co/image/ab67616d0000b273c548cf53a2335f6063428172",
+    "spotifyUrl": "https://open.spotify.com/album/1v71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "MAP OF THE SOUL : 7",
+    "artist": "BTS",
+    "year": "2020",
+    "image": "https://i.scdn.co/image/ab67616d0000b273033d59e13d74c0c1694f4c28",
+    "spotifyUrl": "https://open.spotify.com/album/6kxgcuuZ1o6E1E4Fw0uF2z"
+  },
+  {
+    "title": "MAP OF THE SOUL : 7 ~ THE JOURNEY ~",
+    "artist": "BTS",
+    "year": "2020",
+    "image": "https://i.scdn.co/image/ab67616d0000b27382025ccaa1b20fbac08ac13b",
+    "spotifyUrl": "https://open.spotify.com/album/3K59P2QzTzPjQ2LzN4O5Wz"
+  },
+  {
+    "title": "Dynamite",
+    "artist": "BTS",
+    "year": "2020",
+    "image": "https://i.scdn.co/image/ab67616d0000b27380905d475ce9c2cfc5b6b8b9",
+    "spotifyUrl": "https://open.spotify.com/track/5u1n1jnvZpEBn1mF231D1h"
+  },
+  {
+    "title": "BE",
+    "artist": "BTS",
+    "year": "2020",
+    "image": "https://i.scdn.co/image/ab67616d0000b27393fc53257a79eb7c569b76c8",
+    "spotifyUrl": "https://open.spotify.com/album/22T1L428P83iB32S31L6S3"
+  },
+  {
+    "title": "BTS, THE BEST",
+    "artist": "BTS",
+    "year": "2021",
+    "image": "https://i.scdn.co/image/ab67616d0000b2731e8ea2e0c5240bc1871a9a8d",
+    "spotifyUrl": "https://open.spotify.com/album/4K59P2QzTzPjQ2LzN4O5Wz"
+  },
+  {
+    "title": "Butter",
+    "artist": "BTS",
+    "year": "2021",
+    "image": "https://i.scdn.co/image/ab67616d0000b273752e557f92025c8bf9921c27",
+    "spotifyUrl": "https://open.spotify.com/album/0XW4BqQ8L7V0v4wY2c8Xz1"
+  },
+  {
+    "title": "Permission to Dance",
+    "artist": "BTS",
+    "year": "2021",
+    "image": "https://i.scdn.co/image/ab67616d0000b273f5a133df1b3a4a9c6c79a1ee",
+    "spotifyUrl": "https://open.spotify.com/album/1Z12V2O78Z9N5s8s91a2j3"
+  },
+  {
+    "title": "My Universe",
+    "artist": "Coldplay x BTS",
+    "year": "2021",
+    "image": "https://i.scdn.co/image/ab67616d0000b2731872ef2aefb58097b695c02b",
+    "spotifyUrl": "https://open.spotify.com/album/3V29L428P83iB32S31L6S3"
+  },
+  {
+    "title": "Proof",
+    "artist": "BTS",
+    "year": "2022",
+    "image": "https://i.scdn.co/image/ab67616d0000b27393433678d523bf4108873d6d",
+    "spotifyUrl": "https://open.spotify.com/album/6noUdLjhA131M991829e2A"
+  },
+  {
+    "title": "Jack In The Box",
+    "artist": "j-hope",
+    "year": "2022",
+    "image": "https://i.scdn.co/image/ab67616d0000b273e970222f73024eb5efce8631",
+    "spotifyUrl": "https://open.spotify.com/album/0k71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Indigo",
+    "artist": "RM",
+    "year": "2022",
+    "image": "https://i.scdn.co/image/ab67616d0000b27382025ccaa1b20fbac08ac13b",
+    "spotifyUrl": "https://open.spotify.com/album/2x71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Take Two",
+    "artist": "BTS",
+    "year": "2023",
+    "image": "https://i.scdn.co/image/ab67616d0000b27317d7b5b5c92c8153cfc5c765",
+    "spotifyUrl": "https://open.spotify.com/album/0v25L428P83iB32S31L6S3"
+  },
+  {
+    "title": "GOLDEN",
+    "artist": "Jung Kook",
+    "year": "2023",
+    "image": "https://i.scdn.co/image/ab67616d0000b2731e0cb97705b9845f3a773de9",
+    "spotifyUrl": "https://open.spotify.com/album/5CvSkIO4udnZkbaISiDXk1"
+  },
+  {
+    "title": "FACE",
+    "artist": "Jimin",
+    "year": "2023",
+    "image": "https://i.scdn.co/image/ab67616d0000b2734a7428f72c05763ff440938f",
+    "spotifyUrl": "https://open.spotify.com/album/4V4q7X2pQ3Jj0Xj9Y1L2k3"
+  },
+  {
+    "title": "Layover",
+    "artist": "V",
+    "year": "2023",
+    "image": "https://i.scdn.co/image/ab67616d0000b273b0643b1bc27f67756f51cc24",
+    "spotifyUrl": "https://open.spotify.com/album/0d71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "D-DAY",
+    "artist": "Agust D (SUGA)",
+    "year": "2023",
+    "image": "https://i.scdn.co/image/ab67616d0000b2730a8c17a561109a25b174092b",
+    "spotifyUrl": "https://open.spotify.com/album/1n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "MUSE",
+    "artist": "Jimin",
+    "year": "2024",
+    "image": "https://i.scdn.co/image/ab67616d0000b273d09a25b2a31f71a9a8d38517",
+    "spotifyUrl": "https://open.spotify.com/album/2n71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Right Place, Wrong Person",
+    "artist": "RM",
+    "year": "2024",
+    "image": "https://i.scdn.co/image/ab67616d0000b273f5a133df1b3a4a9c6c79a1ee",
+    "spotifyUrl": "https://open.spotify.com/album/3x71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "Happy",
+    "artist": "Jin",
+    "year": "2024",
+    "image": "https://i.scdn.co/image/ab67616d0000b2731872ef2aefb58097b695c02b",
+    "spotifyUrl": "https://open.spotify.com/album/4x71m1v9z9J9W1h5J2r9K"
+  },
+  {
+    "title": "ARIRANG / Lanzamientos recientes 2025-2026",
+    "artist": "BTS / Solistas",
+    "year": "2025-2026",
+    "image": "https://i.scdn.co/image/ab67616d0000b27393433678d523bf4108873d6d",
+    "spotifyUrl": "https://open.spotify.com/artist/3NrfpeBGewmmPjHRy2Yyse"
+  }
 ]
-}
-]
-},
-{
-"id": "rm",
-"name": "RM",
-"type": "solo",
-"releases": []
-},
-{
-"id": "jin",
-"name": "Jin",
-"type": "solo",
-"releases": []
-},
-{
-"id": "suga",
-"name": "SUGA / Agust D",
-"type": "solo",
-"releases": []
-},
-{
-"id": "jhope",
-"name": "j-hope",
-"type": "solo",
-"releases": []
-},
-{
-"id": "jimin",
-"name": "Jimin",
-"type": "solo",
-"releases": []
-},
-{
-"id": "v",
-"name": "V",
-"type": "solo",
-"releases": []
-},
-{
-"id": "jungkook",
-"name": "Jung Kook",
-"type": "solo",
-"releases": []
-}
-],
-"collaborations": [],
-"soundtracks": [],
-"specialReleases": []
-}
