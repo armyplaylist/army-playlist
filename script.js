@@ -6,66 +6,37 @@ const STORAGE_KEYS = {
 
 // CATÁLOGO MUSICAL DESDE JSON
 
-let ARIRANG_TRACKS = [];
 
-async function loadDiscography() {
-try {
-const response = await fetch("discografia.json");
-
-if (!response.ok) {
-  throw new Error("No se pudo cargar la discografía");
+.spotify-albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
 }
 
-const data = await response.json();
-
-const bts = data.artists.find(
-  artist => artist.id === "bts"
-);
-
-const arirang = bts.releases.find(
-  release => release.id === "arirang-2026"
-);
-
-ARIRANG_TRACKS = arirang.tracks.map(track => ({
-  name: track.title,
-  type: ["SWIM", "NORMAL"].includes(track.title)
-    ? "main"
-    : "bside",
-  versions: []
-}));
-
-renderAlbumCatalog();
-
-} catch (error) {
-console.error("Error cargando discografía:", error);
-}
+.spotify-album-card {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(80, 40, 100, 0.08);
 }
 
+.spotify-album-card h3 {
+  margin: 0 0 5px;
+  color: #6c4388;
+}
 
-// PLAYLISTS DE EJEMPLO
+.spotify-album-card p {
+  margin: 0 0 14px;
+  color: #777;
+}
 
-const defaultOfficial = [
-  {
-    id: "demo-1",
-    name: "Playlist de ejemplo · SWIM focus",
-    url: "https://open.spotify.com/",
-    duration: 60,
-    swim: 12,
-    normal: 5,
-    come: 2,
-    bsides: 10,
-    swimVersions: []
-  },
-  {
-    id: "demo-2",
-    name: "Playlist de ejemplo · ARIRANG mix",
-    url: "https://open.spotify.com/",
-    duration: 90,
-    swim: 10,
-    normal: 10,
-    come: 3,
-    bsides: 15,
-    swimVersions: []
+.spotify-album-card iframe {
+  display: block;
+  border: none;
+  max-width: 100%;
+}
+
   }
 ];
 
