@@ -1,4 +1,26 @@
 [
+{
+  "type": "spotify_embed",
+  "platform": "spotify",
+  "content_type": "album",
+  "album_id": "6egaEe9JaULuUCkihSnYlH",
+  "src": "https://open.spotify.com/embed/album/6egaEe9JaULuUCkihSnYlH?utm_source=generator&si=870f7474369e4f25",
+  "width": "100%",
+  "height": 352,
+  "style": {
+    "borderRadius": "12px"
+  },
+  "allow": [
+    "autoplay",
+    "clipboard-write",
+    "encrypted-media",
+    "fullscreen",
+    "picture-in-picture"
+  ],
+  "loading": "lazy"
+}
+
+  
   {
     "title": "2 Cool 4 Skool",
     "artist": "BTS",
