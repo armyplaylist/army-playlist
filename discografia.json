@@ -1,0 +1,80 @@
+{
+"version": 1,
+"artists": [
+{
+"id": "bts",
+"name": "BTS",
+"type": "group",
+"releases": [
+{
+"id": "arirang-2026",
+"title": "ARIRANG",
+"releaseDate": "2026-03-20",
+"type": "album",
+"language": "Korean",
+"tracks": [
+{"number": 1, "title": "Body to Body"},
+{"number": 2, "title": "Hooligan"},
+{"number": 3, "title": "Aliens"},
+{"number": 4, "title": "FYA"},
+{"number": 5, "title": "2.0"},
+{"number": 6, "title": "No. 29"},
+{"number": 7, "title": "SWIM"},
+{"number": 8, "title": "Merry Go Round"},
+{"number": 9, "title": "NORMAL"},
+{"number": 10, "title": "Like Animals"},
+{"number": 11, "title": "they don't know 'bout us"},
+{"number": 12, "title": "One More Night"},
+{"number": 13, "title": "Please"},
+{"number": 14, "title": "Into the Sun"}
+]
+}
+]
+},
+{
+"id": "rm",
+"name": "RM",
+"type": "solo",
+"releases": []
+},
+{
+"id": "jin",
+"name": "Jin",
+"type": "solo",
+"releases": []
+},
+{
+"id": "suga",
+"name": "SUGA / Agust D",
+"type": "solo",
+"releases": []
+},
+{
+"id": "jhope",
+"name": "j-hope",
+"type": "solo",
+"releases": []
+},
+{
+"id": "jimin",
+"name": "Jimin",
+"type": "solo",
+"releases": []
+},
+{
+"id": "v",
+"name": "V",
+"type": "solo",
+"releases": []
+},
+{
+"id": "jungkook",
+"name": "Jung Kook",
+"type": "solo",
+"releases": []
+}
+],
+"collaborations": [],
+"soundtracks": [],
+"specialReleases": []
+}
