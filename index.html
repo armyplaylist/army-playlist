@@ -305,6 +305,19 @@ if(mode==="minutes"){
  out.innerHTML='<div class="empty" style="grid-column:1/-1">Duración buscada: '+fmt(minH*60)+' a '+fmt(maxH*60)+'. Se incluyen posibles aciertos hasta 1 hora antes y 1 hora después ('+fmt(lower)+' a '+fmt(upper)+').</div>'+hits.map(p=>'<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip"> '+fmt(p[2])+'</span></div><ul>'+p[4].map(s=>'<li>'+s+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify </a></article>').join("");
 }
 }
+const soloTrackAlbums={
+ "killin it girl":"Sencillo",
+ "wild flower":"Indigo",
+ "who":"MUSE",
+ "winter ahead":"Sencillo",
+ "seven":"GOLDEN",
+ "dont say you love me":"ECHO",
+ "haegeum":"D-DAY"
+};
+function trackAlbum(track){
+ const clean=track.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim();
+ return soloTrackAlbums[norm(clean)]||"";
+}
 function renderLibrarySearch(){
  const query=norm($("librarySearchInput").value);
  const type=$("librarySearchType").value;
@@ -317,11 +330,19 @@ function renderLibrarySearch(){
    const target=norm(aliases[query]||query);
    return group.includes(target)||title.includes(target);
   }
-  if(type==="album")return title.includes(query)||tracks.includes(query);
+  if(type==="album"){
+   const mappedAlbums=p[4].map(trackAlbum).filter(Boolean).map(norm);
+   return title.includes(query)||tracks.includes(query)||mappedAlbums.some(album=>album.includes(query)||query.includes(album));
+  }
   return (title+" "+tracks+" "+group).includes(query)&&(/mix/i.test(query)||/mix/i.test(p[0]+" "+p[4].join(" ")));
  });
  if(!hits.length){out.innerHTML='<div class="empty">No encontramos playlists para “'+$("librarySearchInput").value.trim()+'”. Prueba otro término.</div>';return}
- out.innerHTML='<div class="empty" style="grid-column:1/-1">'+hits.length+' playlist(s) encontradas en el catálogo.</div>'+hits.map(p=>'<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip">'+(p[2]===null?"Duración no indicada":Math.floor(p[2]/60)+" h "+String(p[2]%60).padStart(2,"0")+" min")+'</span><span class="chip">'+p[3]+'</span></div><ul>'+p[4].map(v=>'<li>'+v+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify</a></article>').join("");
+ out.innerHTML='<div class="empty" style="grid-column:1/-1">'+hits.length+' playlist(s) encontradas en el catálogo.</div>'+hits.map(p=>{
+  const albumTracks=p[4].map(track=>({track:track.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim(),album:trackAlbum(track)})).filter(x=>x.album);
+  const albumChips=[...new Set(albumTracks.map(x=>x.album))].map(album=>'<span class="chip">Álbum: '+album+'</span>').join("");
+  const albumNotes=albumTracks.length?'<li class="album-track-note"><strong>Solistas por álbum:</strong> '+albumTracks.map(x=>x.track+' — '+x.album).join(' · ')+'</li>':"";
+  return '<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip">'+(p[2]===null?"Duración no indicada":Math.floor(p[2]/60)+" h "+String(p[2]%60).padStart(2,"0")+" min")+'</span><span class="chip">'+p[3]+'</span>'+albumChips+'</div><ul>'+albumNotes+p[4].map(v=>'<li>'+v+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify</a></article>';
+ }).join("");
  $("searchResultsPanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
 $("librarySearchButton").addEventListener("click",renderLibrarySearch);
