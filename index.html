@@ -110,6 +110,11 @@ button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
 .site-index a{background:rgba(255,255,255,.28)!important;border:1px solid rgba(255,255,255,.5)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.55)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .site-index a:hover{background:rgba(255,255,255,.48)!important}
 @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){.site-index{background:linear-gradient(135deg,#e7d8ff,#c7a8f2)!important}}
+
+/* Tapiz ARMY Bomb visible sobre el fondo y detrás del contenido */
+body{position:relative;isolation:isolate}
+body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.72;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%237650b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(8 8) scale(.72)'%3E%3Cpath d='M24 3C12 3 4 12 4 23c0 8 5 14 12 18v13h16V41c7-4 12-10 12-18C44 12 36 3 24 3Z'/%3E%3Cpath d='M16 54h16v7H16zM20 61h8v8h-8zM14 21c2-7 6-11 12-13'/%3E%3C/g%3E%3Cg transform='translate(65 57) rotate(18 18 25) scale(.62)'%3E%3Cpath d='M24 3C12 3 4 12 4 23c0 8 5 14 12 18v13h16V41c7-4 12-10 12-18C44 12 36 3 24 3Z'/%3E%3Cpath d='M16 54h16v7H16zM20 61h8v8h-8zM14 21c2-7 6-11 12-13'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");background-size:112px 112px;background-repeat:repeat}
+.page{position:relative;z-index:1}
 </style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1>【ARMY】 <span>Playlist Finder</span></h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
 
 <nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a></div></nav>
