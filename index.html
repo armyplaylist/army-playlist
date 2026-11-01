@@ -332,21 +332,42 @@ function renderLibrarySearch(){
  const type=$("librarySearchType").value;
  const out=$("matches");
  if(!query){out.innerHTML='<div class="empty">Escribe un artista, álbum o mix para buscar en el catálogo.</div>';return}
- const hits=playlists.filter(p=>{
-  const group=norm(p[3]),title=norm(p[0]),tracks=norm(p[4].join(" "));
+ const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope","jungkook":"combo jungkook","jung kook":"combo jungkook"};
+ const target=type==="artist"?norm(aliases[query]||query):query;
+ const ranked=playlists.map(p=>{
+  const group=norm(p[3]),title=norm(p[0]),trackNames=p[4].map(t=>norm(t.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim())),tracks=trackNames.join(" ");
+  let score=0,matched=false;
   if(type==="artist"){
-   const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope","jungkook":"combo jungkook","jung kook":"combo jungkook"};
-   const target=norm(aliases[query]||query);
-   return group.includes(target)||title.includes(target);
-  }
-  if(type==="album"){
+   matched=group.includes(target)||title.includes(target);
+   if(matched){
+    if(group===target||title===target)score=120;
+    else if(group.startsWith(target)||title.startsWith(target))score=95;
+    else if(group.includes(target)||title.includes(target))score=70;
+    if(norm(p[3])==="combo jungkook"&&(query==="jungkook"||query==="jung kook"))score=Math.max(score,120);
+   }
+  }else if(type==="album"){
    const mappedAlbums=p[4].map(trackAlbum).filter(Boolean).map(norm);
-   return title.includes(query)||tracks.includes(query)||mappedAlbums.some(album=>album.includes(query)||query.includes(album));
+   const exactAlbums=mappedAlbums.filter(a=>a===query).length;
+   const partialAlbums=mappedAlbums.filter(a=>a.includes(query)||query.includes(a)).length;
+   const exactTracks=trackNames.filter(t=>t===query).length;
+   const partialTracks=trackNames.filter(t=>t.includes(query)).length;
+   matched=title.includes(query)||tracks.includes(query)||partialAlbums>0;
+   score=exactAlbums*120+partialAlbums*65+exactTracks*90+partialTracks*35;
+   if(title===query)score+=110;else if(title.startsWith(query))score+=80;else if(title.includes(query))score+=45;
+  }else{
+   const searchable=title+" "+tracks+" "+group;
+   matched=searchable.includes(query)&&(/mix/i.test(query)||/mix/i.test(p[0]+" "+p[4].join(" ")));
+   if(matched){
+    score=(title===query?120:title.startsWith(query)?95:title.includes(query)?65:0);
+    score+=trackNames.filter(t=>t===query).length*80;
+    score+=trackNames.filter(t=>t.includes(query)).length*30;
+    if(group.includes(query))score+=35;
+   }
   }
-  return (title+" "+tracks+" "+group).includes(query)&&(/mix/i.test(query)||/mix/i.test(p[0]+" "+p[4].join(" ")));
- });
- if(!hits.length){out.innerHTML='<div class="empty">No encontramos playlists para “'+$("librarySearchInput").value.trim()+'”. Prueba otro término.</div>';return}
- out.innerHTML='<div class="empty" style="grid-column:1/-1">'+hits.length+' playlist(s) encontradas en el catálogo.</div>'+hits.map(p=>{
+  return {p,score,matched};
+ }).filter(x=>x.matched).sort((a,b)=>b.score-a.score||a.p[0].localeCompare(b.p[0],"es"));
+ if(!ranked.length){out.innerHTML='<div class="empty">No encontramos playlists para “'+$("librarySearchInput").value.trim()+'”. Prueba otro término.</div>';return}
+ out.innerHTML='<div class="empty" style="grid-column:1/-1">'+ranked.length+' playlist(s) encontradas · ordenadas de mayor a menor coincidencia.</div>'+ranked.map(({p})=>{
   const albumTracks=p[4].map(track=>({track:track.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim(),album:trackAlbum(track)})).filter(x=>x.album);
   const albumChips=[...new Set(albumTracks.map(x=>x.album))].map(album=>'<span class="chip">Álbum: '+album+'</span>').join("");
   const albumNotes=albumTracks.length?'<li class="album-track-note"><strong>Solistas por álbum:</strong> '+albumTracks.map(x=>x.track+' — '+x.album).join(' · ')+'</li>':"";
