@@ -51,6 +51,48 @@ body{padding-bottom:30px}
 #spotifyContent>.panel{margin:12px 0}
 
 .site-index{margin:18px 0;padding:16px;border:1px solid #e7d9f7;border-radius:18px;background:#fffdfef0;box-shadow:0 6px 18px #705e7015}.site-index h2{margin:0 0 10px;color:#6842a8;font-size:1.05rem}.site-index-links{display:flex;flex-wrap:wrap;gap:8px}.site-index a{padding:8px 11px;border-radius:12px;background:#f2eaff;color:#6842a8;font-weight:900;text-decoration:none;font-size:.86rem}.site-index a:focus-visible{outline:3px solid #d98abb;outline-offset:2px}
+
+/* Liquid glass lavanda global + botones estilo glossy */
+body{
+ background:
+ radial-gradient(ellipse at 12% 8%,#d8c5f7b8 0,transparent 38%),
+ radial-gradient(ellipse at 88% 22%,#b99be8a8 0,transparent 36%),
+ radial-gradient(ellipse at 50% 92%,#e8d9ffb8 0,transparent 42%),
+ linear-gradient(135deg,#f7f0ff 0%,#eee4ff 48%,#f8f2ff 100%)!important;
+ background-attachment:fixed!important;
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:radial-gradient(ellipse at 50% 45%,#ffffff38,transparent 65%);
+ backdrop-filter:blur(34px);-webkit-backdrop-filter:blur(34px);
+}
+.panel,.site-index,.playlist,.combo-entry,.reset-country-card,.dashboard-stat{
+ background:linear-gradient(135deg,#ffffffb8,#eee5ff99)!important;
+ border:1px solid #ffffffc9!important;
+ box-shadow:0 12px 32px #51347b18,inset 0 1px 0 #ffffffd9!important;
+ backdrop-filter:blur(18px) saturate(145%);-webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+button,.action,.spotify-link,.profile-shortcut{
+ border-radius:999px!important;
+ background:linear-gradient(180deg,#9874d0 0%,#7650b8 58%,#6842a8 100%)!important;
+ color:#fff!important;
+ border:1px solid #ffffffa8!important;
+ box-shadow:0 5px 0 #4f347f,0 9px 18px #4f347f30,inset 0 2px 3px #ffffff65!important;
+ text-shadow:0 1px 2px #4d327755;
+ transition:transform .18s ease,box-shadow .18s ease,filter .18s ease!important;
+}
+button:hover,.action:hover,.spotify-link:hover,.profile-shortcut:hover{
+ filter:brightness(1.08) saturate(1.04);transform:translateY(-2px);
+ box-shadow:0 7px 0 #4f347f,0 13px 22px #4f347f38,inset 0 2px 3px #ffffff75!important;
+}
+button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
+ transform:translateY(3px) scale(.985);
+ box-shadow:0 2px 0 #4f347f,0 4px 10px #4f347f24,inset 0 2px 4px #ffffff55!important;
+}
+.profile-shortcut.member-cover{border-radius:22px!important;background:linear-gradient(145deg,#ffffffd9,#e9ddf8c9)!important}
+.profile-shortcut.member-cover span{border-radius:999px!important}
+@media(prefers-reduced-motion:reduce){button,.action,.spotify-link,.profile-shortcut{transition:none!important}}
+
 </style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1>【ARMY】 <span>Playlist Finder</span></h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
 
 <nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a></div></nav>
