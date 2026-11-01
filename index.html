@@ -127,6 +127,19 @@ button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
 /* Título principal: ARMY morado y PLAYLIST FINDER negro */
 .army-main-title{color:#17131d!important;text-shadow:none}
 .army-main-title span{color:#7650b8!important}
+
+/* Iconos para controles de navegación y streaming */
+.action:before{display:inline-block;margin-right:7px;font-size:1.05em;vertical-align:-1px}
+#dashboardRandom:before{content:"✦"}
+#makeSchedule:before{content:"◷"}
+#addRequest:before,#clearHours:before,#librarySearchButton:before{content:"⌕"}
+#toggleComboCatalog:before{content:"♫"}
+[data-dashboard-go="songSearchPanel"]:before{content:"⌕"}
+[data-dashboard-go="schedulePanel"]:before{content:"◷"}
+[data-dashboard-go="toggleComboCatalog"]:before{content:"♫"}
+#dashboardRandom:after{content:""}
+#showSchedulePlaylists:before{content:"▶"}
+
 </style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1 class="army-main-title"><span>ARMY</span> PLAYLIST FINDER</h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
 
 <nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a></div></nav>
