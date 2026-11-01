@@ -324,7 +324,7 @@ const soloTrackAlbums={
  "haegeum":"D-DAY"
 };
 function trackAlbum(track){
- const clean=track.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim();
+ const clean=track.replace(/\s*[×x]\s*\d+.*$/,"").trim();
  return soloTrackAlbums[norm(clean)]||"";
 }
 function renderLibrarySearch(){
@@ -335,7 +335,7 @@ function renderLibrarySearch(){
  const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope","jungkook":"combo jungkook","jung kook":"combo jungkook"};
  const target=type==="artist"?norm(aliases[query]||query):query;
  const ranked=playlists.map(p=>{
-  const group=norm(p[3]),title=norm(p[0]),trackNames=p[4].map(t=>norm(t.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim())),tracks=trackNames.join(" ");
+  const group=norm(p[3]),title=norm(p[0]),trackNames=p[4].map(t=>norm(t.replace(/\s*[×x]\s*\d+.*$/,"").trim())),tracks=trackNames.join(" ");
   let score=0,matched=false;
   if(type==="artist"){
    matched=group.includes(target)||title.includes(target);
@@ -368,7 +368,7 @@ function renderLibrarySearch(){
  }).filter(x=>x.matched).sort((a,b)=>b.score-a.score||a.p[0].localeCompare(b.p[0],"es"));
  if(!ranked.length){out.innerHTML='<div class="empty">No encontramos playlists para “'+$("librarySearchInput").value.trim()+'”. Prueba otro término.</div>';return}
  out.innerHTML='<div class="empty" style="grid-column:1/-1">'+ranked.length+' playlist(s) encontradas · ordenadas de mayor a menor coincidencia.</div>'+ranked.map(({p})=>{
-  const albumTracks=p[4].map(track=>({track:track.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim(),album:trackAlbum(track)})).filter(x=>x.album);
+  const albumTracks=p[4].map(track=>({track:track.replace(/\s*[×x]\s*\d+.*$/,"").trim(),album:trackAlbum(track)})).filter(x=>x.album);
   const albumChips=[...new Set(albumTracks.map(x=>x.album))].map(album=>'<span class="chip">Álbum: '+album+'</span>').join("");
   const albumNotes=albumTracks.length?'<li class="album-track-note"><strong>Solistas por álbum:</strong> '+albumTracks.map(x=>x.track+' — '+x.album).join(' · ')+'</li>':"";
   return '<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip">'+(p[2]===null?"Duración no indicada":Math.floor(p[2]/60)+" h "+String(p[2]%60).padStart(2,"0")+" min")+'</span><span class="chip">'+p[3]+'</span>'+albumChips+'</div><ul>'+albumNotes+p[4].map(v=>'<li>'+v+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify</a></article>';
