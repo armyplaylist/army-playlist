@@ -152,6 +152,38 @@ button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
 .surprise-confetti{position:fixed;top:-14px;width:9px;height:13px;z-index:9999;pointer-events:none;border-radius:2px;animation:surpriseConfettiFall var(--fall-time,2.4s) cubic-bezier(.18,.65,.35,1) forwards}
 @keyframes surpriseConfettiFall{0%{transform:translate3d(0,-10px,0) rotate(0deg);opacity:1}100%{transform:translate3d(var(--drift),105vh,0) rotate(var(--spin));opacity:0}}
 @media(prefers-reduced-motion:reduce){.surprise-confetti{animation-duration:1.1s}}
+
+/* Botones más pequeños y suaves, sin relieve marcado */
+button,.action,.spotify-link{
+  padding:8px 13px!important;
+  min-height:0;
+  border:1px solid #d9c9ec!important;
+  border-radius:14px!important;
+  background:linear-gradient(180deg,#9878c7 0%,#8664bb 100%)!important;
+  box-shadow:0 2px 7px #60458318!important;
+  text-shadow:none!important;
+  font-size:.88rem!important;
+  font-weight:800!important;
+  transition:background .18s ease,box-shadow .18s ease!important;
+}
+button:hover,.action:hover,.spotify-link:hover{
+  transform:none!important;
+  filter:none!important;
+  background:#8060b4!important;
+  box-shadow:0 3px 9px #60458320!important;
+}
+button:active,.action:active,.spotify-link:active{
+  transform:scale(.99)!important;
+  box-shadow:0 1px 4px #60458318!important;
+}
+.profile-shortcut.member-cover{
+  border:1px solid #e8d9f4!important;
+  box-shadow:0 2px 9px #60458318!important;
+}
+.profile-shortcut.member-cover:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 4px 12px #60458320!important;
+}
 </style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1 class="army-main-title"><span>ARMY</span> PLAYLIST FINDER</h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
 
 <nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a></div></nav>
