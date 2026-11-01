@@ -183,6 +183,9 @@ button:active,.action:active,.spotify-link:active{
   box-shadow:0 4px 12px #60458320!important;
 }
 
+/* Autocompletado unificado en todos los buscadores */
+#librarySearchPanel .song-autocomplete{flex:2;min-width:150px}
+.reset-controls .song-autocomplete{flex:1;min-width:150px}
 /* Autocompletado de canciones y streams opcionales */
 .song-request-row{grid-template-columns:minmax(0,1fr) 125px auto;align-items:start}
 .song-autocomplete{position:relative;min-width:0}
@@ -219,7 +222,7 @@ button:active,.action:active,.spotify-link:active{
 <details class="panel reset-times" id="spotifyResetTimes">
 <summary>Horarios de reinicio diario de Spotify</summary>
 <p class="hint">El día de estadísticas de Spotify for Artists cambia a las 00:00 UTC. Busca un país, consulta la hora en su ciudad y cuánto falta para el próximo reinicio.</p>
-<div class="reset-controls"><input id="resetCountrySearch" type="search" placeholder="Buscar país o ciudad…" aria-label="Buscar país o ciudad"><label class="reset-format-label">Formato horario<select id="resetTimeFormat" aria-label="Formato horario"><option value="24">24 horas</option><option value="12">12 horas</option></select></label></div>
+<div class="reset-controls"><div class="song-autocomplete"><input id="resetCountrySearch" type="search" autocomplete="off" placeholder="Buscar país o ciudad…" aria-label="Buscar país o ciudad" aria-autocomplete="list" aria-controls="resetCountrySuggestions" aria-expanded="false"><div id="resetCountrySuggestions" class="song-suggestions" role="listbox" hidden></div></div><label class="reset-format-label">Formato horario<select id="resetTimeFormat" aria-label="Formato horario"><option value="24">24 horas</option><option value="12">12 horas</option></select></label></div>
 <div class="reset-highlight"><strong>Próximo reinicio global: 00:00 UTC</strong><span id="resetGlobalCountdown">Calculando…</span></div>
 <div class="reset-list-wrap" id="spotifyResetRows" aria-live="polite"></div>
 <p class="hint" id="resetNoResults" hidden>No se encontraron países o ciudades con esa búsqueda.</p>
@@ -228,7 +231,7 @@ button:active,.action:active,.spotify-link:active{
 </details>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0"><button class="action" id="toggleComboCatalog" type="button" aria-expanded="false" aria-controls="comboCatalog">Ver combos de playlists</button></div><section class="panel" id="randomComboResult" hidden aria-live="polite"><h2> Tu combo sorpresa</h2><div id="randomComboCard" class="combo-catalog"></div></section><section class="panel" id="comboCatalog" hidden><h2> Combos de playlists</h2><p class="hint">Playlists que se complementan para cubrir objetivos de streaming. Las duraciones totales suman la reproducción consecutiva de las listas.</p><div id="comboCards" class="combo-catalog"></div></section>
 <section class="panel" id="schedulePanel"><h2> Mi horario personalizado</h2><div class="schedule"><label class="field">Hora de inicio<input id="startTime" type="time" value="18:00"></label><label class="field">Hora de término<input id="endTime" type="time" value="20:00"></label><button class="action" id="makeSchedule" type="button">Crear mi horario</button></div><div class="schedule-result" id="scheduleResult" aria-live="polite"></div><p class="hint">Elige a qué hora empiezas y terminas; calcularemos cuánto tiempo tienes para tu playlist.</p></section>
-<section class="panel" id="songSearchPanel"><h2> Buscador por canción y streams</h2><div class="request-row song-request-row"><div class="song-autocomplete"><input id="songInput" type="search" autocomplete="off" placeholder="Busca una canción (ej. Like Crazy)" aria-label="Nombre de la canción" aria-autocomplete="list" aria-controls="songSuggestions" aria-expanded="false"><div id="songSuggestions" class="song-suggestions" role="listbox" hidden></div></div><input id="playsInput" type="number" min="1" max="100" value="" placeholder="Opcional" aria-label="Streams deseados (opcional)"><button class="action" id="addRequest" type="button">Buscar</button></div><label class="field" style="margin-top:10px">Versión de SWIM (opcional)<select id="swimVersion" style="padding:12px;border:2px solid var(--lilac);border-radius:14px;background:white;color:var(--ink);font:inherit;font-weight:800"><option value="all">Todas las versiones (suma SWIM)</option><option value="Swim ARIRANG Clean">ARIRANG Clean</option><option value="Swim ARIRANG Explicit">ARIRANG Explicit</option><option value="Swim KEEP SWIMMING">KEEP SWIMMING</option><option value="Swim Underwater">Underwater</option><option value="Swim Instrumental">Instrumental</option><option value="Swim Spring Waves">Spring Waves</option></select></label><p class="hint">Para SWIM, deja “Todas las versiones” para sumar sus reproducciones como siempre, o elige una versión para buscarla por separado.</p><p class="hint">Agrega canciones y, si quieres, indica cuántas repeticiones necesitas. Si dejas ese campo vacío, buscaremos la canción sin filtrar por streams.</p><div id="requestList" class="request-list"></div></section><section class="panel" id="minutesFilterPanel"><h2> Buscador por minutos</h2><div class="request-row hour-filter"><label class="field">Horas mínimas<input id="minHours" type="number" min="0" max="24" step="0.5" placeholder="0"></label><label class="field">Horas máximas<input id="maxHours" type="number" min="0" max="24" step="0.5" placeholder="24"></label><button class="action" id="clearHours" type="button">Buscar</button></div><p class="hint">Filtra las playlists según su duración, indicando las horas mínimas y máximas.</p></section><section class="panel" id="librarySearchPanel"><h2> Buscar por artista, álbum o mix</h2><div class="request-row"><label class="field">Categoría<select id="librarySearchType"><option value="artist">Artista</option><option value="album">Álbum</option><option value="mix">Mix</option></select></label><label class="field" style="flex:2">Buscar<input id="librarySearchInput" type="search" placeholder="Ej. RM, ARIRANG o Agust D mix" aria-label="Buscar artista, álbum o mix"></label><button class="action" id="librarySearchButton" type="button">Buscar</button></div><p class="hint">Encuentra playlists por integrante o artista, álbum y mixes incluidos en el catálogo.</p></section><section class="panel" id="searchResultsPanel"><h2> Resultados</h2><div id="matches" class="results" aria-live="polite"><div class="empty">Añade una canción o elige un rango de horas para encontrar playlists. </div></div><div id="comboResult"></div></section><div class="footer">Hecho con  por y para ARMY · Las playlists son sugerencias de planificación.</div><section class="panel" id="musicatProgress" aria-labelledby="musicatTitle">
+<section class="panel" id="songSearchPanel"><h2> Buscador por canción y streams</h2><div class="request-row song-request-row"><div class="song-autocomplete"><input id="songInput" type="search" autocomplete="off" placeholder="Busca una canción (ej. Like Crazy)" aria-label="Nombre de la canción" aria-autocomplete="list" aria-controls="songSuggestions" aria-expanded="false"><div id="songSuggestions" class="song-suggestions" role="listbox" hidden></div></div><input id="playsInput" type="number" min="1" max="100" value="" placeholder="Opcional" aria-label="Streams deseados (opcional)"><button class="action" id="addRequest" type="button">Buscar</button></div><label class="field" style="margin-top:10px">Versión de SWIM (opcional)<select id="swimVersion" style="padding:12px;border:2px solid var(--lilac);border-radius:14px;background:white;color:var(--ink);font:inherit;font-weight:800"><option value="all">Todas las versiones (suma SWIM)</option><option value="Swim ARIRANG Clean">ARIRANG Clean</option><option value="Swim ARIRANG Explicit">ARIRANG Explicit</option><option value="Swim KEEP SWIMMING">KEEP SWIMMING</option><option value="Swim Underwater">Underwater</option><option value="Swim Instrumental">Instrumental</option><option value="Swim Spring Waves">Spring Waves</option></select></label><p class="hint">Para SWIM, deja “Todas las versiones” para sumar sus reproducciones como siempre, o elige una versión para buscarla por separado.</p><p class="hint">Agrega canciones y, si quieres, indica cuántas repeticiones necesitas. Si dejas ese campo vacío, buscaremos la canción sin filtrar por streams.</p><div id="requestList" class="request-list"></div></section><section class="panel" id="minutesFilterPanel"><h2> Buscador por minutos</h2><div class="request-row hour-filter"><label class="field">Horas mínimas<input id="minHours" type="number" min="0" max="24" step="0.5" placeholder="0"></label><label class="field">Horas máximas<input id="maxHours" type="number" min="0" max="24" step="0.5" placeholder="24"></label><button class="action" id="clearHours" type="button">Buscar</button></div><p class="hint">Filtra las playlists según su duración, indicando las horas mínimas y máximas.</p></section><section class="panel" id="librarySearchPanel"><h2> Buscar por artista, álbum o mix</h2><div class="request-row"><label class="field">Categoría<select id="librarySearchType"><option value="artist">Artista</option><option value="album">Álbum</option><option value="mix">Mix</option></select></label><label class="field" style="flex:2">Buscar<div class="song-autocomplete"><input id="librarySearchInput" type="search" autocomplete="off" placeholder="Ej. RM, ARIRANG o Agust D mix" aria-label="Buscar artista, álbum o mix" aria-autocomplete="list" aria-controls="librarySearchSuggestions" aria-expanded="false"><div id="librarySearchSuggestions" class="song-suggestions" role="listbox" hidden></div></div></label><button class="action" id="librarySearchButton" type="button">Buscar</button></div><p class="hint">Encuentra playlists por integrante o artista, álbum y mixes incluidos en el catálogo.</p></section><section class="panel" id="searchResultsPanel"><h2> Resultados</h2><div id="matches" class="results" aria-live="polite"><div class="empty">Añade una canción o elige un rango de horas para encontrar playlists. </div></div><div id="comboResult"></div></section><div class="footer">Hecho con  por y para ARMY · Las playlists son sugerencias de planificación.</div><section class="panel" id="musicatProgress" aria-labelledby="musicatTitle">
 <h2 id="musicatTitle"> Lleva tu registro de reproducciones</h2>
 <p>Vincula tu cuenta de Spotify con Musicat para registrar tus escuchas y consultar tu historial y estadísticas personales.</p>
 <a class="spotify-link" href="https://musicat.fm/" target="_blank" rel="noopener noreferrer">Vincular Spotify con Musicat </a>
@@ -345,6 +348,40 @@ function renderLibrarySearch(){
  }).join("");
  $("searchResultsPanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
+function attachSuggestions(inputId,listId,getItems,onPick){
+ const input=$(inputId),list=$(listId);let active=-1;
+ const hide=()=>{list.hidden=true;input.setAttribute("aria-expanded","false");active=-1};
+ const draw=()=>{
+  const q=norm(input.value);list.innerHTML="";
+  if(!q){hide();return}
+  const items=[...new Set(getItems())].map(label=>({label,key:norm(label)}))
+   .filter(x=>x.key.includes(q))
+   .sort((a,b)=>(a.key.startsWith(q)?0:1)-(b.key.startsWith(q)?0:1)||a.label.localeCompare(b.label,"es")).slice(0,8);
+  if(!items.length){hide();return}
+  items.forEach((item,i)=>{const b=document.createElement("button");b.type="button";b.className="song-suggestion";b.role="option";b.textContent=item.label;b.addEventListener("click",()=>{input.value=item.label;hide();onPick?.();input.focus()});list.appendChild(b)});
+  list.hidden=false;input.setAttribute("aria-expanded","true");
+ };
+ input.addEventListener("input",()=>{draw();onPick?.()});
+ input.addEventListener("keydown",e=>{
+  const opts=[...list.querySelectorAll(".song-suggestion")];
+  if(e.key==="ArrowDown"&&opts.length){e.preventDefault();active=(active+1)%opts.length}
+  else if(e.key==="ArrowUp"&&opts.length){e.preventDefault();active=(active-1+opts.length)%opts.length}
+  else if(e.key==="Enter"&&active>=0&&opts[active]){e.preventDefault();opts[active].click();return}
+  else if(e.key==="Escape"){hide();return}
+  else return;
+  opts.forEach((o,i)=>o.classList.toggle("active",i===active));opts[active]?.scrollIntoView({block:"nearest"});
+ });
+ document.addEventListener("click",e=>{if(!e.target.closest("#"+inputId)&&!e.target.closest("#"+listId))hide()});
+}
+const librarySuggestions=()=>{
+ const type=$("librarySearchType").value;
+ if(type==="album")return ["ARIRANG","Indigo","MUSE","Sencillo","GOLDEN","ECHO","D-DAY",...Object.values(soloTrackAlbums)];
+ if(type==="artist")return ["BTS","OT7","RM","Jin","SUGA","Agust D","J-Hope","Hoseok","Jimin","V","Jung Kook","Jungkook"];
+ return [...new Set(playlists.flatMap(p=>[p[0],...p[4].filter(t=>/mix/i.test(t))]))];
+};
+attachSuggestions("librarySearchInput","librarySearchSuggestions",librarySuggestions,()=>{});
+attachSuggestions("resetCountrySearch","resetCountrySuggestions",()=>resetZones.flatMap(z=>[z[0],z[1],z[0]+" · "+z[1]]),renderSpotifyResetTimes);
+$("librarySearchType").addEventListener("change",()=>{$("librarySearchInput").value="";$("librarySearchSuggestions").hidden=true;$("librarySearchInput").setAttribute("aria-expanded","false")});
 $("librarySearchButton").addEventListener("click",renderLibrarySearch);
 $("librarySearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")renderLibrarySearch()});
 $("clearHours").addEventListener("click",()=>renderMatches("minutes"));
