@@ -183,6 +183,12 @@ button:active,.action:active,.spotify-link:active{
   box-shadow:0 4px 12px #60458320!important;
 }
 
+/* Ajuste de buscadores para que respeten el ancho de sus contenedores */
+.song-autocomplete,.field,.request-row,.reset-controls{min-width:0;max-width:100%}
+.song-autocomplete>input,.field input,.request-row input,.reset-controls input{width:100%;min-width:0;max-width:100%;font-size:clamp(.78rem,2.5vw,.95rem);padding:10px 11px}
+#librarySearchPanel .song-autocomplete{flex:1 1 0;min-width:0}
+.reset-controls .song-autocomplete{flex:1 1 220px;min-width:0}
+@media(max-width:560px){.request-row{grid-template-columns:minmax(0,1fr) minmax(76px,100px) auto;gap:7px}.song-request-row{grid-template-columns:minmax(0,1fr) minmax(76px,95px)}.song-request-row #addRequest{grid-column:1/-1}#librarySearchPanel .request-row{grid-template-columns:minmax(0,1fr)}#librarySearchPanel .field{width:100%}.reset-controls{gap:7px}.reset-controls .song-autocomplete{flex-basis:100%}}
 /* Autocompletado unificado en todos los buscadores */
 #librarySearchPanel .song-autocomplete{flex:2;min-width:150px}
 .reset-controls .song-autocomplete{flex:1;min-width:150px}
@@ -329,7 +335,7 @@ function renderLibrarySearch(){
  const hits=playlists.filter(p=>{
   const group=norm(p[3]),title=norm(p[0]),tracks=norm(p[4].join(" "));
   if(type==="artist"){
-   const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope"};
+   const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope","jungkook":"combo jungkook","jung kook":"combo jungkook"};
    const target=norm(aliases[query]||query);
    return group.includes(target)||title.includes(target);
   }
