@@ -69,10 +69,12 @@ header{animation:lavenderRise .75s ease both}
 <p class="dashboard-note">Pequeños pasos, muchas reproducciones. ¡Fighting, ARMY! </p>
 </section>
 <details class="panel reset-times" id="spotifyResetTimes">
-<summary>Horarios de reinicio diario de Spotify por país</summary>
-<p class="hint">El día de estadísticas de Spotify for Artists cambia a las 00:00 UTC. La hora local se calcula automáticamente para el próximo reinicio, incluidos los cambios de horario de verano.</p>
-<div class="reset-highlight"><strong>Referencia UTC: 00:00</strong><span>Ciudad de México: 18:00 · Corea del Sur: 09:00</span></div>
-<div class="reset-table-wrap"><table class="reset-table"><thead><tr><th>País / región</th><th>Ciudad de referencia</th><th>Hora local</th></tr></thead><tbody id="spotifyResetRows"></tbody></table></div>
+<summary>Horarios de reinicio diario de Spotify</summary>
+<p class="hint">El día de estadísticas de Spotify for Artists cambia a las 00:00 UTC. Busca un país, consulta la hora en su ciudad y cuánto falta para el próximo reinicio.</p>
+<div class="reset-controls"><input id="resetCountrySearch" type="search" placeholder="Buscar país o ciudad…" aria-label="Buscar país o ciudad"><label class="reset-format-label">Formato horario<select id="resetTimeFormat" aria-label="Formato horario"><option value="24">24 horas</option><option value="12">12 horas</option></select></label></div>
+<div class="reset-highlight"><strong>Próximo reinicio global: 00:00 UTC</strong><span id="resetGlobalCountdown">Calculando…</span></div>
+<div class="reset-table-wrap"><table class="reset-table"><thead><tr><th>País</th><th>Ciudad</th><th>Hora local ahora</th><th>Reinicio local</th><th>Falta</th></tr></thead><tbody id="spotifyResetRows"></tbody></table></div>
+<p class="hint" id="resetNoResults" hidden>No se encontraron países o ciudades con esa búsqueda.</p>
 <p class="hint">Las horas muestran el cambio de día estadístico (00:00 UTC), no la hora en que Spotify termina de actualizar y mostrar las estadísticas. La actualización visible suele ocurrir después.</p>
 <p class="hint">Fuente: <a href="https://support.spotify.com/na-en/artists/article/time-zone-for-stats-in-spotify-for-artists/" target="_blank" rel="noopener">Spotify for Artists · Zona horaria de las estadísticas</a>.</p>
 </details>
@@ -130,12 +132,24 @@ $("makeSchedule").addEventListener("click",()=>{const start=$("startTime").value
 
 
 const resetZones=[
-["México","Ciudad de México","America/Mexico_City"],["Estados Unidos","Nueva York","America/New_York"],["Estados Unidos","Los Ángeles","America/Los_Angeles"],["Canadá","Toronto","America/Toronto"],["Canadá","Vancouver","America/Vancouver"],["Brasil","São Paulo","America/Sao_Paulo"],["Argentina","Buenos Aires","America/Argentina/Buenos_Aires"],["Chile","Santiago","America/Santiago"],["Colombia","Bogotá","America/Bogota"],["Perú","Lima","America/Lima"],["Venezuela","Caracas","America/Caracas"],["Reino Unido","Londres","Europe/London"],["Irlanda","Dublín","Europe/Dublin"],["España","Madrid","Europe/Madrid"],["Francia","París","Europe/Paris"],["Alemania","Berlín","Europe/Berlin"],["Italia","Roma","Europe/Rome"],["Países Bajos","Ámsterdam","Europe/Amsterdam"],["Portugal","Lisboa","Europe/Lisbon"],["Turquía","Estambul","Europe/Istanbul"],["Egipto","El Cairo","Africa/Cairo"],["Sudáfrica","Johannesburgo","Africa/Johannesburg"],["Nigeria","Lagos","Africa/Lagos"],["Kenia","Nairobi","Africa/Nairobi"],["Emiratos Árabes Unidos","Dubái","Asia/Dubai"],["India","Nueva Delhi","Asia/Kolkata"],["Pakistán","Karachi","Asia/Karachi"],["Bangladés","Daca","Asia/Dhaka"],["Tailandia","Bangkok","Asia/Bangkok"],["Vietnam","Ciudad Ho Chi Minh","Asia/Ho_Chi_Minh"],["Indonesia","Yakarta","Asia/Jakarta"],["Singapur","Singapur","Asia/Singapore"],["China","Pekín","Asia/Shanghai"],["Hong Kong","Hong Kong","Asia/Hong_Kong"],["Taiwán","Taipéi","Asia/Taipei"],["Filipinas","Manila","Asia/Manila"],["Malasia","Kuala Lumpur","Asia/Kuala_Lumpur"],["Japón","Tokio","Asia/Tokyo"],["Corea del Sur","Seúl","Asia/Seoul"],["Australia","Sídney","Australia/Sydney"],["Australia","Perth","Australia/Perth"],["Nueva Zelanda","Auckland","Pacific/Auckland"]];
+["México","Ciudad de México","America/Mexico_City","🇲🇽"],["Estados Unidos","Nueva York","America/New_York","🇺🇸"],["Estados Unidos","Los Ángeles","America/Los_Angeles","🇺🇸"],["Canadá","Toronto","America/Toronto","🇨🇦"],["Canadá","Vancouver","America/Vancouver","🇨🇦"],["Brasil","São Paulo","America/Sao_Paulo","🇧🇷"],["Argentina","Buenos Aires","America/Argentina/Buenos_Aires","🇦🇷"],["Chile","Santiago","America/Santiago","🇨🇱"],["Colombia","Bogotá","America/Bogota","🇨🇴"],["Perú","Lima","America/Lima","🇵🇪"],["Venezuela","Caracas","America/Caracas","🇻🇪"],["Reino Unido","Londres","Europe/London","🇬🇧"],["Irlanda","Dublín","Europe/Dublin","🇮🇪"],["España","Madrid","Europe/Madrid","🇪🇸"],["Francia","París","Europe/Paris","🇫🇷"],["Alemania","Berlín","Europe/Berlin","🇩🇪"],["Italia","Roma","Europe/Rome","🇮🇹"],["Países Bajos","Ámsterdam","Europe/Amsterdam","🇳🇱"],["Portugal","Lisboa","Europe/Lisbon","🇵🇹"],["Turquía","Estambul","Europe/Istanbul","🇹🇷"],["Egipto","El Cairo","Africa/Cairo","🇪🇬"],["Sudáfrica","Johannesburgo","Africa/Johannesburg","🇿🇦"],["Nigeria","Lagos","Africa/Lagos","🇳🇬"],["Kenia","Nairobi","Africa/Nairobi","🇰🇪"],["Emiratos Árabes Unidos","Dubái","Asia/Dubai","🇦🇪"],["India","Nueva Delhi","Asia/Kolkata","🇮🇳"],["Pakistán","Karachi","Asia/Karachi","🇵🇰"],["Bangladés","Daca","Asia/Dhaka","🇧🇩"],["Tailandia","Bangkok","Asia/Bangkok","🇹🇭"],["Vietnam","Ciudad Ho Chi Minh","Asia/Ho_Chi_Minh","🇻🇳"],["Indonesia","Yakarta","Asia/Jakarta","🇮🇩"],["Singapur","Singapur","Asia/Singapore","🇸🇬"],["China","Pekín","Asia/Shanghai","🇨🇳"],["Hong Kong","Hong Kong","Asia/Hong_Kong","🇭🇰"],["Taiwán","Taipéi","Asia/Taipei","🇹🇼"],["Filipinas","Manila","Asia/Manila","🇵🇭"],["Malasia","Kuala Lumpur","Asia/Kuala_Lumpur","🇲🇾"],["Japón","Tokio","Asia/Tokyo","🇯🇵"],["Corea del Sur","Seúl","Asia/Seoul","🇰🇷"],["Australia","Sídney","Australia/Sydney","🇦🇺"],["Australia","Perth","Australia/Perth","🇦🇺"],["Nueva Zelanda","Auckland","Pacific/Auckland","🇳🇿"]];
+let resetClockFormat="24";
+function resetNextUtc(now){return new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1,0,0,0))}
+function resetClock(date,zone){return new Intl.DateTimeFormat("es-MX",{timeZone:zone,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:resetClockFormat==="24"?"h23":"h12"}).format(date)}
+function resetCountdown(ms){const total=Math.max(0,Math.floor(ms/1000)),h=Math.floor(total/3600),m=Math.floor(total%3600/60),sec=total%60;return h+" h "+String(m).padStart(2,"0")+" min "+String(sec).padStart(2,"0")+" s"}
 function renderSpotifyResetTimes(){
- const now=new Date(),next=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1,0,0,0));
- const fmt=new Intl.DateTimeFormat("es-MX",{hour:"2-digit",minute:"2-digit",hourCycle:"h23",timeZone:"UTC"});
- const rows=resetZones.map(([country,city,zone])=>{const time=new Intl.DateTimeFormat("es-MX",{timeZone:zone,hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(next);return "<tr><td>"+country+"</td><td>"+city+"</td><td>"+time+"</td></tr>"}).join("");
+ const now=new Date(),next=resetNextUtc(now),remaining=next-now;
+ $("resetGlobalCountdown").textContent="Faltan "+resetCountdown(remaining);
+ const query=$("resetCountrySearch").value.trim().toLocaleLowerCase("es");
+ const rows=resetZones.filter(([country,city])=>(country+" "+city).toLocaleLowerCase("es").includes(query)).map(([country,city,zone,flag])=>{
+ const resetTime=resetClock(next,zone),localNow=resetClock(now,zone);
+ return "<tr><td><span class=\"reset-flag\" aria-hidden=\"true\">"+flag+"</span>"+country+"</td><td>"+city+"</td><td>"+localNow+"</td><td>"+resetTime+"</td><td class=\"reset-countdown\">"+resetCountdown(remaining)+"</td></tr>";
+ }).join("");
  $("spotifyResetRows").innerHTML=rows;
+ $("resetNoResults").hidden=!!rows;
 }
+$("resetCountrySearch").addEventListener("input",renderSpotifyResetTimes);
+$("resetTimeFormat").addEventListener("change",e=>{resetClockFormat=e.target.value;renderSpotifyResetTimes()});
 renderSpotifyResetTimes();
+const spotifyResetTicker=setInterval(renderSpotifyResetTimes,1000);
 </script></body></html>
