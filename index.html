@@ -54,15 +54,7 @@ body{padding-bottom:30px}
 
 /* Liquid glass lavanda global + botones estilo glossy */
 body{
- background-image:url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%237650b8%22%20stroke-width%3D%222.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.78%22%3E%3Cg%20transform%3D%22translate(18%2018)%20rotate(-12%2017%2024)%22%3E%3Cpath%20d%3D%22M17%202C8%202%202%209%202%2018c0%207%204%2012%209%2015v10h12V33c5-3%209-8%209-15C32%209%2026%202%2017%202Z%22%2F%3E%3Cpath%20d%3D%22M11%2043h12v5H11zM14%2048h6v5h-6z%22%2F%3E%3Cpath%20d%3D%22M9%2017c1-5%204-8%208-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(101%2012)%20rotate(14%2017%2024)%20scale(.82)%22%3E%3Cpath%20d%3D%22M17%202C8%202%202%209%202%2018c0%207%204%2012%209%2015v10h12V33c5-3%209-8%209-15C32%209%2026%202%2017%202Z%22%2F%3E%3Cpath%20d%3D%22M11%2043h12v5H11zM14%2048h6v5h-6z%22%2F%3E%3Cpath%20d%3D%22M9%2017c1-5%204-8%208-9%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(57%20103)%20rotate(8%2017%2024)%20scale(.72)%22%3E%3Cpath%20d%3D%22M17%202C8%202%202%209%202%2018c0%207%204%2012%209%2015v10h12V33c5-3%209-8%209-15C32%209%2026%202%2017%202Z%22%2F%3E%3Cpath%20d%3D%22M11%2043h12v5H11zM14%2048h6v5h-6z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22m75%2030%202%204%204%201-4%202-2%204-2-4-4-2%204-1zM35%20112l2%204%204%201-4%202-2%204-2-4-4-2%204-1zM132%2091l2%204%204%201-4%202-2%204-2-4-4-2%204-1z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E'),
- radial-gradient(ellipse at 12% 8%,#d8c5f7b8 0,transparent 38%),
- radial-gradient(ellipse at 88% 22%,#b99be8a8 0,transparent 36%),
- radial-gradient(ellipse at 50% 92%,#e8d9ffb8 0,transparent 42%),
- linear-gradient(135deg,#f7f0ff 0%,#eee4ff 48%,#f8f2ff 100%)!important;
- background-size:124px 124px,auto,auto,auto,auto!important;
- background-repeat:repeat,no-repeat,no-repeat,no-repeat,no-repeat!important;
- background-attachment:fixed!important;
-}
+ }
 body:before{
  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
  background:radial-gradient(ellipse at 50% 45%,#ffffff38,transparent 65%);
@@ -111,14 +103,6 @@ button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
 .site-index a:hover{background:rgba(255,255,255,.48)!important}
 @supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){.site-index{background:linear-gradient(135deg,#e7d8ff,#c7a8f2)!important}}
 
-/* Tapiz ARMY Bomb visible sobre el fondo y detrás del contenido */
-body{position:relative;isolation:isolate}
-body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.72;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%237650b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(8 8) scale(.72)'%3E%3Cpath d='M24 3C12 3 4 12 4 23c0 8 5 14 12 18v13h16V41c7-4 12-10 12-18C44 12 36 3 24 3Z'/%3E%3Cpath d='M16 54h16v7H16zM20 61h8v8h-8zM14 21c2-7 6-11 12-13'/%3E%3C/g%3E%3Cg transform='translate(65 57) rotate(18 18 25) scale(.62)'%3E%3Cpath d='M24 3C12 3 4 12 4 23c0 8 5 14 12 18v13h16V41c7-4 12-10 12-18C44 12 36 3 24 3Z'/%3E%3Cpath d='M16 54h16v7H16zM20 61h8v8h-8zM14 21c2-7 6-11 12-13'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");background-size:112px 112px;background-repeat:repeat}
-.page{position:relative;z-index:1}
-
-.army-main-title{color:#55218f!important;font-family:Georgia,"Palatino Linotype",serif;font-weight:900;letter-spacing:.045em;text-transform:uppercase;text-shadow:0 2px 0 #fff,0 5px 14px #7650b855}
-.army-main-title span{color:#55218f!important}
-@media(max-width:520px){.army-main-title{letter-spacing:.015em;font-size:clamp(1.8rem,8vw,2.8rem)}}
 </style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1 class="army-main-title">ARMY PLAYLIST FINDER</h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
 
 <nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a></div></nav>
