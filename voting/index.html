@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#24133d">
+<meta name="description" content="BTS Voting Center: votaciones activas, próximos eventos, fechas límite, rankings y enlaces oficiales para BTS y sus siete integrantes.">
+<title>BTS VOTING CENTER 💜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4edff;--ink:#39264f;--muted:#86759b;--purple:#7048ad;--purple2:#9b79d0;--red:#b9233c;--red2:#e14b5e;--glass:#ffffffbd;--line:#ffffffed;--shadow:0 14px 35px #432b6420}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Nunito,system-ui,sans-serif;background:radial-gradient(circle at 8% 5%,#d7bdffb8,transparent 25rem),radial-gradient(circle at 95% 24%,#f0b8c5a6,transparent 24rem),radial-gradient(circle at 50% 100%,#e2d4ff,transparent 32rem),var(--bg);min-height:100vh}
+a{color:inherit}.wrap{width:min(1120px,calc(100% - 28px));margin:auto;padding:20px 0 56px}
+.hero{position:relative;overflow:hidden;text-align:center;padding:34px 20px 28px;border-radius:32px;background:linear-gradient(145deg,#281641,#3b205e 58%,#552044);color:white;box-shadow:0 20px 45px #321b4b38}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}.hero:before{width:220px;height:220px;right:-65px;top:-100px;background:#d54b6540}.hero:after{width:190px;height:190px;left:-75px;bottom:-110px;background:#a986e650}
+.era{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid #ffffff50;border-radius:99px;background:#ffffff14;color:#ffd9df;font-size:.72rem;font-weight:900;letter-spacing:.14em}
+h1{position:relative;margin:17px 0 7px;font-size:clamp(2.4rem,7vw,4.9rem);line-height:.98;letter-spacing:-.055em;font-weight:900}
+h1 span{display:block;color:#e5d3ff;font-size:.58em;letter-spacing:.13em;margin-top:9px}
+.hero p{position:relative;margin:13px auto 0;max-width:560px;color:#e9def7;font-weight:700}
+.hero-stats{position:relative;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}.stat{padding:9px 14px;border-radius:14px;background:#ffffff15;border:1px solid #ffffff24;font-size:.8rem;font-weight:900}
+nav{position:sticky;top:8px;z-index:10;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:15px auto 20px;padding:9px;border:1px solid #ffffffd9;border-radius:20px;background:#fdfaffd9;backdrop-filter:blur(16px);box-shadow:0 8px 24px #49336516}
+nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;font-weight:900;color:#70588e}nav a:hover{background:#eee4ff;color:#4d2e78}
+.panel{margin:18px 0;padding:clamp(17px,3.5vw,26px);border:1px solid var(--line);border-radius:27px;background:var(--glass);backdrop-filter:blur(13px);box-shadow:var(--shadow)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:16px}.section-head h2{margin:0;font-size:1.35rem;font-weight:900}.section-head p{margin:4px 0 0;color:var(--muted);font-size:.83rem;font-weight:700}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:6px 10px;background:#eee5fb;color:#684b91;font-size:.7rem;font-weight:900;letter-spacing:.04em}.pill.live{background:#fbe0e5;color:#a51e38}.pill.soon{background:#eee7ff;color:#69469a}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.filter{border:1px solid #d9c8ef;border-radius:99px;padding:8px 13px;background:#fff9;color:#715a8e;font:900 .78rem Nunito;cursor:pointer}.filter.active{background:var(--purple);border-color:var(--purple);color:white;box-shadow:0 4px 10px #7048ad35}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.vote-card{position:relative;overflow:hidden;padding:18px;border-radius:22px;background:linear-gradient(145deg,#fff,#f5efff);border:1px solid #fff;box-shadow:0 8px 22px #54377b12;display:flex;flex-direction:column;gap:10px}.vote-card:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:linear-gradient(var(--red),#ef8994)}.vote-card h3{margin:0;font-size:1.08rem;font-weight:900}.vote-card .meta{color:var(--muted);font-size:.79rem;font-weight:800}.vote-card .description{margin:0;color:#6e5d81;font-size:.88rem;font-weight:700;line-height:1.5}.card-top{display:flex;justify-content:space-between;align-items:start;gap:10px}.deadline{display:flex;align-items:center;gap:7px;padding:9px 11px;border-radius:13px;background:#fbe9ed;color:#92243a;font-size:.78rem;font-weight:900}.countdown{margin-top:1px;color:#5b3b80;font-size:.83rem;font-weight:900}.countdown strong{font-size:1.15rem;color:var(--red)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:3px}.btn{display:inline-flex;justify-content:center;align-items:center;text-decoration:none;border:0;border-radius:12px;padding:10px 14px;background:var(--purple);color:white;font:900 .82rem Nunito;box-shadow:0 4px 0 #4e317e;cursor:pointer}.btn:hover{background:#855fc0}.btn.secondary{background:#f5e9ed;color:#92243a;box-shadow:0 4px 0 #e4c0ca}
+.empty{grid-column:1/-1;padding:22px;border-radius:18px;background:#fff9;text-align:center;color:var(--muted);font-weight:800}
+.ranking-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.rank{padding:16px;border:1px solid white;border-radius:19px;background:linear-gradient(145deg,#fff,#f2eaff);box-shadow:0 7px 18px #54377b12}.rank .place{font-size:1.8rem;font-weight:900;color:var(--red)}.rank h3{margin:4px 0;font-size:.95rem}.rank p{margin:4px 0;color:var(--muted);font-size:.77rem;font-weight:800;line-height:1.4}.rank a{display:inline-block;margin-top:7px;color:#694a93;font-size:.77rem;font-weight:900}
+.member-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px}.member{padding:12px 5px;border:1px solid #e3d5f3;border-radius:16px;background:linear-gradient(145deg,#fff,#efe5ff);color:#624482;font:900 .83rem Nunito;cursor:pointer}.member:hover,.member.active{background:linear-gradient(145deg,#a988d4,#7148a8);color:white;border-color:#7148a8}.note{margin:13px 0 0;padding:12px 14px;border-radius:14px;background:#fff9;color:#7b6b8d;font-size:.78rem;font-weight:700;line-height:1.5}
+.upcoming{display:grid;grid-template-columns:1fr 1fr;gap:12px}.upcoming-item{padding:16px;border-radius:18px;background:linear-gradient(120deg,#fff,#f1e9ff);border:1px solid white}.upcoming-item h3{margin:0 0 5px;font-size:.98rem}.upcoming-item p{margin:0;color:var(--muted);font-size:.8rem;font-weight:800}
+.footer{text-align:center;color:#8e7da2;font-size:.77rem;font-weight:700;margin-top:24px}.footer a{color:#7048ad}
+@media(max-width:720px){.cards{grid-template-columns:1fr}.ranking-grid{grid-template-columns:1fr 1fr}.member-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.upcoming{grid-template-columns:1fr}}
+@media(max-width:420px){.ranking-grid{grid-template-columns:1fr 1fr}.wrap{width:calc(100% - 20px)}.hero{padding:28px 14px 24px}.stat{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero">
+ <div class="era">❤️ ARIRANG ERA · 2026 💜</div>
+ <h1>BTS <span>VOTING CENTER</span></h1>
+ <p>Un solo lugar para encontrar votaciones, fechas límite y rankings de BTS. Cada voto cuenta.</p>
+ <div class="hero-stats"><div class="stat">💜 BTS GROUP</div><div class="stat">7 MEMBERS</div><div class="stat">🗳️ VOTE TOGETHER</div></div>
+</header>
+<nav aria-label="Navegación"><a href="#active">Activas</a><a href="#upcoming">Próximas</a><a href="#rankings">Rankings</a><a href="#members">Miembros</a></nav>
+
+<section class="panel" id="active">
+ <div class="section-head"><div><h2>🔴 ACTIVE VOTING</h2><p>Votaciones abiertas verificadas al 2 de noviembre de 2026.</p></div><span class="pill live">● EN CURSO</span></div>
+ <div class="filters" id="filters">
+  <button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="group">BTS grupal</button><button class="filter" data-filter="member">Solistas</button>
+ </div>
+ <div class="cards" id="voteCards">
+  <article class="vote-card" data-kind="group">
+   <div class="card-top"><span class="pill live">MAMA 2026</span><span class="pill">BTS · GRUPAL</span></div>
+   <h3>Fans' Choice · 2.ª ronda</h3><div class="meta">Fans' Choice (Bonsang) + VISA Fans' Choice (Daesang)</div>
+   <p class="description">Votación final en Mnet Plus. La ronda 2 está abierta hasta el 8 de noviembre; revisa las reglas y categorías dentro de la plataforma.</p>
+   <div class="deadline">⏰ Cierra: 8 nov · 23:59 KST</div><div class="countdown" data-date="2026-11-08T23:59:00+09:00">Calculando cuenta regresiva…</div>
+   <div class="actions"><a class="btn" href="https://www.mnetplus.world/event/en/2026-mama" target="_blank" rel="noopener">VOTAR EN MNET+</a><a class="btn secondary" href="https://www.mnetplus.world/" target="_blank" rel="noopener">App / plataforma</a></div>
+  </article>
+  <article class="vote-card" data-kind="group">
+   <div class="card-top"><span class="pill live">ARIA AWARDS 2026</span><span class="pill">BTS · GRUPAL</span></div>
+   <h3>Most Popular International Artist</h3><div class="meta">Nominación: BTS · ARIRANG</div>
+   <p class="description">La página oficial confirma que puedes votar una vez al día en esta categoría pública.</p>
+   <div class="deadline">⏰ Cierra: 9 nov · 23:59 AEDT</div><div class="countdown" data-date="2026-11-09T23:59:00+11:00">Calculando cuenta regresiva…</div>
+   <div class="actions"><a class="btn" href="https://www.aria.com.au/vote" target="_blank" rel="noopener">VOTAR EN ARIA</a></div>
+  </article>
+  <article class="vote-card" data-kind="group">
+   <div class="card-top"><span class="pill live">MMA 2026</span><span class="pill">BTS · GRUPAL</span></div>
+   <h3>Global TOP10</h3><div class="meta">Votación internacional · Berriz</div>
+   <p class="description">Únete a la comunidad K-Pop Square en Berriz, selecciona BTS y envía un voto diario por cuenta.</p>
+   <div class="deadline">⏰ Cierra: 13 nov · 23:59 KST</div><div class="countdown" data-date="2026-11-13T23:59:00+09:00">Calculando cuenta regresiva…</div>
+   <div class="actions"><a class="btn" href="https://berriz.in/vote/mma2026" target="_blank" rel="noopener">VOTAR EN BERRIZ</a></div>
+  </article>
+  <article class="vote-card" data-kind="group">
+   <div class="card-top"><span class="pill live">KIDS' CHOICE 2026</span><span class="pill">BTS · GRUPAL</span></div>
+   <h3>3 categorías con BTS</h3><div class="meta">Favorite Music Group or Duo · Favorite Album · Favorite Song</div>
+   <p class="description">BTS aparece en Music Group or Duo; ARIRANG en Favorite Album; SWIM en Favorite Song. La votación oficial está abierta hasta el 13 de noviembre.</p>
+   <div class="deadline">⏰ Cierra: 13 nov · consulta horario regional</div><div class="countdown" data-date="2026-11-14T00:00:00-06:00">Calculando cuenta regresiva…</div>
+   <div class="actions"><a class="btn" href="https://kca.nick.tv/vote/favorite-music-group-or-duo" target="_blank" rel="noopener">GRUPO</a><a class="btn secondary" href="https://kca.nick.tv/vote/favorite-album" target="_blank" rel="noopener">ÁLBUM</a><a class="btn secondary" href="https://kca.nick.tv/vote/favorite-song" target="_blank" rel="noopener">CANCIÓN</a></div>
+  </article>
+  <article class="vote-card" data-kind="group">
+   <div class="card-top"><span class="pill live">ASIA ARTIST AWARDS</span><span class="pill">BTS · GRUPAL</span></div>
+   <h3>AAA Popularity Award · Final</h3><div class="meta">Categoría: Grupo masculino</div>
+   <p class="description">La página oficial muestra la ronda final abierta y un ranking en vivo. Consulta la posición directamente en la web de AAA.</p>
+   <div class="deadline">⏰ Cierra: 4 nov · hora no indicada en la página</div>
+   <div class="actions"><a class="btn" href="https://www.asiaartistawards.com/es/vote?board=artist_group_male" target="_blank" rel="noopener">VOTAR / VER RANKING</a></div>
+  </article>
+ </div>
+ <p class="note">Las fechas están en la zona horaria indicada por cada organizador. Los enlaces llevan a las plataformas oficiales de votación. Los horarios regionales pueden variar; revisa siempre las reglas antes de votar.</p>
+</section>
+
+<section class="panel" id="upcoming">
+ <div class="section-head"><div><h2>🗓️ UPCOMING VOTING</h2><p>Próximos eventos anunciados; se añadirán fechas exactas cuando el organizador las publique.</p></div><span class="pill soon">PRÓXIMAMENTE</span></div>
+ <div class="upcoming">
+  <div class="upcoming-item"><h3>🏆 41st Golden Disc Awards</h3><p>Ventana de votación prevista para diciembre de 2026. Fechas y categorías por confirmar.</p></div>
+  <div class="upcoming-item"><h3>✨ Nuevas votaciones de miembros</h3><p>Sección preparada para añadir campañas individuales de RM, Jin, SUGA, j-hope, Jimin, V y Jung Kook cuando haya una votación activa verificada.</p></div>
+ </div>
+</section>
+
+<section class="panel" id="rankings">
+ <div class="section-head"><div><h2>🏆 RANKINGS & POSITIONS</h2><p>Capturas de posiciones publicadas; no son un marcador automático.</p></div><span class="pill">ÚLTIMAS REFERENCIAS</span></div>
+ <div class="ranking-grid">
+  <article class="rank"><div class="place">#1</div><h3>AAA Popularity Award</h3><p>BTS figura en primer lugar en la categoría Grupo masculino, según el ranking publicado en la página oficial consultada.</p><a href="https://www.asiaartistawards.com/es/vote?board=artist_group_male" target="_blank" rel="noopener">Ver ranking oficial ↗</a></article>
+  <article class="rank"><div class="place">#1 / #3</div><h3>MAMA 2026</h3><p>Fans' Choice (Bonsang) #1 y VISA Fans' Choice (Daesang) #3, reporte comunitario del 1 nov 2026.</p><a href="https://teapaw.org/btsvotingunite" target="_blank" rel="noopener">Fuente: BTS Voting Unite ↗</a></article>
+  <article class="rank"><div class="place">#1</div><h3>MMA 2026 · Global TOP10</h3><p>Posición compartida por equipo de votación el 30 oct 2026; verificar la posición más reciente en Berriz.</p><a href="https://berriz.in/vote/mma2026" target="_blank" rel="noopener">Ver votación ↗</a></article>
+ </div>
+ <p class="note">Los rankings de MAMA y MMA provienen de reportes comunitarios con fecha, no de una API pública oficial. La posición puede cambiar. AAA muestra su propio ranking en vivo; entra al enlace para ver el dato actualizado.</p>
+</section>
+
+<section class="panel" id="members">
+ <div class="section-head"><div><h2>💜 BTS & THE 7 MEMBERS</h2><p>Filtra las votaciones por BTS grupal o por integrante.</p></div></div>
+ <div class="member-grid" id="memberGrid">
+  <button class="member active" data-member="BTS">BTS</button><button class="member" data-member="RM">RM</button><button class="member" data-member="Jin">JIN</button><button class="member" data-member="SUGA">SUGA</button><button class="member" data-member="j-hope">J-HOPE</button><button class="member" data-member="Jimin">JIMIN</button><button class="member" data-member="V">V</button><button class="member" data-member="Jung Kook">JUNG KOOK</button>
+ </div>
+ <p class="note" id="memberNote">Mostrando votaciones grupales de BTS. Selecciona un integrante para consultar campañas individuales verificadas.</p>
+</section>
+<footer class="footer">BTS VOTING CENTER · Fan-made, no afiliado a BIGHIT MUSIC, HYBE ni a las premiaciones.<br>Información revisada: 2 nov 2026 · <a href="https://linktr.ee/btsxarmyvotingteam" target="_blank" rel="noopener">ARMY Voting Team</a> · <a href="https://btsvotingunite.carrd.co/" target="_blank" rel="noopener">BTS Voting Unite</a></footer>
+</main>
+<script>
+const pad=n=>String(n).padStart(2,'0');
+function updateTimers(){document.querySelectorAll('[data-date]').forEach(el=>{const target=new Date(el.dataset.date).getTime(),now=Date.now(),diff=target-now;if(diff<=0){el.textContent='Votación cerrada o en actualización';return}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);el.innerHTML='<strong>'+d+'d '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</strong> restantes';});}
+updateTimers();setInterval(updateTimers,1000);
+const filterButtons=document.querySelectorAll('[data-filter]');filterButtons.forEach(btn=>btn.addEventListener('click',()=>{filterButtons.forEach(b=>b.classList.toggle('active',b===btn));const f=btn.dataset.filter;document.querySelectorAll('.vote-card').forEach(card=>card.hidden=f==='member'?true:f==='group'?card.dataset.kind!=='group':false);if(f==='member')document.getElementById('memberNote').textContent='No hay votaciones individuales verificadas activas en este momento. La sección está lista para añadir campañas de RM, Jin, SUGA, j-hope, Jimin, V y Jung Kook cuando se confirmen.';else document.getElementById('memberNote').textContent='Mostrando votaciones grupales de BTS. Selecciona un integrante para consultar campañas individuales verificadas.';}));
+document.querySelectorAll('[data-member]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-member]').forEach(b=>b.classList.toggle('active',b===btn));const who=btn.dataset.member;document.getElementById('memberNote').textContent=who==='BTS'?'Mostrando votaciones grupales de BTS.': 'No hay votaciones individuales verificadas activas para '+who+' en este momento. Esta sección se actualizará cuando se confirme una campaña.';filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter===(who==='BTS'?'group':'member')));document.querySelectorAll('.vote-card').forEach(card=>card.hidden=who!=='BTS');}));
+</script>
+</body></html>
