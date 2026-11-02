@@ -34,6 +34,26 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
 @media(max-width:720px){.cards{grid-template-columns:1fr}.ranking-grid{grid-template-columns:1fr 1fr}.member-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.upcoming{grid-template-columns:1fr}}
 @media(max-width:420px){.ranking-grid{grid-template-columns:1fr 1fr}.wrap{width:calc(100% - 20px)}.hero{padding:28px 14px 24px}.stat{font-size:.72rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+/* World clock, daily reset guide and member portraits */
+.member-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.member{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:8px;overflow:hidden;text-align:center;border-radius:20px;background:linear-gradient(145deg,#fff,#f1e7ff);box-shadow:0 8px 20px #54377b15;transition:transform .2s,box-shadow .2s}
+.member:hover,.member.active{background:linear-gradient(145deg,#fff0f2,#f3e9ff);color:#55317d;border-color:#c9a9e8;transform:translateY(-3px);box-shadow:0 12px 25px #54377b25}
+.member img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 25%;border-radius:14px;background:#e8def5}
+.member span{display:block;padding:9px 3px 3px;font-size:.9rem;font-weight:900}
+.member small{display:block;color:#9b82b7;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+.world-clock{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.clock-box{padding:16px;border-radius:18px;background:linear-gradient(145deg,#fff,#f1eaff);border:1px solid #fff}
+.clock-box h3{margin:0 0 8px;font-size:.95rem}
+.clock-time{font-size:1.55rem;font-weight:900;color:#6d49a0;letter-spacing:-.03em}
+.clock-detail{margin-top:4px;color:var(--muted);font-size:.78rem;font-weight:800;line-height:1.45}
+.time-select{width:100%;max-width:100%;padding:12px;border:1px solid #d9c8ef;border-radius:13px;background:#fff;color:var(--ink);font:800 .9rem Nunito}
+.time-list{display:grid;gap:9px;margin-top:12px}
+.time-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;border-radius:14px;background:#fff9}
+.time-row strong{display:block;font-size:.84rem}.time-row small{display:block;margin-top:3px;color:var(--muted);font-size:.73rem;font-weight:700}
+.time-row .local{font-size:.9rem;font-weight:900;color:#6b4797;text-align:right}
+@media(max-width:720px){.member-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.world-clock{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body><main class="wrap">
@@ -43,7 +63,7 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
  <p>Un solo lugar para encontrar votaciones, fechas límite y rankings de BTS. Cada voto cuenta.</p>
  <div class="hero-stats"><div class="stat">💜 BTS GROUP</div><div class="stat">7 MEMBERS</div><div class="stat">🗳️ VOTE TOGETHER</div></div>
 </header>
-<nav aria-label="Navegación"><a href="#active">Activas</a><a href="#upcoming">Próximas</a><a href="#rankings">Rankings</a><a href="#members">Miembros</a></nav>
+<nav aria-label="Navegación"><a href="#active">Activas</a><a href="#upcoming">Próximas</a><a href="#rankings">Rankings</a><a href="#members">Miembros</a><a href="#world-clock">Horarios</a></nav>
 
 <section class="panel" id="active">
  <div class="section-head"><div><h2>🔴 ACTIVE VOTING</h2><p>Votaciones abiertas verificadas al 2 de noviembre de 2026.</p></div><span class="pill live">● EN CURSO</span></div>
@@ -111,13 +131,70 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
 <section class="panel" id="members">
  <div class="section-head"><div><h2>💜 BTS & THE 7 MEMBERS</h2><p>Filtra las votaciones por BTS grupal o por integrante.</p></div></div>
  <div class="member-grid" id="memberGrid">
-  <button class="member active" data-member="BTS">BTS</button><button class="member" data-member="RM">RM</button><button class="member" data-member="Jin">JIN</button><button class="member" data-member="SUGA">SUGA</button><button class="member" data-member="j-hope">J-HOPE</button><button class="member" data-member="Jimin">JIMIN</button><button class="member" data-member="V">V</button><button class="member" data-member="Jung Kook">JUNG KOOK</button>
+  <button class="member active" data-member="BTS"><span style="font-size:1.2rem">💜 BTS</span><small>Group</small></button>
+  <button class="member" data-member="RM"><img loading="lazy" src="https://phinf.wevpstatic.net/MjAyNjAzMTNfNDUg/MDAxNzczMzc0NDAxMzcy.5fvt1-HiKhlB68QmY5QTWaJqqR13uLYtogENGCs6hoQg.-uLELHKXg26v5SU5xd0CPkDi_vd1WMDtV5czzVDYCykg.JPEG/Weverse_2cc12.jpg?type=w670" alt="RM"><span>RM</span><small>Leader</small></button>
+  <button class="member" data-member="Jin"><img loading="lazy" src="https://wimg.sedaily.com/news/cms/2026/03/21/news-p.v1.20260321.ad7b200f8b23423ca506ee6be51247b5_P1.jpg" alt="Jin"><span>JIN</span><small>Member</small></button>
+  <button class="member" data-member="SUGA"><img loading="lazy" src="https://wimg.sedaily.com/news/cms/2026/03/20/news-p.v1.20260320.b4e69168ea3341d58797ff7e8e3c0e2f_P1.jpg" alt="SUGA"><span>SUGA</span><small>Member</small></button>
+  <button class="member" data-member="j-hope"><img loading="lazy" src="https://wimg.sedaily.com/news/cms/2026/04/09/news-p.v1.20260321.4bdbfc9d9b9543ab998e3ef443b4df79_P1.jpg" alt="j-hope"><span>J-HOPE</span><small>Member</small></button>
+  <button class="member" data-member="Jimin"><img loading="lazy" src="https://pbs.twimg.com/media/G-JASXBX0AA686a.jpg" alt="Jimin"><span>JIMIN</span><small>Member</small></button>
+  <button class="member" data-member="V"><img loading="lazy" src="https://www.allkpop.com/upload/2025/12/content/241228/1766597324-snapinsta.jpg" alt="V"><span>V</span><small>Member</small></button>
+  <button class="member" data-member="Jung Kook"><img loading="lazy" src="https://wimg.sedaily.com/news/cms/2026/04/09/news-p.v1.20260321.fea3baf0a59b424485cb37d148280f0b_P1.jpg" alt="Jung Kook"><span>JUNG KOOK</span><small>Golden maknae</small></button>
  </div>
  <p class="note" id="memberNote">Mostrando votaciones grupales de BTS. Selecciona un integrante para consultar campañas individuales verificadas.</p>
 </section>
+
+<section class="panel" id="world-clock">
+ <div class="section-head"><div><h2>🌍 WORLD RESET & DEADLINE CLOCK</h2><p>Convierte los reinicios y cierres a la hora de tu ciudad.</p></div><span class="pill">TU HORA LOCAL</span></div>
+ <label for="timezoneSelect" style="display:block;margin-bottom:7px;font-size:.82rem;font-weight:900">Selecciona tu país o zona horaria</label>
+ <select class="time-select" id="timezoneSelect">
+  <option value="America/Mexico_City">🇲🇽 México · Ciudad de México</option><option value="America/Cancun">🇲🇽 México · Cancún</option><option value="America/Chihuahua">🇲🇽 México · Chihuahua</option><option value="America/Mazatlan">🇲🇽 México · Mazatlán</option><option value="America/Tijuana">🇲🇽 México · Tijuana</option><option value="America/Hermosillo">🇲🇽 México · Hermosillo</option>
+  <option value="America/Los_Angeles">🇺🇸 Estados Unidos · Los Ángeles</option><option value="America/Denver">🇺🇸 Estados Unidos · Denver</option><option value="America/Chicago">🇺🇸 Estados Unidos · Chicago</option><option value="America/New_York">🇺🇸 Estados Unidos · Nueva York</option><option value="America/Anchorage">🇺🇸 Estados Unidos · Alaska</option><option value="Pacific/Honolulu">🇺🇸 Estados Unidos · Hawái</option><option value="America/Toronto">🇨🇦 Canadá · Toronto</option><option value="America/Vancouver">🇨🇦 Canadá · Vancouver</option>
+  <option value="America/Guatemala">🇬🇹 Guatemala</option><option value="America/Belize">🇧🇿 Belice</option><option value="America/Tegucigalpa">🇭🇳 Honduras</option><option value="America/El_Salvador">🇸🇻 El Salvador</option><option value="America/Managua">🇳🇮 Nicaragua</option><option value="America/Costa_Rica">🇨🇷 Costa Rica</option><option value="America/Panama">🇵🇦 Panamá</option><option value="America/Bogota">🇨🇴 Colombia</option><option value="America/Lima">🇵🇪 Perú</option><option value="America/Guayaquil">🇪🇨 Ecuador</option><option value="America/Caracas">🇻🇪 Venezuela</option><option value="America/La_Paz">🇧🇴 Bolivia</option><option value="America/Santiago">🇨🇱 Chile · Santiago</option><option value="America/Argentina/Buenos_Aires">🇦🇷 Argentina</option><option value="America/Montevideo">🇺🇾 Uruguay</option><option value="America/Sao_Paulo">🇧🇷 Brasil · São Paulo</option><option value="America/Asuncion">🇵🇾 Paraguay</option><option value="America/Puerto_Rico">🇵🇷 Puerto Rico</option><option value="America/Santo_Domingo">🇩🇴 República Dominicana</option><option value="America/Havana">🇨🇺 Cuba</option>
+  <option value="Europe/London">🇬🇧 Reino Unido</option><option value="Europe/Madrid">🇪🇸 España · Madrid</option><option value="Atlantic/Canary">🇪🇸 España · Canarias</option><option value="Europe/Paris">🇫🇷 Francia</option><option value="Europe/Berlin">🇩🇪 Alemania</option><option value="Europe/Rome">🇮🇹 Italia</option><option value="Europe/Amsterdam">🇳🇱 Países Bajos</option><option value="Europe/Brussels">🇧🇪 Bélgica</option><option value="Europe/Zurich">🇨🇭 Suiza</option><option value="Europe/Lisbon">🇵🇹 Portugal</option><option value="Europe/Athens">🇬🇷 Grecia</option><option value="Europe/Istanbul">🇹🇷 Turquía</option><option value="Europe/Moscow">🇷🇺 Rusia · Moscú</option><option value="Africa/Cairo">🇪🇬 Egipto</option><option value="Africa/Johannesburg">🇿🇦 Sudáfrica</option><option value="Africa/Lagos">🇳🇬 Nigeria</option><option value="Africa/Nairobi">🇰🇪 Kenia</option><option value="Asia/Dubai">🇦🇪 Emiratos Árabes Unidos</option><option value="Asia/Riyadh">🇸🇦 Arabia Saudita</option><option value="Asia/Kolkata">🇮🇳 India</option><option value="Asia/Dhaka">🇧🇩 Bangladés</option><option value="Asia/Bangkok">🇹🇭 Tailandia</option><option value="Asia/Jakarta">🇮🇩 Indonesia · Yakarta</option><option value="Asia/Singapore">🇸🇬 Singapur</option><option value="Asia/Kuala_Lumpur">🇲🇾 Malasia</option><option value="Asia/Manila">🇵🇭 Filipinas</option><option value="Asia/Hong_Kong">🇭🇰 Hong Kong</option><option value="Asia/Shanghai">🇨🇳 China</option><option value="Asia/Taipei">🇹🇼 Taiwán</option><option value="Asia/Seoul">🇰🇷 Corea del Sur</option><option value="Asia/Tokyo">🇯🇵 Japón</option><option value="Asia/Ho_Chi_Minh">🇻🇳 Vietnam</option><option value="Asia/Kathmandu">🇳🇵 Nepal</option><option value="Australia/Perth">🇦🇺 Australia · Perth</option><option value="Australia/Adelaide">🇦🇺 Australia · Adelaida</option><option value="Australia/Sydney">🇦🇺 Australia · Sídney</option><option value="Pacific/Auckland">🇳🇿 Nueva Zelanda</option><option value="Pacific/Fiji">🇫🇯 Fiyi</option>
+ </select>
+ <div class="world-clock" style="margin-top:13px">
+  <div class="clock-box"><h3>🕒 Hora actual en tu zona</h3><div class="clock-time" id="localNow">--:--:--</div><div class="clock-detail" id="localDate">Selecciona una zona horaria.</div></div>
+  <div class="clock-box"><h3>💜 Reinicio diario MAMA</h3><div class="clock-time" id="mamaReset">--:--</div><div class="clock-detail" id="mamaResetDate">00:00 KST · cambia de día según Corea.</div></div>
+ </div>
+ <div class="section-head" style="margin:20px 0 8px"><div><h3 style="margin:0;font-size:1rem">⏳ Finalizaciones en tu horario</h3><p>Conversión automática desde la zona horaria oficial del evento.</p></div></div>
+ <div class="time-list" id="deadlineList"></div>
+ <div class="section-head" style="margin:20px 0 8px"><div><h3 style="margin:0;font-size:1rem">🔄 Reglas de reinicio por plataforma</h3><p>No todos los concursos publican una hora exacta de reinicio.</p></div></div>
+ <div class="time-list">
+  <div class="time-row"><div><strong>MAMA 2026 · Mnet Plus</strong><small>1 ronda diaria; el día de votación se cuenta en hora de Corea (KST).</small></div><div class="local">00:00 KST<br><small>reinicio diario</small></div></div>
+  <div class="time-row"><div><strong>MMA 2026 · Berriz</strong><small>1 voto al día. La plataforma no publica en su aviso una hora universal exacta de reinicio; comprueba el botón de voto de la app.</small></div><div class="local">No publicado<br><small>no asumir medianoche</small></div></div>
+  <div class="time-row"><div><strong>ARIA Awards</strong><small>1 voto al día. La página oficial no especifica la hora de reinicio diario.</small></div><div class="local">No publicado<br><small>no asumir medianoche</small></div></div>
+  <div class="time-row"><div><strong>Kids' Choice Awards</strong><small>Permite votar más de una vez; límites y actividades pueden variar por región. No es un reinicio diario fijo.</small></div><div class="local">Sin reinicio diario<br><small>según reglas regionales</small></div></div>
+ </div>
+ <p class="note">La lista incluye ciudades representativas de las principales zonas horarias del mundo; si tu país tiene varias zonas horarias, selecciona la ciudad o región más cercana. La hora se calcula en tu navegador y ajusta automáticamente el horario de verano cuando corresponde. Los reinicios no publicados oficialmente se muestran como “No publicado” para evitar horarios inventados.</p>
+</section>
+
 <footer class="footer">BTS VOTING CENTER · Fan-made, no afiliado a BIGHIT MUSIC, HYBE ni a las premiaciones.<br>Información revisada: 2 nov 2026 · <a href="https://linktr.ee/btsxarmyvotingteam" target="_blank" rel="noopener">ARMY Voting Team</a> · <a href="https://btsvotingunite.carrd.co/" target="_blank" rel="noopener">BTS Voting Unite</a></footer>
 </main>
 <script>
+
+const tzSelect=document.getElementById('timezoneSelect');
+const fmt=(date,tz,opts)=>new Intl.DateTimeFormat('es-MX',{timeZone:tz,...opts}).format(date);
+const deadlines=[
+ {name:'MAMA 2026 · 2.ª ronda',date:'2026-11-08T23:59:00+09:00',zone:'Asia/Seoul',source:'Cierre oficial anunciado: 23:59 KST.'},
+ {name:'ARIA Awards 2026',date:'2026-11-09T23:59:00+11:00',zone:'Australia/Sydney',source:'Cierre oficial: 23:59 AEDT.'},
+ {name:'MMA 2026 · Global TOP10',date:'2026-11-13T23:59:00+09:00',zone:'Asia/Seoul',source:'Aviso Berriz: 23:59 KST.'},
+ {name:"Kids’ Choice Awards 2026",date:null,zone:null,source:'Cierra el 13 de noviembre; hora exacta depende de región/actividad.'},
+ {name:'AAA Popularity Award',date:null,zone:null,source:'Cierre anunciado el 4 de noviembre; la página consultada no especifica hora.'}
+];
+function renderWorldClock(){
+ const tz=tzSelect.value,now=new Date();
+ document.getElementById('localNow').textContent=fmt(now,tz,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+ document.getElementById('localDate').textContent=fmt(now,tz,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZoneName:'long'});
+ const kstNow=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+ const nextKst=new Date(kstNow);nextKst.setHours(24,0,0,0);
+ const delta=nextKst-kstNow;
+ const resetLocal=new Date(now.getTime()+delta);
+ document.getElementById('mamaReset').textContent=fmt(resetLocal,tz,{hour:'2-digit',minute:'2-digit',hour12:false});
+ document.getElementById('mamaResetDate').textContent='Próximo 00:00 KST · '+fmt(resetLocal,tz,{weekday:'short',day:'numeric',month:'short'})+' en tu zona.';
+ const list=document.getElementById('deadlineList');list.innerHTML='';
+ deadlines.forEach(item=>{const row=document.createElement('div');row.className='time-row';const left=document.createElement('div');const strong=document.createElement('strong');strong.textContent=item.name;const small=document.createElement('small');small.textContent=item.source;left.append(strong,small);const right=document.createElement('div');right.className='local';if(item.date){const d=new Date(item.date);right.textContent=fmt(d,tz,{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});const sub=document.createElement('small');sub.textContent=fmt(d,tz,{timeZoneName:'short'});right.append(document.createElement('br'),sub);}else{right.textContent='Hora no confirmada';}row.append(left,right);list.append(row);});
+}
+tzSelect.addEventListener('change',renderWorldClock);renderWorldClock();setInterval(renderWorldClock,1000);
 const pad=n=>String(n).padStart(2,'0');
 function updateTimers(){document.querySelectorAll('[data-date]').forEach(el=>{const target=new Date(el.dataset.date).getTime(),now=Date.now(),diff=target-now;if(diff<=0){el.textContent='Votación cerrada o en actualización';return}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);el.innerHTML='<strong>'+d+'d '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</strong> restantes';});}
 updateTimers();setInterval(updateTimers,1000);
