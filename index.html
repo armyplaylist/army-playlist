@@ -302,13 +302,13 @@ renderComboCatalog();$("dashPlaylistCount").textContent=playlists.length;$("dash
 document.querySelectorAll(".profile-shortcut").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.open==="true"){$("shortcutResults").hidden=true;btn.dataset.open="false";return}document.querySelectorAll(".profile-shortcut").forEach(b=>b.dataset.open="false");btn.dataset.open="true";btn.classList.remove("bounce");void btn.offsetWidth;btn.classList.add("bounce");const group=btn.dataset.group;
 const artistSongs={
  "Combo ARIRANG · 13 B-sides":["arirang","swim","normal","come over","body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","spring waves","underwater","instrumental"],
- "Combo RM":["nuts","yun","still life","all day","forg_tful","closer","change pt.2","lonely","hectic","wild flower","no.2","indigo"],
- "Combo JIN":["nothing without your love","loser","rope it","with the clouds","background","to me today","don’t say you love me","echo","running wild","i’ll be there","the astronaut"],
- "Combo YOONGI":["haegeum","daechwita","people","people pt.2","amygdala","life goes on","snooze","agust d","give it to me","burn it","moonlight","so far away"],
- "Combo J-HOPE":["on the street","more","arson","hope world","jack in the box","neurons","lock / unlock","i wonder","what if","future","killin’ it girl","mona lisa"],
- "Combo JIMIN":["who","like crazy","set me free pt.2","face-off","alone","promise","with you","filter","serendipity"],
- "Combo V":["winter ahead","fri(end)s","fri s","slow dancing","love me again","rainy days","blue","for us","singularity","christmas tree"],
- "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time"]
+ "Combo RM":["nuts","yun","still life","all day","forg_tful","closer","change pt.2","lonely","hectic","wild flower","no.2","indigo","rm mix"],
+ "Combo JIN":["nothing without your love","loser","rope it","with the clouds","background","to me today","don’t say you love me","echo","running wild","i’ll be there","the astronaut","jin mix"],
+ "Combo YOONGI":["haegeum","daechwita","people","people pt.2","amygdala","life goes on","snooze","agust d","give it to me","burn it","moonlight","so far away","agustd suga mix","suga mix"],
+ "Combo J-HOPE":["on the street","more","arson","hope world","jack in the box","neurons","lock / unlock","i wonder","what if","future","killin’ it girl","mona lisa","j hope mix"],
+ "Combo JIMIN":["who","like crazy","set me free pt.2","face-off","alone","promise","with you","filter","serendipity","jimin mix"],
+ "Combo V":["winter ahead","fri(end)s","fri s","slow dancing","love me again","rainy days","blue","for us","singularity","christmas tree","v mix"],
+ "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time","jungkook mix"]
 };
 const aliases=artistSongs[group]||[];
 const matchedSongs=p=>p[4].filter(t=>{const track=norm(t.replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());return aliases.some(song=>track===norm(song));});
