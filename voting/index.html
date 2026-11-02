@@ -54,6 +54,16 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
 .time-row .local{font-size:.9rem;font-weight:900;color:#6b4797;text-align:right}
 @media(max-width:720px){.member-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.world-clock{grid-template-columns:1fr}}
 
+
+/* Alertas visuales de cierre: 24 h, 12 h y 1 h */
+.countdown{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.urgency{display:inline-flex;align-items:center;padding:5px 9px;border-radius:99px;font-size:.68rem;font-weight:900;letter-spacing:.03em}
+.urgency-24{background:#eee5ff;color:#674397}
+.urgency-12{background:#ffe9d8;color:#9a4d17}
+.urgency-1{background:#b9233c;color:white;box-shadow:0 3px 10px #b9233c35;animation:urgentPulse 1.5s ease-in-out infinite}
+@keyframes urgentPulse{50%{transform:scale(1.04);filter:brightness(1.08)}}
+@media(prefers-reduced-motion:reduce){.urgency-1{animation:none}}
+
 </style>
 </head>
 <body><main class="wrap">
@@ -197,7 +207,7 @@ function renderWorldClock(){
 }
 tzSelect.addEventListener('change',renderWorldClock);renderWorldClock();setInterval(renderWorldClock,1000);
 const pad=n=>String(n).padStart(2,'0');
-function updateTimers(){document.querySelectorAll('[data-date]').forEach(el=>{const target=new Date(el.dataset.date).getTime(),now=Date.now(),diff=target-now;if(diff<=0){el.textContent='Votación cerrada o en actualización';return}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);el.innerHTML='<strong>'+d+'d '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</strong> restantes';});}
+function updateTimers(){document.querySelectorAll('[data-date]').forEach(el=>{const target=new Date(el.dataset.date).getTime(),now=Date.now(),diff=target-now;if(diff<=0){el.textContent='Votación cerrada o en actualización';return}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);let alertText='',alertClass='';if(diff<=3600000){alertText='⚠️ ¡ÚLTIMA HORA!';alertClass='urgency-1'}else if(diff<=12*3600000){alertText='🔥 MENOS DE 12 H';alertClass='urgency-12'}else if(diff<=24*3600000){alertText='⏳ MENOS DE 24 H';alertClass='urgency-24'}el.innerHTML='<strong>'+d+'d '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</strong> restantes';if(alertText){const badge=document.createElement('span');badge.className='urgency '+alertClass;badge.textContent=alertText;el.append(badge);}});}
 updateTimers();setInterval(updateTimers,1000);
 const filterButtons=document.querySelectorAll('[data-filter]');filterButtons.forEach(btn=>btn.addEventListener('click',()=>{filterButtons.forEach(b=>b.classList.toggle('active',b===btn));const f=btn.dataset.filter;document.querySelectorAll('.vote-card').forEach(card=>card.hidden=f==='member'?true:f==='group'?card.dataset.kind!=='group':false);if(f==='member')document.getElementById('memberNote').textContent='No hay votaciones individuales verificadas activas en este momento. La sección está lista para añadir campañas de RM, Jin, SUGA, j-hope, Jimin, V y Jung Kook cuando se confirmen.';else document.getElementById('memberNote').textContent='Mostrando votaciones grupales de BTS. Selecciona un integrante para consultar campañas individuales verificadas.';}));
 document.querySelectorAll('[data-member]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-member]').forEach(b=>b.classList.toggle('active',b===btn));const who=btn.dataset.member;document.getElementById('memberNote').textContent=who==='BTS'?'Mostrando votaciones grupales de BTS.': 'No hay votaciones individuales verificadas activas para '+who+' en este momento. Esta sección se actualizará cuando se confirme una campaña.';filterButtons.forEach(b=>b.classList.toggle('active',b.dataset.filter===(who==='BTS'?'group':'member')));document.querySelectorAll('.vote-card').forEach(card=>card.hidden=who!=='BTS');}));
