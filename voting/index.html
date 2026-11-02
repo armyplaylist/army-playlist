@@ -165,7 +165,7 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
   <div class="time-row"><div><strong>ARIA Awards</strong><small>1 voto al día. La página oficial no especifica la hora de reinicio diario.</small></div><div class="local">No publicado<br><small>no asumir medianoche</small></div></div>
   <div class="time-row"><div><strong>Kids' Choice Awards</strong><small>Permite votar más de una vez; límites y actividades pueden variar por región. No es un reinicio diario fijo.</small></div><div class="local">Sin reinicio diario<br><small>según reglas regionales</small></div></div>
  </div>
- <p class="note">La lista incluye ciudades representativas de las principales zonas horarias del mundo; si tu país tiene varias zonas horarias, selecciona la ciudad o región más cercana. La hora se calcula en tu navegador y ajusta automáticamente el horario de verano cuando corresponde. Los reinicios no publicados oficialmente se muestran como “No publicado” para evitar horarios inventados.</p>
+ <p class="note">La lista incluye países y ciudades representativos y se completa con todas las zonas horarias IANA que admita tu navegador; si tu país tiene varias zonas horarias, selecciona la ciudad o región más cercana. La hora se calcula en tu navegador y ajusta automáticamente el horario de verano cuando corresponde. Los reinicios no publicados oficialmente se muestran como “No publicado” para evitar horarios inventados.</p>
 </section>
 
 <footer class="footer">BTS VOTING CENTER · Fan-made, no afiliado a BIGHIT MUSIC, HYBE ni a las premiaciones.<br>Información revisada: 2 nov 2026 · <a href="https://linktr.ee/btsxarmyvotingteam" target="_blank" rel="noopener">ARMY Voting Team</a> · <a href="https://btsvotingunite.carrd.co/" target="_blank" rel="noopener">BTS Voting Unite</a></footer>
@@ -174,6 +174,7 @@ nav a{text-decoration:none;padding:9px 13px;border-radius:12px;font-size:.8rem;f
 
 const tzSelect=document.getElementById('timezoneSelect');
 const fmt=(date,tz,opts)=>new Intl.DateTimeFormat('es-MX',{timeZone:tz,...opts}).format(date);
+if(Intl.supportedValuesOf){const known=new Set(Array.from(tzSelect.options).map(o=>o.value));const group=document.createElement('optgroup');group.label='Otras zonas horarias · catálogo mundial';Intl.supportedValuesOf('timeZone').forEach(zone=>{if(!known.has(zone)){const opt=document.createElement('option');opt.value=zone;opt.textContent=zone.replaceAll('_',' ').replaceAll('/',' · ');group.append(opt);}});tzSelect.append(group);}
 const deadlines=[
  {name:'MAMA 2026 · 2.ª ronda',date:'2026-11-08T23:59:00+09:00',zone:'Asia/Seoul',source:'Cierre oficial anunciado: 23:59 KST.'},
  {name:'ARIA Awards 2026',date:'2026-11-09T23:59:00+11:00',zone:'Australia/Sydney',source:'Cierre oficial: 23:59 AEDT.'},
