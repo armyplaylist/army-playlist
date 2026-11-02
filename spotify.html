@@ -1,0 +1,528 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff6fb"><title>ARMY PLAYLIST FINDER · Spotify</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
+:root{--bg:#f7f0ff;--pink:#e8c9ff;--lilac:#d8c1f5;--blue:#d8d0ff;--yellow:#f2e5ff;--ink:#514064;--muted:#87759d;--shadow:0 12px 28px #50347720}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 8% 8%,#d9b8ff99,transparent 23rem),radial-gradient(circle at 95% 28%,#c9bdff88,transparent 25rem),radial-gradient(circle at 50% 90%,#ead9ff88,transparent 28rem),var(--bg);color:var(--ink);font-family:Nunito,sans-serif}.page{width:min(1050px,calc(100% - 28px));margin:auto;padding:30px 0 55px}header{text-align:center;padding:20px 10px 30px}.eyebrow{display:inline-block;padding:7px 15px;border-radius:99px;background:#ffffffbd;color:#a17c9c;font-size:.78rem;font-weight:900;letter-spacing:.1em}h1{font-size:clamp(2rem,6vw,3.8rem);line-height:1.1;margin:16px 0 8px;font-weight:900;letter-spacing:-.04em}h1 span{color:#d58db0}.subtitle,.hint{color:var(--muted);font-weight:700}.panel{margin:18px 0;padding:clamp(18px,4vw,28px);border:1px solid #ffffffd9;border-radius:28px;background:#ffffffb8;box-shadow:var(--shadow);backdrop-filter:blur(8px)}h2{font-size:1.35rem;margin:0 0 16px;font-weight:900}.hint{font-size:.86rem;margin:9px 0 0}.profiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.profile{position:relative;overflow:hidden;min-width:0;border-radius:20px;padding:9px;background:linear-gradient(145deg,#fffaff,#eee2ff);border:1px solid white;box-shadow:0 7px 18px #705e7020;transition:transform .22s,box-shadow .22s;cursor:pointer}.profile:hover{transform:perspective(700px) rotateY(-8deg) rotateX(4deg) translateY(-5px);box-shadow:0 16px 26px #705e7030}.profile:active{transform:perspective(700px) rotateY(12deg) scale(.97)}.profile iframe{display:block;width:100%;height:155px;border:0;border-radius:14px;pointer-events:none}.profile strong{display:block;text-align:center;padding:8px 2px 3px}.profile a{position:absolute;inset:0;z-index:2}.schedule{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.field{display:grid;gap:6px;font-size:.82rem;font-weight:900;color:var(--muted)}.field input,.request-row input{padding:12px;border:2px solid var(--lilac);border-radius:14px;background:white;color:var(--ink);font:inherit;font-weight:800}.field input{width:125px}.action{border:0;border-radius:14px;padding:12px 18px;background:var(--pink);border-bottom:4px solid #e9afc9;box-shadow:0 4px 0 #e9afc9;color:var(--ink);font-weight:900;cursor:pointer}.schedule-result{display:none;margin-top:15px;padding:13px 16px;background:#eee5ff;border-radius:15px;font-weight:800}.request-row{display:grid;grid-template-columns:minmax(0,1fr) 140px auto;gap:10px}.request-row input{min-width:0}.request-list{display:grid;gap:8px;margin:15px 0}.request{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 13px;border-radius:14px;background:#f2eaff;font-weight:800}.remove{border:0;background:transparent;color:#bd7199;font-weight:900;font-size:1.1rem;cursor:pointer}.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:16px}.playlist{padding:17px;border-radius:20px;background:white;border:1px solid #fff;box-shadow:var(--shadow)}.playlist h3{margin:0 0 8px;font-size:1.05rem}.chips{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.chip{padding:5px 9px;border-radius:99px;background:#eee5ff;font-size:.76rem;font-weight:900}.playlist ul{padding-left:19px;color:#786879;font-size:.88rem;line-height:1.55}.spotify-link{display:inline-block;text-decoration:none;color:var(--ink);font-weight:900;background:var(--blue);padding:8px 13px;border-radius:12px}.empty{grid-column:1/-1;padding:20px;text-align:center;background:#faf6ff;border-radius:17px;color:var(--muted);font-weight:800}.combo{margin-top:18px;padding:18px;border-radius:20px;background:linear-gradient(120deg,#f2e5ff,#e5dcff);cursor:pointer;transition:box-shadow .2s}.combo:focus-visible{outline:3px solid #d98abb;outline-offset:3px}.combo[aria-expanded="true"]{box-shadow:0 4px 18px #d9a5c755}.combo-playlists{cursor:default;margin-top:14px}.song-hit{background:#ead8ff;color:#633b91;font-weight:800;border-radius:6px;padding:3px 6px;list-style-position:inside}.combo h3{margin:0 0 8px}.combo p{margin:5px 0;color:#766779;font-weight:700}.footer{text-align:center;color:#a18e9f;font-size:.82rem;margin-top:28px}@media(max-width:720px){.profiles{grid-template-columns:repeat(2,minmax(0,1fr))}.results{grid-template-columns:1fr}}@media(max-width:460px){.request-row{grid-template-columns:1fr 105px}.request-row button{grid-column:1/-1}.profile iframe{height:145px}}
+.profile-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 18px}.profile-shortcut{min-height:82px;padding:13px 8px;border:1px solid #c94b5b;border-radius:18px;background:linear-gradient(145deg,#fff7f6,#f4c8cc 58%,#d94a59);box-shadow:0 7px 18px #9f263b30,inset 0 2px 0 #fff9;color:#55202c;font:900 1rem Nunito,sans-serif;cursor:pointer;transition:transform .18s,box-shadow .18s}.profile-shortcut small{font-size:.76rem;color:var(--muted)}.member-cover{padding:8px;display:flex;flex-direction:column;align-items:center;gap:7px}.member-cover img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%;border-radius:13px}.member-cover span{display:block;font-weight:900;text-align:center;line-height:1.2}.member-cover:focus-visible{outline:3px solid #d98abb;outline-offset:3px}.profile-shortcut:active,.profile-shortcut.bounce{animation:profileBounce .48s ease}.profile-shortcut:focus-visible{outline:3px solid #d98abb;outline-offset:3px}@keyframes profileBounce{0%,100%{transform:translateY(0) scale(1)}25%{transform:translateY(-10px) scale(1.06)}50%{transform:translateY(0) scale(.96)}75%{transform:translateY(-4px) scale(1.02)}}@media(max-width:720px){.profile-shortcuts{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.profile-shortcut{min-height:72px;font-size:.88rem;padding:10px 4px}}@media(max-width:380px){.profile-shortcut{font-size:.78rem}}\n.combo-catalog{display:grid;gap:16px}.combo-set{padding:18px;border-radius:20px;border:1px solid #fff;box-shadow:var(--shadow)}.combo-set.combo-one{background:linear-gradient(120deg,#f7e9ff,#eee5ff)}.combo-set.combo-two{background:linear-gradient(120deg,#e9f0ff,#eee8ff)}.combo-set h3{margin:0 0 8px}.combo-total{display:inline-block;margin:4px 0 12px;padding:7px 11px;border-radius:99px;background:#ffffffb8;font-weight:900;font-size:.86rem}.combo-entry{padding:12px;margin-top:9px;border-radius:14px;background:#ffffffd9}.combo-entry p{margin:5px 0;color:var(--muted);font-size:.82rem;font-weight:700}.combo-entry a{display:inline-block;margin-top:5px;color:var(--ink);font-weight:900;text-decoration:none;background:#fff;padding:7px 10px;border-radius:10px}.combo-entry a:focus-visible{outline:3px solid #d98abb}.combo-mission{font-size:.88rem;font-weight:800;margin:8px 0 0}button,.action,.spotify-link{background:#7650b8!important;color:#fff!important;border:1px solid #6842a8!important;box-shadow:0 4px 0 #55358f!important;transition:transform .18s,box-shadow .18s,background .18s;position:relative;overflow:hidden}button:hover,.action:hover,.spotify-link:hover{background:#8964c9!important;transform:translateY(-2px)}button:active,.action:active,.spotify-link:active{transform:translateY(2px) scale(.98);box-shadow:0 1px 0 #55358f!important}.profile-shortcut{background:#7650b8!important;border:2px solid #6842a8!important}.profile-shortcut span{color:#fff!important}.remove{background:transparent!important;border:0!important;box-shadow:none!important;color:#fff!important}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-38px) scale(1.05) rotate(var(--rot))}}
+/* Perfil cards: mini app widgets */
+.profile-shortcuts{gap:16px;margin:4px 0 22px}
+.profile-shortcut.member-cover{position:relative;isolation:isolate;min-height:0;padding:9px;border:1px solid #ffffffd9!important;border-radius:23px;background:linear-gradient(145deg,#ffffffd9 0%,#eee2ffed 52%,#d9c5f5 100%)!important;box-shadow:0 9px 24px #54377b20,inset 0 1px 0 #fff;overflow:hidden;display:flex;flex-direction:column;gap:0;transition:transform .25s ease,box-shadow .25s ease}
+.profile-shortcut.member-cover:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 85% 8%,#fff9 0 2px,transparent 3px),radial-gradient(circle at 12% 75%,#c9a9f455 0 2px,transparent 3px);pointer-events:none}
+.profile-shortcut.member-cover:hover{transform:translateY(-6px) scale(1.025);box-shadow:0 17px 30px #54377b35,inset 0 1px 0 #fff}
+.profile-shortcut.member-cover img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:16px;box-shadow:0 5px 14px #4b326522;transition:transform .35s ease,filter .35s ease}
+.profile-shortcut.member-cover:hover img{transform:scale(1.035);filter:saturate(1.08)}
+.profile-shortcut.member-cover span{width:100%;margin-top:9px;padding:8px 4px 6px;border-radius:13px;background:#ffffffa8;color:#63458c!important;font-size:.98rem;letter-spacing:.025em;text-align:center;box-shadow:inset 0 1px 0 #fff}
+.profile-shortcut.member-cover small{color:#987eb7!important;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+.profile-shortcut.member-cover:after{content:"";position:absolute;top:15px;right:16px;color:#fff;font-size:1rem;text-shadow:0 1px 8px #6842a8;opacity:.9}
+.armybomb-particle{position:absolute;z-index:30;left:var(--x);top:var(--y);width:13px;height:25px;pointer-events:none;animation:armybomb-float 1s cubic-bezier(.16,.75,.25,1) forwards;filter:drop-shadow(0 2px 3px #40236a55)}
+.armybomb-particle:before{content:"";position:absolute;top:0;left:0;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff 0 9%,#e8dcff 13%,#a987e9 48%,#6841a8 100%);border:1px solid #fff9;box-shadow:0 0 8px #c6a5ff}
+.armybomb-particle:after{content:"";position:absolute;top:11px;left:5px;width:4px;height:13px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#eee7ff,#8c6ab9,#f5efff);border:1px solid #fff9}
+@keyframes armybomb-float{0%{opacity:0;transform:translate(0,8px) scale(.35) rotate(-18deg)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-58px) scale(1.1) rotate(var(--rot))}}
+@media(max-width:720px){.profile-shortcuts{gap:10px}.profile-shortcut.member-cover{padding:7px;border-radius:19px}.profile-shortcut.member-cover span{font-size:.86rem;padding:7px 3px 5px}}
+}
+
+/* Animaciones suaves de entrada y movimiento */
+@keyframes lavenderRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lavenderGlow{0%,100%{box-shadow:0 3px 12px #5d477515}50%{box-shadow:0 7px 20px #8b69bd26}}
+header{animation:lavenderRise .75s ease both}
+.panel{animation:lavenderRise .65s ease both}
+.profile-shortcut.member-cover{animation:lavenderRise .6s ease both}
+.profile-shortcut.member-cover:nth-child(2){animation-delay:.06s}
+.profile-shortcut.member-cover:nth-child(3){animation-delay:.12s}
+.profile-shortcut.member-cover:nth-child(4){animation-delay:.18s}
+.profile-shortcut.member-cover:nth-child(5){animation-delay:.24s}
+.profile-shortcut.member-cover:nth-child(6){animation-delay:.30s}
+.profile-shortcut.member-cover:nth-child(7){animation-delay:.36s}
+.profile-shortcut.member-cover:nth-child(8){animation-delay:.42s}
+.action:hover,.spotify-link:hover{filter:brightness(1.08)}
+@media(prefers-reduced-motion:reduce){header,.panel,.profile-shortcut.member-cover{animation:none!important}}
+/* Minimal lavender: tarjetas de perfiles */
+.profile-shortcuts{gap:14px;margin:4px 0 22px}
+.profile-shortcut.member-cover{min-height:0;padding:8px!important;border:1px solid #e9def5!important;border-radius:18px!important;background:#fff!important;box-shadow:0 3px 12px #5d477515!important;overflow:hidden;display:flex;flex-direction:column;gap:0;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.profile-shortcut.member-cover:before,.profile-shortcut.member-cover:after{display:none!important}
+.profile-shortcut.member-cover:hover{transform:translateY(-3px)!important;border-color:#cdb8e8!important;box-shadow:0 8px 18px #5d47751c!important}
+.profile-shortcut.member-cover img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:12px!important;box-shadow:none!important;transition:transform .25s ease}
+.profile-shortcut.member-cover:hover img{transform:scale(1.015);filter:none}
+.profile-shortcut.member-cover span{width:100%;margin-top:8px;padding:7px 3px 5px;border-radius:10px;background:#f5effb!important;color:#63458c!important;font-size:.92rem;letter-spacing:.01em;text-align:center;box-shadow:none!important}
+.profile-shortcut.member-cover small{color:#9883ad!important;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:720px){.profile-shortcuts{gap:9px}.profile-shortcut.member-cover{padding:6px!important;border-radius:15px!important}.profile-shortcut.member-cover img{border-radius:10px!important}.profile-shortcut.member-cover span{font-size:.82rem;padding:6px 2px 4px}}
+@media(prefers-reduced-motion:reduce){.profile-shortcut.member-cover,.profile-shortcut.member-cover img{transition:none}}
+
+.army-dashboard{background:linear-gradient(135deg,#fff 0%,#f7efff 58%,#eee5ff 100%);border:1px solid #e7d9f7}.dashboard-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.dashboard-head h2{margin:5px 0}.dashboard-kicker{font-size:.7rem;letter-spacing:.13em;font-weight:900;color:#9a7bbd}.dashboard-heart{font-size:2.2rem;filter:drop-shadow(0 4px 7px #9270bb44)}.dashboard-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.dashboard-stat{display:grid;gap:3px;padding:14px 10px;border:1px solid #eee4f8;border-radius:17px;background:#ffffffd9;text-align:center}.dashboard-stat span{font-size:1.25rem}.dashboard-stat strong{font-size:1.45rem;color:#6842a8}.dashboard-stat small{font-weight:800;color:var(--muted)}.dashboard-actions{display:flex;flex-wrap:wrap;gap:9px}.dashboard-actions .action{flex:1 1 175px}.dashboard-note{margin:16px 0 0;padding-top:12px;border-top:1px solid #e9def5;color:#9078aa;font-size:.82rem;font-weight:800;text-align:center}@media(max-width:460px){.dashboard-stat{padding:11px 5px}.dashboard-stat strong{font-size:1.2rem}.dashboard-actions .action{flex-basis:100%}}\n .reset-times summary{cursor:pointer;font-weight:900;color:var(--ink);font-size:1.02rem;list-style-position:inside}.reset-times[open] summary{margin-bottom:12px}.reset-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.reset-controls input{flex:1 1 220px;min-width:0;padding:11px 13px;border:1px solid #e4d7f2;border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-weight:800}.reset-format-label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem;font-weight:900}.reset-format-label select{padding:10px;border:1px solid #e4d7f2;border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-weight:800}.reset-highlight{display:flex;gap:6px 18px;align-items:center;flex-wrap:wrap;padding:13px 15px;margin:12px 0;background:linear-gradient(110deg,#f4ecff,#fff);border:1px solid #e7d9f7;border-radius:14px;color:#6842a8;font-weight:900}.reset-list-wrap{display:grid;gap:8px}.reset-country-card{display:grid;grid-template-columns:minmax(175px,1.2fr) minmax(105px,.8fr) minmax(105px,.8fr) minmax(120px,.9fr);align-items:center;gap:10px;min-width:0;padding:11px 13px;border:1px solid #eee5f7;border-radius:14px;background:linear-gradient(105deg,#fff,#faf7ff);box-shadow:0 3px 10px #5d47750c;font-size:.82rem;white-space:nowrap}.reset-country-name{min-width:0;white-space:normal;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.2;font-weight:900;color:#5f477b}.reset-country-name .reset-flag{margin-right:7px}.reset-time-cell{color:#89789b;font-weight:800}.reset-time-cell strong{display:block;color:#6842a8;font-size:.88rem}.reset-countdown{color:#6842a8;font-weight:900;text-align:right}@media(max-width:620px){.reset-list-wrap{overflow-x:auto;padding-bottom:5px}.reset-country-card{min-width:590px;grid-template-columns:1.2fr .8fr .8fr .9fr}.reset-controls{align-items:stretch}.reset-format-label{justify-content:space-between}} 
+/* Sección independiente de YouTube */
+.youtube-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px;margin-top:16px}
+.youtube-card{overflow:hidden;border:1px solid #ffffffd9;border-radius:20px;background:linear-gradient(135deg,#ffffffd9,#eee5ffb8);box-shadow:0 8px 22px #51347b18}
+.youtube-player{position:relative;width:100%;aspect-ratio:16/9;background:#211832}
+.youtube-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.youtube-card-info{display:grid;justify-items:start;gap:10px;padding:16px}
+.youtube-card-info h3{margin:0;color:var(--ink);font-size:1.05rem}
+.youtube-link{display:inline-block;padding:9px 14px;border-radius:999px;background:linear-gradient(180deg,#9874d0,#6842a8);color:#fff;text-decoration:none;font-weight:900;box-shadow:0 4px 0 #4f347f}
+.youtube-link:focus-visible{outline:3px solid #d98abb;outline-offset:3px}
+/* Panel inferior de plataformas */
+body{padding-bottom:30px}
+#spotifyContent>.panel{margin:12px 0}
+
+.site-index{margin:18px 0;padding:16px;border:1px solid #e7d9f7;border-radius:18px;background:#fffdfef0;box-shadow:0 6px 18px #705e7015}.site-index h2{margin:0 0 10px;color:#6842a8;font-size:1.05rem}.site-index-links{display:flex;flex-wrap:wrap;gap:8px}.site-index a{padding:8px 11px;border-radius:12px;background:#f2eaff;color:#6842a8;font-weight:900;text-decoration:none;font-size:.86rem}.site-index a:focus-visible{outline:3px solid #d98abb;outline-offset:2px}
+
+/* Liquid glass lavanda global + botones estilo glossy */
+body{
+ }
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:radial-gradient(ellipse at 50% 45%,#ffffff38,transparent 65%);
+ backdrop-filter:blur(34px);-webkit-backdrop-filter:blur(34px);
+}
+.panel,.site-index,.playlist,.combo-entry,.reset-country-card,.dashboard-stat{
+ background:linear-gradient(135deg,#ffffffb8,#eee5ff99)!important;
+ border:1px solid #ffffffc9!important;
+ box-shadow:0 12px 32px #51347b18,inset 0 1px 0 #ffffffd9!important;
+ backdrop-filter:blur(18px) saturate(145%);-webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+button,.action,.spotify-link,.profile-shortcut{
+ border-radius:999px!important;
+ background:linear-gradient(180deg,#9874d0 0%,#7650b8 58%,#6842a8 100%)!important;
+ color:#fff!important;
+ border:1px solid #ffffffa8!important;
+ box-shadow:0 5px 0 #4f347f,0 9px 18px #4f347f30,inset 0 2px 3px #ffffff65!important;
+ text-shadow:0 1px 2px #4d327755;
+ transition:transform .18s ease,box-shadow .18s ease,filter .18s ease!important;
+}
+button:hover,.action:hover,.spotify-link:hover,.profile-shortcut:hover{
+ filter:brightness(1.08) saturate(1.04);transform:translateY(-2px);
+ box-shadow:0 7px 0 #4f347f,0 13px 22px #4f347f38,inset 0 2px 3px #ffffff75!important;
+}
+button:active,.action:active,.spotify-link:active,.profile-shortcut:active{
+ transform:translateY(3px) scale(.985);
+ box-shadow:0 2px 0 #4f347f,0 4px 10px #4f347f24,inset 0 2px 4px #ffffff55!important;
+}
+.profile-shortcut.member-cover{border-radius:22px!important;background:linear-gradient(145deg,#ffffffd9,#e9ddf8c9)!important}
+.profile-shortcut.member-cover span{border-radius:999px!important}
+@media(prefers-reduced-motion:reduce){button,.action,.spotify-link,.profile-shortcut{transition:none!important}}
+
+
+/* Índice: liquid glass morado */
+.site-index{
+ position:relative;isolation:isolate;overflow:hidden;
+ background:linear-gradient(135deg,rgba(177,139,235,.34),rgba(112,72,177,.25) 48%,rgba(220,195,255,.32))!important;
+ border:1px solid rgba(255,255,255,.58)!important;
+ box-shadow:0 12px 34px rgba(79,42,130,.18),inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(255,255,255,.16)!important;
+ backdrop-filter:blur(22px) saturate(165%)!important;
+ -webkit-backdrop-filter:blur(22px) saturate(165%)!important;
+}
+.site-index:before{content:"";position:absolute;inset:-45% -15%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 18% 8%,rgba(255,255,255,.68),transparent 42%),radial-gradient(ellipse at 88% 85%,rgba(179,128,255,.32),transparent 48%);filter:blur(9px)}
+.site-index h2,.site-index a{color:#4d327b!important}
+.site-index a{background:rgba(255,255,255,.28)!important;border:1px solid rgba(255,255,255,.5)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.55)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.site-index a:hover{background:rgba(255,255,255,.48)!important}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){.site-index{background:linear-gradient(135deg,#e7d8ff,#c7a8f2)!important}}
+
+
+/* Tarjetas BTS: rojo ARIRANG y nombres blancos; los combos conservan su paleta */
+.profile-shortcut.member-cover{
+  background:linear-gradient(145deg,#ef4052 0%,#d9273e 58%,#b91f35 100%)!important;
+  border:1px solid #a9182d!important;
+  box-shadow:0 6px 16px #a9182d35,inset 0 1px 0 #ffffff55!important;
+}
+.profile-shortcut.member-cover span,
+.profile-shortcut.member-cover small{
+  color:#fff!important;
+}
+.profile-shortcut.member-cover span{
+  background:rgba(145,12,34,.28)!important;
+  box-shadow:inset 0 1px 0 #ffffff30!important;
+}
+.profile-shortcut.member-cover:hover{
+  border-color:#8f1428!important;
+  box-shadow:0 10px 22px #a9182d45,inset 0 1px 0 #ffffff66!important;
+}
+
+
+/* Título principal: ARMY morado y PLAYLIST FINDER negro */
+.army-main-title{color:#17131d!important;text-shadow:none}
+.army-main-title span{color:#7650b8!important}
+
+/* Iconos para controles de navegación y streaming */
+.action:before{display:inline-block;margin-right:7px;font-size:1.05em;vertical-align:-1px}
+#dashboardRandom:before{content:"🎲";display:inline-block;font-size:1.4em;vertical-align:-3px;filter:drop-shadow(0 2px 3px #39205f88);transform:rotate(-8deg);margin-right:9px}
+#makeSchedule:before{content:"⏰";font-size:1.15em}
+#addRequest:before,#clearHours:before,#librarySearchButton:before{content:"🔎";font-size:1.05em}
+#toggleComboCatalog:before{content:"🎵";font-size:1.05em}
+[data-dashboard-go="songSearchPanel"]:before{content:"🔎"}
+[data-dashboard-go="schedulePanel"]:before{content:"⏰"}
+[data-dashboard-go="toggleComboCatalog"]:before{content:"🎵"}
+#dashboardRandom:after{content:""}
+#showSchedulePlaylists:before{content:"▶️"}
+
+
+#randomComboResult{position:relative;overflow:visible}
+#randomComboCard{position:relative;isolation:isolate;overflow:visible}
+.surprise-card-confetti,.surprise-card-confetti{width:8px;height:12px;border-radius:2px;animation:cardConfettiFloat var(--duration,8s) ease-in-out var(--delay,0s) forwards}
+.surprise-card-star{font-size:clamp(16px,2.5vw,25px);color:#9b63e8;text-shadow:0 1px 8px #fff,0 0 12px #d9b8ff;animation:cardStarTwinkle var(--duration,8s) ease-in-out var(--delay,0s) forwards}
+@keyframes cardConfettiFloat{0%{transform:translate3d(0,-8px,0) rotate(0deg);opacity:0}12%{opacity:1}80%{opacity:1}100%{transform:translate3d(var(--drift),95px,0) rotate(var(--spin));opacity:0}}
+
+.surprise-confetti{position:fixed;top:-14px;width:9px;height:13px;z-index:9999;pointer-events:none;border-radius:2px;animation:surpriseConfettiFall var(--fall-time,2.4s) cubic-bezier(.18,.65,.35,1) forwards}
+@keyframes surpriseConfettiFall{0%{transform:translate3d(0,-10px,0) rotate(0deg);opacity:1}100%{transform:translate3d(var(--drift),105vh,0) rotate(var(--spin));opacity:0}}
+@media(prefers-reduced-motion:reduce){.surprise-confetti{animation-duration:1.1s}}
+
+/* Botones más pequeños y suaves, sin relieve marcado */
+button,.action,.spotify-link{
+  padding:8px 13px!important;
+  min-height:0;
+  border:1px solid #d9c9ec!important;
+  border-radius:14px!important;
+  background:linear-gradient(180deg,#9878c7 0%,#8664bb 100%)!important;
+  box-shadow:0 2px 7px #60458318!important;
+  text-shadow:none!important;
+  font-size:.88rem!important;
+  font-weight:800!important;
+  transition:background .18s ease,box-shadow .18s ease!important;
+}
+button:hover,.action:hover,.spotify-link:hover{
+  transform:none!important;
+  filter:none!important;
+  background:#8060b4!important;
+  box-shadow:0 3px 9px #60458320!important;
+}
+button:active,.action:active,.spotify-link:active{
+  transform:scale(.99)!important;
+  box-shadow:0 1px 4px #60458318!important;
+}
+.profile-shortcut.member-cover{
+  border:1px solid #e8d9f4!important;
+  box-shadow:0 2px 9px #60458318!important;
+}
+.profile-shortcut.member-cover:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 4px 12px #60458320!important;
+}
+
+/* Ajuste de buscadores para que respeten el ancho de sus contenedores */
+.song-autocomplete,.field,.request-row,.reset-controls{min-width:0;max-width:100%}
+.song-autocomplete>input,.field input,.request-row input,.reset-controls input{width:100%;min-width:0;max-width:100%;font-size:clamp(.78rem,2.5vw,.95rem);padding:10px 11px}
+#librarySearchPanel .song-autocomplete{flex:1 1 0;min-width:0}
+.reset-controls .song-autocomplete{flex:1 1 220px;min-width:0}
+@media(max-width:560px){.request-row{grid-template-columns:minmax(0,1fr) minmax(76px,100px) auto;gap:7px}.song-request-row{grid-template-columns:minmax(0,1fr) minmax(76px,95px)}.song-request-row #addRequest{grid-column:1/-1}#librarySearchPanel .request-row{grid-template-columns:minmax(0,1fr)}#librarySearchPanel .field{width:100%}.reset-controls{gap:7px}.reset-controls .song-autocomplete{flex-basis:100%}}
+/* Autocompletado unificado en todos los buscadores */
+#librarySearchPanel .song-autocomplete{flex:2;min-width:150px}
+.reset-controls .song-autocomplete{flex:1;min-width:150px}
+/* Autocompletado de canciones y streams opcionales */
+.song-request-row{grid-template-columns:minmax(0,1fr) 125px auto;align-items:start}
+.song-autocomplete{position:relative;min-width:0}
+.song-autocomplete>input{width:100%}
+.song-suggestions{position:absolute;z-index:100;top:calc(100% + 6px);left:0;right:0;max-height:260px;overflow:auto;padding:6px;border:1px solid #e4d7f2;border-radius:14px;background:#fff;box-shadow:0 12px 28px #50347726}
+.song-suggestion{display:block;width:100%;padding:9px 11px!important;border:0!important;border-radius:9px!important;background:transparent!important;box-shadow:none!important;color:#514064!important;text-align:left;font-size:.9rem!important;text-shadow:none!important}
+.song-suggestion:hover,.song-suggestion.active{background:#f1e8ff!important;color:#6842a8!important;transform:none!important;box-shadow:none!important}
+#playsInput{width:100%;min-width:0}
+@media(max-width:560px){.song-request-row{grid-template-columns:minmax(0,1fr) 105px}.song-request-row #addRequest{grid-column:1/-1}}
+/* Resultados independientes para cada buscador */
+.search-output{margin-top:16px;padding:14px;border:1px solid #e5d8f3;border-radius:18px;background:#ffffffa8;min-width:0;overflow:hidden}
+.search-output>h3{margin:0 0 10px;color:var(--ink);font-size:1rem}
+.search-output .results{margin:0;min-width:0}
+.profile-track-match{background:rgba(190,150,255,.16);border-left:3px solid #a66cff;padding:5px 8px;border-radius:6px;font-weight:600;}</style><style>
+body{padding-bottom:105px!important}
+.app-dock{position:fixed;z-index:1000;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(420px,calc(100% - 24px));display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:9px;border:1px solid #ffffffd9;border-radius:24px;background:linear-gradient(135deg,#ffffffed,#eee5ffed);box-shadow:0 12px 32px #39205235;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.app-tab{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;border-radius:17px;text-decoration:none;color:#6842a8;font-weight:900}
+.app-tab.active{background:linear-gradient(180deg,#9874d0,#6842a8);color:white;box-shadow:0 4px 0 #4f347f}
+.app-icon{font-size:1.2rem;line-height:1}
+.app-tab:focus-visible{outline:3px solid #d98abb;outline-offset:3px}
+</style></head><body><main class="page"><header><div class="eyebrow"> made with love for ARMY </div><h1 class="army-main-title"><span>ARMY</span> PLAYLIST FINDER</h1><p class="subtitle">Organiza tu streaming y encuentra tu playlist ideal. </p></header>
+
+<nav class="site-index" aria-label="Índice de secciones"><h2>Índice</h2><div class="site-index-links"><a href="#profile-shortcuts">Perfiles BTS</a><a href="#armyDashboard">Panel ARMY</a><a href="#spotifyResetTimes">Reinicio Spotify</a><a href="#comboCatalog">Combos</a><a href="#schedulePanel">Mi horario</a><a href="#songSearchPanel">Buscar canciones</a><a href="#minutesFilterPanel">Filtros</a><a href="#librarySearchPanel">Buscar artista / álbum</a><a href="#musicatProgress">Musicat</a><a href="youtube.html">YouTube</a></div></nav>
+<section class="profile-shortcuts" id="profile-shortcuts" aria-label="Perfiles grupales e individuales">
+<button class="profile-shortcut member-cover group-cover" type="button" data-group="Combo ARIRANG · 13 B-sides"><img src="https://img.zeit.de/feuilleton/2026-03/arirang-bts-album-musik-k-pop-bild/square__960x960" alt="BTS, los siete integrantes en la era ARIRANG"><span> BTS<br><small>Grupal · OT7</small></span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo RM"><img src="https://bighitsmusic.com/assets/images/bts/members/rm.jpg" alt="RM" loading="lazy"><span>RM</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo JIN"><img src="https://bighitsmusic.com/assets/images/bts/members/jin.jpg" alt="Jin" loading="lazy"><span>Jin</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo YOONGI"><img src="https://bighitsmusic.com/assets/images/bts/members/suga.jpg" alt="SUGA" loading="lazy"><span>SUGA</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo J-HOPE"><img src="https://bighitsmusic.com/assets/images/bts/members/j-hope.jpg" alt="J-Hope" loading="lazy"><span>J-Hope</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo JIMIN"><img src="https://bighitsmusic.com/assets/images/bts/members/jimin.jpg" alt="Jimin" loading="lazy"><span>Jimin</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo V"><img src="https://bighitsmusic.com/assets/images/bts/members/v.jpg" alt="V" loading="lazy"><span>V</span></button>
+<button class="profile-shortcut member-cover" type="button" data-group="Combo JUNGKOOK"><img src="https://bighitsmusic.com/assets/images/bts/members/jungkook.jpg" alt="Jung Kook" loading="lazy"><span>Jung Kook</span></button>
+</section>
+<section class="panel" id="shortcutResults" hidden><h2 id="shortcutTitle">Playlists</h2><div class="results" id="shortcutPlaylists"></div></section>
+<section class="panel" id="allPlaylistsPanel" hidden><h2>Todas las playlists</h2><p class="hint" id="allPlaylistsCount"></p><div class="results" id="allPlaylistsResults"></div></section>
+<section class="panel army-dashboard" id="armyDashboard" aria-label="Panel de control ARMY">
+<div class="dashboard-head"><div><span class="dashboard-kicker"> TU ESPACIO ARMY</span><h2> Panel de control</h2><p class="hint">Todo tu streaming, organizado en un solo lugar.</p></div></div>
+<div class="dashboard-stats">
+<div class="dashboard-stat"><span></span><strong id="dashPlaylistCount">—</strong><small>Playlists</small></div>
+<div class="dashboard-stat"><span></span><strong id="dashComboCount">—</strong><small>Combos</small></div>
+<div class="dashboard-stat"><span></span><strong>8</strong><small>Perfiles ARMY</small></div>
+</div>
+<div class="dashboard-actions"><button class="action" type="button" data-dashboard-go="songSearchPanel"> Buscar canciones</button><button class="action" type="button" data-dashboard-go="schedulePanel"> Mi horario</button><button class="action" type="button" id="dashboardRandom"> Combo sorpresa</button><button class="action" type="button" data-dashboard-go="toggleComboCatalog"> Ver todos los combos</button><button class="action" type="button" id="showAllPlaylists"> Ver todas las playlists</button></div>
+<p class="dashboard-note">Pequeños pasos, muchas reproducciones. ¡Fighting, ARMY! </p>
+</section>
+<details class="panel reset-times" id="spotifyResetTimes">
+<summary>Horarios de reinicio diario de Spotify</summary>
+<p class="hint">El día de estadísticas de Spotify for Artists cambia a las 00:00 UTC. Busca un país, consulta la hora en su ciudad y cuánto falta para el próximo reinicio.</p>
+<div class="reset-controls"><div class="song-autocomplete"><input id="resetCountrySearch" type="search" autocomplete="off" placeholder="Buscar país o ciudad…" aria-label="Buscar país o ciudad" aria-autocomplete="list" aria-controls="resetCountrySuggestions" aria-expanded="false"><div id="resetCountrySuggestions" class="song-suggestions" role="listbox" hidden></div></div><label class="reset-format-label">Formato horario<select id="resetTimeFormat" aria-label="Formato horario"><option value="24">24 horas</option><option value="12">12 horas</option></select></label></div>
+<div class="reset-highlight"><strong>Próximo reinicio global: 00:00 UTC</strong><span id="resetGlobalCountdown">Calculando…</span></div>
+<div class="reset-list-wrap" id="spotifyResetRows" aria-live="polite"></div>
+<p class="hint" id="resetNoResults" hidden>No se encontraron países o ciudades con esa búsqueda.</p>
+<p class="hint">Las horas muestran el cambio de día estadístico (00:00 UTC), no la hora en que Spotify termina de actualizar y mostrar las estadísticas. La actualización visible suele ocurrir después.</p>
+<p class="hint">Fuente: <a href="https://support.spotify.com/na-en/artists/article/time-zone-for-stats-in-spotify-for-artists/" target="_blank" rel="noopener">Spotify for Artists · Zona horaria de las estadísticas</a>.</p>
+</details>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0"><button class="action" id="toggleComboCatalog" type="button" aria-expanded="false" aria-controls="comboCatalog">Ver combos de playlists</button></div><section class="panel" id="randomComboResult" hidden aria-live="polite"><h2> Tu combo sorpresa</h2><div id="randomComboCard" class="combo-catalog"></div></section><section class="panel" id="comboCatalog" hidden><h2> Combos de playlists</h2><p class="hint">Playlists que se complementan para cubrir objetivos de streaming. Las duraciones totales suman la reproducción consecutiva de las listas.</p><div id="comboCards" class="combo-catalog"></div></section>
+<section class="panel" id="schedulePanel"><h2> Mi horario personalizado</h2><div class="schedule"><label class="field">Hora de inicio<input id="startTime" type="time" value="18:00"></label><label class="field">Hora de término<input id="endTime" type="time" value="20:00"></label><button class="action" id="makeSchedule" type="button">Crear mi horario</button></div><div class="schedule-result" id="scheduleResult" aria-live="polite"></div><div class="search-output"><h3>Playlists para tu horario</h3><div id="scheduleMatches" class="results" aria-live="polite"><div class="empty">Crea tu horario y pulsa “Ver playlists para esta duración”.</div></div></div><p class="hint">Elige a qué hora empiezas y terminas; calcularemos cuánto tiempo tienes para tu playlist.</p></section>
+<section class="panel" id="songSearchPanel"><h2> Buscador por canción y streams</h2><div class="request-row song-request-row"><div class="song-autocomplete"><input id="songInput" type="search" autocomplete="off" placeholder="Busca una canción (ej. Like Crazy)" aria-label="Nombre de la canción" aria-autocomplete="list" aria-controls="songSuggestions" aria-expanded="false"><div id="songSuggestions" class="song-suggestions" role="listbox" hidden></div></div><input id="playsInput" type="number" min="1" max="100" value="" placeholder="Opcional" aria-label="Streams deseados (opcional)"><button class="action" id="addRequest" type="button">Buscar</button></div><label class="field" style="margin-top:10px">Versión de SWIM (opcional)<select id="swimVersion" style="padding:12px;border:2px solid var(--lilac);border-radius:14px;background:white;color:var(--ink);font:inherit;font-weight:800"><option value="all">Todas las versiones (suma SWIM)</option><option value="Swim ARIRANG Clean">ARIRANG Clean</option><option value="Swim ARIRANG Explicit">ARIRANG Explicit</option><option value="Swim KEEP SWIMMING">KEEP SWIMMING</option><option value="Swim Underwater">Underwater</option><option value="Swim Instrumental">Instrumental</option><option value="Swim Spring Waves">Spring Waves</option></select></label><p class="hint">Para SWIM, deja “Todas las versiones” para sumar sus reproducciones como siempre, o elige una versión para buscarla por separado.</p><p class="hint">Agrega canciones y, si quieres, indica cuántas repeticiones necesitas. Si dejas ese campo vacío, buscaremos la canción sin filtrar por streams.</p><div id="requestList" class="request-list"></div><div class="search-output"><h3>Resultados de canciones</h3><div id="songMatches" class="results" aria-live="polite"><div class="empty">Agrega una canción para encontrar playlists.</div></div></div></section><section class="panel" id="minutesFilterPanel"><h2> Buscador por minutos</h2><div class="request-row hour-filter"><label class="field">Horas mínimas<input id="minHours" type="number" min="0" max="24" step="0.5" placeholder="0"></label><label class="field">Horas máximas<input id="maxHours" type="number" min="0" max="24" step="0.5" placeholder="24"></label><button class="action" id="clearHours" type="button">Buscar</button></div><p class="hint">Filtra las playlists según su duración, indicando las horas mínimas y máximas.</p><div class="search-output"><h3>Resultados por duración</h3><div id="minutesMatches" class="results" aria-live="polite"><div class="empty">Indica un rango de horas para buscar.</div></div></div></section><section class="panel" id="librarySearchPanel"><h2> Buscar por artista, álbum o mix</h2><div class="request-row"><label class="field">Categoría<select id="librarySearchType"><option value="artist">Artista</option><option value="album">Álbum</option><option value="mix">Mix</option></select></label><label class="field" style="flex:2">Buscar<div class="song-autocomplete"><input id="librarySearchInput" type="search" autocomplete="off" placeholder="Ej. RM, ARIRANG o Agust D mix" aria-label="Buscar artista, álbum o mix" aria-autocomplete="list" aria-controls="librarySearchSuggestions" aria-expanded="false"><div id="librarySearchSuggestions" class="song-suggestions" role="listbox" hidden></div></div></label><button class="action" id="librarySearchButton" type="button">Buscar</button></div><p class="hint">Encuentra playlists por integrante o artista, álbum y mixes incluidos en el catálogo.</p><div class="search-output"><h3>Resultados de artista, álbum o mix</h3><div id="libraryMatches" class="results" aria-live="polite"><div class="empty">Busca un artista, álbum o mix para ver sus playlists.</div></div></div></section><div class="footer">Hecho con  por y para ARMY · Las playlists son sugerencias de planificación.</div><section class="panel" id="musicatProgress" aria-labelledby="musicatTitle">
+<h2 id="musicatTitle"> Lleva tu registro de reproducciones</h2>
+<p>Vincula tu cuenta de Spotify con Musicat para registrar tus escuchas y consultar tu historial y estadísticas personales.</p>
+<a class="spotify-link" href="https://musicat.fm/" target="_blank" rel="noopener noreferrer">Vincular Spotify con Musicat </a>
+</section>
+<div id="spotifyContent" class="platform-content"></div><nav class="app-dock" aria-label="Cambiar aplicación"><a class="app-tab active" href="spotify.html" aria-current="page"><span class="app-icon">♫</span><span>Spotify</span></a><a class="app-tab" href="youtube.html"><span class="app-icon">▶</span><span>YouTube</span></a></nav></main>
+<script>
+const renderComboCatalog=()=>{const byId=id=>playlists.find(p=>String(p[5]).includes(id));const sets=[{name:"Mini combo ARIRANG · 1 h 40 min · B-sides Clean",cls:"combo-one",ids:["6pfhtc5ZL8rGcCFkHvrp8v"],mission:"B-sides Clean ×1 · Aliens Clean ×10."},{name:"BORANIGHT: OT7",cls:"combo-two",ids:["5B1iCycCsXYoDFj0bbbsqc","15qXDXtvpJOgLGOyqo81xW"],mission:"Parte 1: SWIM ×100 · Come Over ×20. Parte 2: Spring Waves ×20. Ambas: 13 B-sides ×10."},
+{name:"Combo ARIRANG · 2 playlists",cls:"combo-two",ids:["2pNNrSKxlNY1ALZtJXEjCk","6yWh5tSp75lBAkUWp7zAq7"],mission:"Lista 1: SWIM ×100 · Come Over ×20 · No. 29 ×40. Lista 2: Spring Waves ×20. B-sides Clean/Explicit en ambas."},
+{name:"Combo DARK DAYS + FIND THE SUN",cls:"combo-one",ids:["6vezsMTGudDi9eerrQ2cb6","2Qt5ezVbt53ljBaNRZUrOX"],mission:"DARK DAYS: SWIM ×100 · NORMAL ×55 · B-sides ×14. FIND THE SUN: SWIM ×20 · NORMAL ×25 · B-sides ×5. Ambas incluyen Come Over."},
+{name:"Combo ARIRANG · 3 playlists",cls:"combo-two",ids:["5JT6WlfPo06qxKegJwzHsf","1C27A6XcMMSeohsOZul2C9","4rsgC3xuKfCtEKyrdExAU5"],mission:"Lista 1: SWIM ×100 · NORMAL ×20 · Come Over ×20 · B-sides ×10. Listas 2 y 3: B-sides ×5 (la 2 incluye Spring Waves ×20)."},
+{name:"Combo ARIRANG · 3 playlists",cls:"combo-two",ids:["2pVD2QdJiWovfSuvuNHItf","2yzZQIxCicuesZdbxJtKj2","0AWAi1ZciD4Z97ZhFOpfKd"],mission:"Lista 1: SWIM ×60 · NORMAL ×40 · Come Over ×20 · B-sides ×12. Lista 2: Underwater + Instrumental ×20 · B-sides ×4. Lista 3: NORMAL + Spring Waves ×20 · B-sides ×4."},
+{name:"Combo RM",cls:"combo-member",ids:["5BMYC2WA6fKThYjQdtZqS5","62i01tAfG4a5DIXUZcnFDp"],mission:"RM · Playlist principal + complementaria."},
+{name:"Combo Jin",cls:"combo-member",ids:["4MiSLZNqhiD31iVIqHOSXP","1SQAyam6p8cb2qPXqfGV1I"],mission:"Jin · Playlist principal + complementaria."},
+{name:"Combo SUGA",cls:"combo-member",ids:["7tJXhROvUnFVNnzg3cf7Sv","7qfMtOM17y3EGNtid34xQ1"],mission:"SUGA · Playlist principal + complementaria."},
+{name:"Combo J-Hope",cls:"combo-member",ids:["1kFhqSfqfhd3uH4TDzndZk","3OUq2BiGUJrgtTMKrQbTqB"],mission:"J-Hope · Playlist principal + complementaria."},
+{name:"Combo Jimin",cls:"combo-member",ids:["6rRt5hzua3gO07FsuwwXXl","2n509Hvnb9MqT4PAoxVcdO"],mission:"Jimin · Playlist principal + complementaria."},
+{name:"Combo V",cls:"combo-member",ids:["5Mqlub7Pe1ljzMErmaf5oB","5vHW6BbpQuRKtPlvKZg4S7"],mission:"V · Playlist principal + complementaria."},
+{name:"Combo Jungkook",cls:"combo-member",ids:["6gQ3JNOjNAmOmwQSbpSr1m","6X1PYrGOVrtY7bjAN4mLp9"],mission:"Jung Kook · Playlist principal + complementaria."}
+];const comboColors=[["#fce7f3","#fbcfe8"],["#dbeafe","#bfdbfe"],["#dcfce7","#bbf7d0"],["#fef3c7","#fde68a"],["#ede9fe","#ddd6fe"],["#ffedd5","#fed7aa"],["#ccfbf1","#99f6e4"],["#fee2e2","#fecaca"],["#e0e7ff","#c7d2fe"],["#f3e8ff","#e9d5ff"],["#ecfccb","#d9f99d"],["#fae8ff","#f5d0fe"]];$("comboCards").innerHTML=sets.map((set,index)=>{const items=set.ids.map(byId).filter(Boolean);const total=items.reduce((n,p)=>n+(Number.isFinite(p[2])?p[2]:0),0);const missing=items.length!==set.ids.length||items.some(p=>!Number.isFinite(p[2]));const fmt=m=>Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min";const colors=comboColors[index%comboColors.length];const normalNotes=items.map((p,i)=>({i,count:p[4].filter(t=>norm(t.replace(/\\s*[×x]\\s*\\d+.*$/,"").trim())==="normal").reduce((sum,t)=>sum+(Number((t.match(/\\s*[×x]\\s*(\\d+)/)||[])[1])||1),0)})).filter(x=>x.count>0);const missionText=normalNotes.length&&!/\\bnormal\\b/i.test(set.mission)?set.mission+' NORMAL también cuenta como B-side: '+normalNotes.map(x=>'Playlist '+(x.i+1)+' ×'+x.count).join(", ")+'.':set.mission;return '<article class="combo-set '+set.cls+'" style="background:linear-gradient(120deg,'+colors[0]+','+colors[1]+')"><h3> '+set.name+'</h3><div class="combo-total"> Duración total: '+(missing?"Pendiente de confirmar":fmt(total))+'</div><p class="combo-mission">'+missionText+'</p>'+items.map((p,i)=>{const url=Array.isArray(p[5])?p[5][0]:p[5];return '<div class="combo-entry"><strong>Playlist '+(i+1)+': '+p[0]+'</strong><p>'+(Number.isFinite(p[2])?fmt(p[2]):"Duración no indicada")+'</p><a href="'+url+'" target="_blank" rel="noopener noreferrer">Abrir en Spotify </a></div>'}).join("")+'</article>'}).join("")};
+
+
+const playlists=[
+["Normal ×20 · 1 h 26 min",20,86,"Combo ARIRANG · 13 B-sides",["Normal ×20"],"https://open.spotify.com/playlist/1w9LeMBJnj8IPKq9eoXfz2?si=dKpBSxQlRiS6rRcIJKtVHA&utm_source=copy-link&pi=YnicHr2uS8Ktx"],
+
+["BORANIGHT: OT7 · Parte 1 · 15 h 39 min",190,939,"Combo ARIRANG · 13 B-sides",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Come Over ×20","Wild Flower ×10","Don’t Say You Love Me ×10","Haegeum ×10","Killin’ It Girl ×10","Who ×10","Winter Ahead ×10","Seven ×10","Body to Body ×10","Hooligan ×10","Aliens ×10","FYA ×10","2.0 ×10","No. 29 ×10","Merry Go Round ×10","Like Animals ×10","they don’t know ’bout us ×10","One More Night ×10","Please ×10","Into the Sun ×10","Normal ×10"],"https://open.spotify.com/playlist/5B1iCycCsXYoDFj0bbbsqc?si=wYZKKRJOSg6sdqBJbyDUfw&utm_source=copy-link&pi=0zZfLUq0TOW2e"],
+["BORANIGHT: OT7 · Parte 2 · 7 h 40 min",90,460,"Combo ARIRANG · 13 B-sides",["Swim Spring Waves ×20","Wild Flower ×10","Don’t Say You Love Me ×10","Haegeum ×10","Killin’ It Girl ×10","Who ×10","Winter Ahead ×10","Seven ×10","Body to Body ×10","Hooligan ×10","Aliens ×10","FYA ×10","2.0 ×10","No. 29 ×10","Merry Go Round ×10","Like Animals ×10","they don’t know ’bout us ×10","One More Night ×10","Please ×10","Into the Sun ×10","Normal ×10"],"https://open.spotify.com/playlist/15qXDXtvpJOgLGOyqo81xW?si=Hmlm1EmYR1S1sO8igeBtLA&utm_source=copy-link&pi=BzZKDopYS6uSN"],["13 h 58 min · SWIM (5 versiones) ×100 · Normal ×20 · Come Over ×20 · B-sides ×10",100,838,"Combo ARIRANG · 12 B-sides",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Normal ×20","Come Over ×20","Body to Body ×10","Hooligan ×10","Aliens ×10","FYA ×10","2.0 ×10","No. 29 ×10","Merry Go Round ×10","Like Animals ×10","they don’t know ’bout us ×10","One More Night ×10","Please ×10","Into the Sun ×10"],"https://open.spotify.com/playlist/5JT6WlfPo06qxKegJwzHsf"],["4 h 3 min · SWIM Spring Waves ×20 · B-sides ×5",20,243,"Combo ARIRANG · 12 B-sides",["Swim Spring Waves ×20","Body to Body ×5","Hooligan ×5","Aliens ×5","FYA ×5","2.0 ×5","No. 29 ×5","Merry Go Round ×5","Like Animals ×5","they don’t know ’bout us ×5","One More Night ×5","Please ×5","Into the Sun ×5"],"https://open.spotify.com/playlist/1C27A6XcMMSeohsOZul2C9"],["3 h 11 min · B-sides ×5",5,191,"Combo ARIRANG · 12 B-sides",["Body to Body ×5","Hooligan ×5","Aliens ×5","FYA ×5","2.0 ×5","No. 29 ×5","Merry Go Round ×5","Like Animals ×5","they don’t know ’bout us ×5","One More Night ×5","Please ×5","Into the Sun ×5"],"https://open.spotify.com/playlist/4rsgC3xuKfCtEKyrdExAU5"],[" TODAY IS FOR RM · 16 h 33 min · SWIM (6 versiones) ×120",120,993,"BTS grupal + RM",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Wild Flower ×20"],["https://open.spotify.com/playlist/5BMYC2WA6fKThYjQdtZqS5"]],[" Complementaria for RM · 5 h 05 min",7,305,"Combo RM",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","RM mix"],["https://open.spotify.com/playlist/62i01tAfG4a5DIXUZcnFDp"]],
+["1 h 48 min · Nuts ×10 · Indigo (10 canciones) ×1",10,108,"Combo RM",["Nuts ×10","Yun (with Erykah Badu) ×1","Still Life (with Anderson .Paak) ×1","All Day (with Tablo) ×1","Forg_tful (with Kim Sawol) ×1","Closer (with Paul Blanco, Mahalia) ×1","Change pt.2 ×1","Lonely ×1","Hectic (with Colde) ×1","Wild Flower (with youjeen) ×1","No.2 (with parkjiyoon) ×1"],"https://open.spotify.com/playlist/0g6otODjc0564jSXSeUknI?si=Hz4qA9mARE2E2_7dBYG9lQ&utm_source=copy-link&pi=nki8YTlKSiWMf"],["1 h 55 min · Run BTS ×10 · Dark & Wild ×1 · Mix BTS ×1",10,115,"Combo BTS · Proof + Dark & Wild",["Run BTS ×10","Dark & Wild ×1","Mix BTS ×1"],"https://open.spotify.com/playlist/3ehR9TlMIj8tWct7kbSRQA?si=4BgHwsTgT_KuJXYZ0O4kYQ&utm_source=copy-link&pi=cDEyx1UVRhyzC"],[" TODAY IS FOR JIN · 16 h 55 min · SWIM (6 versiones) ×120",120,955,"BTS grupal + JIN",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Don’t Say You Love Me ×20"],["https://open.spotify.com/playlist/4MiSLZNqhiD31iVIqHOSXP"]],[" Complementaria for Jin · 4 h 58 min",7,298,"Combo JIN",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","Jin mix"],["https://open.spotify.com/playlist/1SQAyam6p8cb2qPXqfGV1I"]],[" TODAY IS FOR YOONGI · 16 h 51 min · SWIM (6 versiones) ×120",120,951,"BTS grupal + YOONGI",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Haegeum ×20"],["https://open.spotify.com/playlist/7tJXhROvUnFVNnzg3cf7Sv"]],[" Complementaria for Yoongi · 5 h 05 min",7,305,"Combo YOONGI",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","AgustD/SUGA mix"],["https://open.spotify.com/playlist/7qfMtOM17y3EGNtid34xQ1"]],[" TODAY IS FOR J-HOPE · 16 h 43 min · SWIM (6 versiones) ×120",120,943,"BTS grupal + J-HOPE",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Killin’ It Girl ×20"],["https://open.spotify.com/playlist/1kFhqSfqfhd3uH4TDzndZk"]],[" Killin’ It Girl ×20 + mix OT7 · 2 h 12 min",20,132,"Combo J-HOPE",["Killin’ It Girl ×20","mix OT7"],"https://open.spotify.com/playlist/05X4ekEVDcM5ZXjtWmkr6h?si=0bvLW8rvQCGWU4s13iob4A&utm_source=copy-link&pi=LZrmTFSUTOWD1"],[" Complementaria for j-hope · 4 h 57 min",7,297,"Combo J-HOPE",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","j-hope mix"],["https://open.spotify.com/playlist/3OUq2BiGUJrgtTMKrQbTqB"]],[" TODAY IS FOR JIMIN · 16 h 52 min · SWIM (6 versiones) ×120",120,952,"BTS grupal + JIMIN",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Who ×20"],["https://open.spotify.com/playlist/6rRt5hzua3gO07FsuwwXXl"]],[" Complementaria for Jimin · 5 h 03 min",7,303,"Combo JIMIN",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","Jimin mix"],["https://open.spotify.com/playlist/2n509Hvnb9MqT4PAoxVcdO"]],[" TODAY IS FOR V · 16 h 12 min · SWIM (6 versiones) ×120",120,972,"BTS grupal + V",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Winter Ahead ×20"],["https://open.spotify.com/playlist/5Mqlub7Pe1ljzMErmaf5oB"]],[" Complementaria for V · 5 h 02 min",7,302,"Combo V",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","V mix"],["https://open.spotify.com/playlist/5vHW6BbpQuRKtPlvKZg4S7"]],[" TODAY IS FOR JUNGKOOK · 16 h 54 min · SWIM (6 versiones) ×120",120,954,"BTS grupal + JUNGKOOK",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Swim Spring Waves ×20","Normal ×40","Come Over ×20","ARIRANG ×10","Seven ×20"],["https://open.spotify.com/playlist/6gQ3JNOjNAmOmwQSbpSr1m"]],[" Complementaria for Jungkook · 4 h 59 min",7,299,"Combo JUNGKOOK",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7","Jungkook mix"],["https://open.spotify.com/playlist/6X1PYrGOVrtY7bjAN4mLp9"]],[" Complementaria fast · 4 h 28 min",7,268,"Combo Complementaria fast",["Body to Body ×7","Hooligan ×7","Aliens ×7","FYA ×7","2.0 ×7","No. 29 ×7","Merry Go Round ×7","Like Animals ×7","they don’t know ’bout us ×7","One More Night ×7","Please ×7","Into the Sun ×7"],"https://open.spotify.com/playlist/6R7Q30wNdRRiy3HxCyTxeI"],["12 h 57 min · SWIM (3 versiones) ×60 · Normal ×40 · Come Over ×20 · B-sides ×12",60,777,"Combo ARIRANG · 12 B-sides",["Swim KEEP SWIMMING ×20","Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Normal ×40","Come Over ×20","Body to Body ×12","Hooligan ×12","Aliens ×12","FYA ×12","2.0 ×12","No. 29 ×12","Merry Go Round ×12","Like Animals ×12","they don’t know ’bout us ×12","One More Night ×12","Please ×12","Into the Sun ×12"],"https://open.spotify.com/playlist/2pVD2QdJiWovfSuvuNHItf"],["4 h 34 min · SWIM (2 versiones) ×40 · B-sides ×4",40,274,"Combo ARIRANG · 12 B-sides",["Swim Underwater ×20","Swim Instrumental ×20","Body to Body ×4","Hooligan ×4","Aliens ×4","FYA ×4","2.0 ×4","No. 29 ×4","Merry Go Round ×4","Like Animals ×4","they don’t know ’bout us ×4","One More Night ×4","Please ×4","Into the Sun ×4"],"https://open.spotify.com/playlist/2yzZQIxCicuesZdbxJtKj2"],["4 h 52 min · Normal ×20 · SWIM Spring Waves ×20 · B-sides ×4",20,292,"Combo ARIRANG · 12 B-sides",["Normal ×20","Swim Spring Waves ×20","Body to Body ×4","Hooligan ×4","Aliens ×4","FYA ×4","2.0 ×4","No. 29 ×4","Merry Go Round ×4","Like Animals ×4","they don’t know ’bout us ×4","One More Night ×4","Please ×4","Into the Sun ×4"],"https://open.spotify.com/playlist/0AWAi1ZciD4Z97ZhFOpfKd"],["[I] DARK DAYS · 17 h 13 min",100,1033,"Combo SWIM + NORMAL",["SWIM ×100","NORMAL ×55","COME OVER ×10","b-sides [E] ×14","Haegeum + KIG ×10"],"https://open.spotify.com/playlist/6vezsMTGudDi9eerrQ2cb6?si=JKPsiaaJR9mCrGVvgW7I_g&utm_source=copy-link&pi=AcqJMCPAQkeCw"],["[II] FIND THE SUN · 6 h 24 min",20,384,"Combo SWIM + NORMAL",["SWIM ×20","COME OVER ×10","NORMAL ×25","b-sides [C] ×5","Wild Flower ×10"],"https://open.spotify.com/playlist/2Qt5ezVbt53ljBaNRZUrOX?si=AX61SInoRnyh8XBPKmOWOw&utm_source=copy-link&pi=5BWtUCP3QqWap"],["15 h 40 min · SWIM (5 versiones) ×20 · Come Over ×20 · No. 29 ×40 · B-sides Clean ×15",20,940,"Combo ARIRANG · 12 B-sides",["Swim ARIRANG Clean ×20","Swim ARIRANG Explicit ×20","Swim KEEP SWIMMING ×20","Swim Underwater ×20","Swim Instrumental ×20","Come Over ×20","No. 29 ARIRANG Explicit ×20","No. 29 ARIRANG Clean ×20","Body to Body ×15","Hooligan ×15","Aliens ×15","FYA ×15","2.0 ×15","Merry Go Round ×15","Like Animals ×15","they don’t know ’bout us ×15","One More Night ×15","Please ×15","Into the Sun ×15"],"https://open.spotify.com/playlist/2pNNrSKxlNY1ALZtJXEjCk?si=6JZ6nlP6S9GrQTmho6_XUQ&utm_source=copy-link"],["5 h 24 min · SWIM Spring Waves ×20 · B-sides Clean ×5 + Explicit ×2",20,324,"Combo ARIRANG · 12 B-sides",["Swim Spring Waves ×20","Body to Body ARIRANG Clean ×5","Hooligan ARIRANG Clean ×5","Aliens ARIRANG Clean ×5","FYA ARIRANG Clean ×5","2.0 ARIRANG Clean ×5","Merry Go Round ARIRANG Clean ×5","Like Animals ARIRANG Clean ×5","they don’t know ’bout us ARIRANG Clean ×5","One More Night ARIRANG Clean ×5","Please ARIRANG Clean ×5","Into the Sun ARIRANG Clean ×5","Body to Body ARIRANG Explicit ×2","Hooligan ARIRANG Explicit ×2","Aliens ARIRANG Explicit ×2","FYA ARIRANG Explicit ×2","2.0 ARIRANG Explicit ×2","No. 29 ARIRANG Explicit ×2","Merry Go Round ARIRANG Explicit ×2","Like Animals ARIRANG Explicit ×2","they don’t know ’bout us ARIRANG Explicit ×2","One More Night ARIRANG Explicit ×2","Please ARIRANG Explicit ×2","Into the Sun ARIRANG Explicit ×2"],"https://open.spotify.com/playlist/6yWh5tSp75lBAkUWp7zAq7?si=bTXEbBs2SWyTWfRQeUrJIQ&utm_source=copy-link"],["Mini combo ARIRANG · 1 h 40 min · B-sides Clean",10,100,"Combo ARIRANG · 12 B-sides",["Aliens ARIRANG Clean ×10","Body to Body ARIRANG Clean ×1","Hooligan ARIRANG Clean ×1","FYA ARIRANG Clean ×1","2.0 ARIRANG Clean ×1","No. 29 ARIRANG Clean ×1","Merry Go Round ARIRANG Clean ×1","Like Animals ARIRANG Clean ×1","they don’t know ’bout us ARIRANG Clean ×1","One More Night ARIRANG Clean ×1","Please ARIRANG Clean ×1","Into the Sun ARIRANG Clean ×1","Swim ARIRANG Clean ×1","Normal ×1"],"https://open.spotify.com/playlist/6pfhtc5ZL8rGcCFkHvrp8v?si=BAN7EajjQP29s7Tpc1oM9Q&utm_source=copy-link&pi=i-1AoS97TUed8"],["ECHO ×4 · 1 h 45 min · 6 canciones del álbum ×4 · sin Don’t Say You Love Me",4,105,"Combo JIN",["Nothing Without Your Love ×4","Loser (feat. YENA) ×4","Rope It ×4","With the Clouds ×4","Background ×4","To Me, Today ×4"],"https://open.spotify.com/playlist/2Fp7Ark2Xvp7fy7gJOo8kg?si=wpjUKiWITFy_M68fu5hemg&utm_source=copy-link&pi=Hs7X1VcRT9yxW"],["ARIRANG y Maknaes · 5 h 44 min · 14 canciones ARIRANG · 14 B-sides ×5 · Who ×10 · Winter Ahead ×10 · Seven ×10",5,344,"ARIRANG · Maknaes",["Body to Body ARIRANG Explicit ×5","Hooligan ARIRANG Explicit ×5","Aliens ARIRANG Explicit ×5","FYA ARIRANG Explicit ×5","2.0 ARIRANG Explicit ×5","No. 29 ARIRANG Explicit ×5","Merry Go Round ARIRANG Explicit ×5","Like Animals ARIRANG Explicit ×5","they don’t know ’bout us ARIRANG Explicit ×5","One More Night ARIRANG Explicit ×5","Please ARIRANG Explicit ×5","Into the Sun ARIRANG Explicit ×5","Normal ARIRANG Explicit ×5","Who ×10","Winter Ahead ×10","Seven ×10"],"https://open.spotify.com/playlist/2FbvHxLDcs4VIowlsyu0d6?si=zrdPNMd7T1e9tXo2oseJ-A&utm_source=copy-link&pi=I-vJRD0MTtmjC"],["Mona Lisa y Fri(end)s · 3 h 08 min · Mona Lisa ×20 · Fri(end)s ×20",20,188,"Perfiles individuales · V + J-HOPE",["Mona Lisa ×20","Fri(end)s ×20"],"https://open.spotify.com/playlist/7CKaAMObrl6eE0Fwk3q2M2?si=-8bggPcfT-O6y68LkNugGg&utm_source=copy-link&pi=YolDzfhnTN-sf"],["Stop the rain (focus namjoon) · 4 h 04 min · Stop The Rain (TABLO X RM) ×20 · Wild Flower ×20 + mix RM",20,244,"Perfil individual · RM",["Stop The Rain (TABLO X RM) ×20","Wild Flower ×20","mix RM"],"https://open.spotify.com/playlist/1GypWYsJLfhwunqDzDWSt9?si=vDkEXnLGQzikA46VyLLXRg&utm_source=copy-link&pi=EdRXOVhjTBmQZ"],["ARI: borarang · 15 h 55 min",100,955,"BTS + SUGA + RM + J-HOPE",["Swim (sin Spring Waves) ×100","Normal ×70","ARIRANG B-sides Explicit ×5","ARIRANG B-sides Clean ×5","Come Over ×20","Haegeum ×5","Wild Flower ×5","Killin’ It Girl ×5"],"https://open.spotify.com/playlist/38MXhX11iac2KZ5NqQelPW?si=fIKcSaYPSjCJVtM8y1A8Gw&utm_source=copy-link&pi=u7WHCrrkRi-Xf"],
+["RANG: borarang · 5 h 28 min",20,328,"JIN + JIMIN + V + JUNGKOOK",["Swim Spring Waves ×20","Normal ×10","ARIRANG B-sides Explicit ×6","Don’t Say You Love Me ×2","Seven ×2","Who ×2","Winter Ahead ×2"],"https://open.spotify.com/playlist/0qXgre27tMe5V8cWrtS3tr?si=TQRWR-4NR1WWXZqfyvPV7Q&utm_source=copy-link&pi=l6uyJquPSSGtG"]];
+const songSuggestions=document.getElementById("songSuggestions");
+const knownSongs=[...new Set(playlists.flatMap(p=>p[4].map(track=>track.replace(/\s*[×x]\s*\d+.*$/,"").trim())).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+const songInput=document.getElementById("songInput");
+let activeSuggestion=-1;
+function hideSongSuggestions(){songSuggestions.hidden=true;songInput.setAttribute("aria-expanded","false");activeSuggestion=-1}
+function showSongSuggestions(){
+ const query=norm(songInput.value);
+ songSuggestions.innerHTML="";
+ if(!query){hideSongSuggestions();return}
+ const matches=knownSongs.map(title=>({title,key:norm(title)})).filter(x=>x.key.includes(query)).sort((a,b)=>(a.key.startsWith(query)?0:1)-(b.key.startsWith(query)?0:1)||a.title.localeCompare(b.title,"es")).slice(0,8);
+ if(!matches.length){hideSongSuggestions();return}
+ matches.forEach(({title},i)=>{const option=document.createElement("button");option.type="button";option.className="song-suggestion";option.role="option";option.id="song-suggestion-"+i;option.textContent=title;option.addEventListener("click",()=>{songInput.value=title;hideSongSuggestions();songInput.focus()});songSuggestions.appendChild(option)});
+ songSuggestions.hidden=false;songInput.setAttribute("aria-expanded","true");
+}
+songInput.addEventListener("input",showSongSuggestions);
+songInput.addEventListener("keydown",e=>{
+ const options=[...songSuggestions.querySelectorAll(".song-suggestion")];
+ if(e.key==="ArrowDown"&&options.length){e.preventDefault();activeSuggestion=(activeSuggestion+1)%options.length;options.forEach((o,i)=>o.classList.toggle("active",i===activeSuggestion));options[activeSuggestion].scrollIntoView({block:"nearest"})}
+ else if(e.key==="ArrowUp"&&options.length){e.preventDefault();activeSuggestion=(activeSuggestion-1+options.length)%options.length;options.forEach((o,i)=>o.classList.toggle("active",i===activeSuggestion))}
+ else if(e.key==="Enter"&&activeSuggestion>=0&&options[activeSuggestion]){e.preventDefault();options[activeSuggestion].click()}
+ else if(e.key==="Escape")hideSongSuggestions();
+});
+document.addEventListener("click",e=>{if(!e.target.closest(".song-autocomplete"))hideSongSuggestions()});
+const requests=[];const $=id=>document.getElementById(id);// Las herramientas de Spotify permanecen integradas en la página principal.
+const spotifyContent=$("spotifyContent");
+const spotifySections=["armyDashboard","allPlaylistsPanel","spotifyResetTimes","toggleComboCatalog","randomComboResult","comboCatalog","schedulePanel","songSearchPanel","minutesFilterPanel","librarySearchPanel","musicatProgress"];
+spotifySections.forEach(id=>{const el=$(id);if(el){if(id==="randomCombo"||id==="toggleComboCatalog"){let wrap=spotifyContent.querySelector("#spotifyQuickActions");if(!wrap){wrap=document.createElement("div");wrap.id="spotifyQuickActions";wrap.style.cssText="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0";spotifyContent.appendChild(wrap)}wrap.appendChild(el)}else spotifyContent.appendChild(el)}});
+const norm=s=>String(s??"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’‘`´]/g,"").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
+function renderAllPlaylists(){const out=$("allPlaylistsResults");$("allPlaylistsCount").textContent=playlists.length+" playlists registradas · todas las categorías";out.innerHTML=playlists.map(p=>'<article class="playlist"><h3>'+(p[0]??"Playlist sin título")+'</h3><div class="chips"><span class="chip">'+(p[2]==null?"Duración no indicada":Math.floor(p[2]/60)+" h "+String(p[2]%60).padStart(2,"0")+" min")+'</span><span class="chip">'+(p[1]??"—")+'x por canción</span><span class="chip">'+(p[3]??"Sin categoría")+'</span></div><ul>'+(Array.isArray(p[4])?p[4]:[]).map(s=>'<li>'+s+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:(p[5]??"#"))+'">Abrir playlist en Spotify</a></article>').join("");$("allPlaylistsPanel").hidden=false;$("allPlaylistsPanel").scrollIntoView({behavior:"smooth",block:"start"});}
+$("showAllPlaylists").addEventListener("click",()=>{if(!$("allPlaylistsPanel").hidden){$("allPlaylistsPanel").hidden=true;return;}renderAllPlaylists();});
+renderComboCatalog();$("dashPlaylistCount").textContent=playlists.length;$("dashComboCount").textContent=$("comboCards").querySelectorAll(".combo-set").length;document.querySelectorAll("[data-dashboard-go]").forEach(b=>b.addEventListener("click",()=>{const target=$(b.dataset.dashboardGo);if(b.dataset.dashboardGo==="toggleComboCatalog"){if($("comboCatalog").hidden)$("toggleComboCatalog").click();else $("comboCatalog").scrollIntoView({behavior:"smooth",block:"start"});return}target.scrollIntoView({behavior:"smooth",block:"start"});}));function launchSurpriseConfetti(){const colors=["#7b2cff","#c9a7ff","#ff4d6d","#ffd166","#7bdff2","#ffffff"];for(let i=0;i<65;i++){const piece=document.createElement("i");piece.className="surprise-confetti";piece.style.left=(Math.random()*100)+"vw";piece.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];piece.style.setProperty("--drift",(Math.random()*240-120)+"px");piece.style.setProperty("--spin",(Math.random()*1080-540)+"deg");piece.style.setProperty("--fall-time",(4+Math.random()*2.5)+"s");piece.style.animationDelay=(Math.random()*.8)+"s";piece.addEventListener("animationend",()=>piece.remove(),{once:true});document.body.appendChild(piece);}}function decorateSurpriseCombo(card){card.querySelectorAll(".surprise-card-confetti,.surprise-card-star").forEach(el=>el.remove());const colors=["#7b2cff","#c9a7ff","#ff4d6d","#ffd166","#7bdff2","#ffffff"];for(let i=0;i<34;i++){const p=document.createElement("i");p.className="surprise-card-confetti";p.style.left=(Math.random()*96+2)+"%";p.style.top=(Math.random()*75+2)+"%";p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];p.style.setProperty("--drift",(Math.random()*100-50)+"px");p.style.setProperty("--spin",(Math.random()*900-450)+"deg");p.style.setProperty("--duration",(6.5+Math.random()*3)+"s");p.style.setProperty("--delay",(Math.random()*.7)+"s");p.addEventListener("animationend",()=>p.remove(),{once:true});card.appendChild(p);}}$("dashboardRandom").addEventListener("click",()=>{const cards=Array.from($("comboCards").querySelectorAll(".combo-set"));if(!cards.length)return;const chosen=cards[Math.floor(Math.random()*cards.length)];$("randomComboCard").innerHTML=chosen.outerHTML;$("randomComboResult").hidden=false;decorateSurpriseCombo($("randomComboCard"));launchSurpriseConfetti();$("randomComboResult").scrollIntoView({behavior:"smooth",block:"start"});});$("toggleComboCatalog").addEventListener("click",()=>{const section=$("comboCatalog");section.hidden=!section.hidden;const open=!section.hidden;const button=$("toggleComboCatalog");button.setAttribute("aria-expanded",String(open));button.textContent=open?"Ocultar combos de playlists":"Ver combos de playlists";});const shortcutNames={"Combo ARIRANG · 13 B-sides":"BTS · Grupal","Combo ARIRANG · 12 B-sides":"BTS · Grupal","Combo SWIM + NORMAL":"BTS · Grupal","Combo RM":"RM","Combo JIN":"Jin","Combo YOONGI":"SUGA","Combo J-HOPE":"J-Hope","Combo JIMIN":"Jimin","Combo V":"V","Combo JUNGKOOK":"Jungkook"};
+document.querySelectorAll(".profile-shortcut").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.open==="true"){$("shortcutResults").hidden=true;btn.dataset.open="false";return}document.querySelectorAll(".profile-shortcut").forEach(b=>b.dataset.open="false");btn.dataset.open="true";btn.classList.remove("bounce");void btn.offsetWidth;btn.classList.add("bounce");const group=btn.dataset.group;
+const artistSongs={
+ "Combo ARIRANG · 13 B-sides":["arirang","swim","normal","come over","body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","spring waves","underwater","instrumental","b-sides [c]","b-sides [e]","b-sides clean","b-sides explicit"],
+ "Combo ARIRANG · 12 B-sides":["arirang","swim","normal","come over","body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","spring waves","underwater","instrumental","b-sides [c]","b-sides [e]","b-sides clean","b-sides explicit"],
+ "Combo SWIM + NORMAL":["swim","normal","come over","b-sides [c]","b-sides [e]","b-sides clean","b-sides explicit"],
+ "Combo RM":["nuts","yun","still life","all day","forg_tful","closer","change pt.2","lonely","hectic","wild flower","no.2","indigo","rm mix"],
+ "Combo JIN":["nothing without your love","loser","rope it","with the clouds","background","to me today","don’t say you love me","echo","running wild","i’ll be there","the astronaut","jin mix"],
+ "Combo YOONGI":["haegeum","daechwita","people","people pt.2","amygdala","life goes on","snooze","agust d","give it to me","burn it","moonlight","so far away","agustd suga mix","suga mix"],
+ "Combo J-HOPE":["on the street","more","arson","hope world","jack in the box","neurons","lock / unlock","i wonder","what if","future","killin’ it girl","mona lisa","j hope mix"],
+ "Combo JIMIN":["who","like crazy","set me free pt.2","face-off","alone","promise","with you","filter","serendipity","jimin mix"],
+ "Combo V":["winter ahead","fri(end)s","fris","fri s","slow dancing","love me again","rainy days","blue","for us","singularity","christmas tree","v mix"],
+ "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time","jungkook mix"]
+};
+const aliases=artistSongs[group]||[];
+const isBtsGroup=["Combo ARIRANG · 13 B-sides","Combo ARIRANG · 12 B-sides","Combo SWIM + NORMAL"].includes(group);
+const arirangTracks=["body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","normal","swim","come over"];
+const matchedSongs=p=>p[4].filter(t=>{const track=norm(t.replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());const swim=isBtsGroup&&track.startsWith("swim");const groupedBside=isBtsGroup&&(track.includes("arirang b sides")||/^b-sides(?:\s|$)/.test(track));const arirangTrack=isBtsGroup&&arirangTracks.some(song=>track===song||track.startsWith(song+" arirang"));return swim||groupedBside||arirangTrack||aliases.some(song=>track===norm(song));});
+const items=playlists.filter(p=>matchedSongs(p).length>0||(group==="Combo V"&&p[0].trim()==="Complementaria for V"));
+$("shortcutTitle").textContent=" Playlists · "+(shortcutNames[group]||group||"BTS · Grupal");
+$("shortcutPlaylists").innerHTML=items.map(p=>{return '<article class="playlist"><h3>'+p[0]+'</h3><div class="chips">'+(p[2]===null?'':'<span class="chip"> '+p[2]+' min aprox.</span>')+'<span class="chip"> '+p[1]+'x por canción</span></div><ul>'+p[4].map(s=>"<li>"+s+"</li>").join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify </a></article>';}).join("")||'<div class="empty">Aún no hay playlists con canciones identificadas de este perfil.</div>';
+$("shortcutResults").hidden=false;}));
+
+function renderRequests(){$("requestList").innerHTML=requests.map((r,i)=>'<div class="request"><span> '+r.song+(r.version&&r.version!=="all"?' · '+r.version.replace(/^Swim /,""): "")+(r.plays===null?' <span class="chip">Cualquier cantidad</span>':' <span class="chip">'+r.plays+' repeticiones</span>')+'</span><button class="remove" data-remove="'+i+'" aria-label="Quitar '+r.song+'">×</button></div>').join("");$("requestList").querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{requests.splice(Number(b.dataset.remove),1);renderRequests();renderMatches("songs")}))}
+function renderScheduleMatches(targetMins){const out=$("scheduleMatches");const fmt=n=>Math.floor(n/60)+" h "+String(n%60).padStart(2,"0")+" min";const ranked=Array.from($("comboCards").querySelectorAll(".combo-set")).map(card=>{const label=card.querySelector(".combo-total")?.textContent||"";const match=label.match(/(\d+)\s*h\s*(\d+)\s*min/i);if(!match)return null;const duration=Number(match[1])*60+Number(match[2]);return {card,duration,diff:Math.abs(duration-targetMins)}}).filter(Boolean).sort((a,b)=>a.diff-b.diff||a.duration-b.duration);if(!ranked.length){out.innerHTML='<div class="empty">No hay combos con duración confirmada para comparar con tu horario.</div>';return}out.innerHTML='<div class="empty" style="grid-column:1/-1">Combos ordenados por duración más cercana a tu horario ('+fmt(targetMins)+').</div>'+ranked.map(x=>'<div class="schedule-combo" style="grid-column:1/-1"><div class="chips"><span class="chip">'+fmt(x.duration)+'</span><span class="chip">A '+fmt(x.diff)+' de tu horario</span></div>'+x.card.outerHTML+'</div>').join("")}
+function renderMatches(mode){
+const out=$(mode==="songs"?"songMatches":"minutesMatches");
+const fmt=n=>Math.floor(n/60)+" h "+String(n%60).padStart(2,"0")+" min";
+if(mode==="songs"){
+ if(!requests.length){out.innerHTML='<div class="empty">Escribe una canción para buscar playlists que la incluyan. </div>';return}
+ const parsed=playlists.map(p=>{const entries=p[4].map(s=>{const match=s.match(/\s*[×x]\s*(\d+)/);const title=norm(s.replace(/\s*[×x]\s*\d+.*$/,"").trim());return {raw:s,title,count:match?Number(match[1]):1}});const matched=requests.filter(r=>{if(norm(r.song)==="swim"){if(r.version&&r.version!=="all")return entries.some(e=>e.title===norm(r.version)&&(r.plays===null||e.count===r.plays));const total=entries.filter(e=>e.title.startsWith("swim")).reduce((sum,e)=>sum+e.count,0);return r.plays===null?total>0:total===r.plays;}return entries.some(e=>e.title===norm(r.song)&&(r.plays===null||e.count===r.plays))});return {p,entries,matched}}).filter(x=>x.matched.length===requests.length);
+ if(!parsed.length){out.innerHTML='<div class="empty">No encontramos una playlist que incluya todas las canciones solicitadas con la cantidad de repeticiones indicada. Revisa los títulos o reduce las repeticiones. </div>';return}
+ out.innerHTML='<div class="empty" style="grid-column:1/-1">Resultados exclusivos de canciones: deben aparecer todas las canciones solicitadas y alcanzar las repeticiones indicadas.</div>'+parsed.map(x=>'<article class="playlist"><h3>'+x.p[0]+'</h3><div class="chips"><span class="chip"> '+(x.p[2]===null?"Duración no indicada":fmt(x.p[2]))+'</span><span class="chip"> '+x.matched.length+'/'+requests.length+' canciones</span></div><ul>'+x.entries.map(e=>'<li'+(requests.some(r=>norm(r.song)==="swim"?(r.version&&r.version!=="all"?e.title===norm(r.version)&&(r.plays===null||e.count===r.plays):e.title.startsWith("swim")):e.title===norm(r.song)&&(r.plays===null||e.count===r.plays))?' class="song-hit"':'')+'>'+e.raw+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(x.p[5])?x.p[5][0]:x.p[5])+'">Abrir playlist en Spotify </a></article>').join("");
+ return;
+}
+if(mode==="minutes"){
+ const minRaw=$("minHours").value,maxRaw=$("maxHours").value;
+ if(minRaw===""&&maxRaw===""){out.innerHTML='<div class="empty">Indica al menos las horas mínimas o máximas para buscar por duración. </div>';return}
+ const minH=minRaw===""?0:Number(minRaw),maxH=maxRaw===""?24:Number(maxRaw);
+ if(!Number.isFinite(minH)||!Number.isFinite(maxH)||minH<0||maxH>24||minH>maxH){out.innerHTML='<div class="empty">Revisa el rango: las horas deben estar entre 0 y 24 y las mínimas no pueden superar las máximas. </div>';return}
+ const lower=Math.max(0,minH*60-60),upper=Math.min(1440,maxH*60+60);
+ const hits=playlists.filter(p=>p[2]!==null&&p[2]>=lower&&p[2]<=upper).sort((a,b)=>a[2]-b[2]);
+ if(!hits.length){out.innerHTML='<div class="empty">No encontramos playlists en ese rango ampliado. Prueba otro horario. </div>';return}
+ out.innerHTML='<div class="empty" style="grid-column:1/-1">Duración buscada: '+fmt(minH*60)+' a '+fmt(maxH*60)+'. Se incluyen posibles aciertos hasta 1 hora antes y 1 hora después ('+fmt(lower)+' a '+fmt(upper)+').</div>'+hits.map(p=>'<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip"> '+fmt(p[2])+'</span></div><ul>'+p[4].map(s=>'<li>'+s+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify </a></article>').join("");
+}
+}
+const soloTrackAlbums={
+ "run bts":"Proof",
+ "dark & wild":"Dark & Wild",
+ "dark and wild":"Dark & Wild",
+ "killin it girl":"Sencillo",
+ "wild flower":"Indigo",
+ "who":"MUSE",
+ "winter ahead":"Sencillo",
+ "seven":"GOLDEN",
+ "dont say you love me":"ECHO",
+ "haegeum":"D-DAY"
+};
+function trackAlbum(track){
+ const clean=track.replace(/\s*[×x]\s*\d+.*$/,"").trim();
+ return soloTrackAlbums[norm(clean)]||"";
+}
+function renderLibrarySearch(){
+ const query=norm($("librarySearchInput").value);
+ const type=$("librarySearchType").value;
+ const out=$("libraryMatches");
+ if(!query){out.innerHTML='<div class="empty">Escribe un artista, álbum o mix para buscar en el catálogo.</div>';return}
+ const aliases={"bts":"combo arirang 12 b sides","ot7":"combo arirang 12 b sides","agust d":"combo yoongi","suga":"combo yoongi","yoongi":"combo yoongi","j hope":"combo j hope","hoseok":"combo j hope","jungkook":"combo jungkook","jung kook":"combo jungkook"};
+ const target=type==="artist"?norm(aliases[query]||query):query;
+ const ranked=playlists.map(p=>{
+  const group=norm(p[3]),title=norm(p[0]),trackNames=p[4].map(t=>norm(t.replace(/\s*[×x]\s*\d+.*$/,"").trim())),tracks=trackNames.join(" ");
+  let score=0,matched=false;
+  if(type==="artist"){
+   matched=group.includes(target)||title.includes(target);
+   if(matched){
+    if(group===target||title===target)score=120;
+    else if(group.startsWith(target)||title.startsWith(target))score=95;
+    else if(group.includes(target)||title.includes(target))score=70;
+    if(norm(p[3])==="combo jungkook"&&(query==="jungkook"||query==="jung kook"))score=Math.max(score,120);
+   }
+  }else if(type==="album"){
+   const mappedAlbums=p[4].map(trackAlbum).filter(Boolean).map(norm);
+   const exactAlbums=mappedAlbums.filter(a=>a===query).length;
+   const partialAlbums=mappedAlbums.filter(a=>a.includes(query)||query.includes(a)).length;
+   const exactTracks=trackNames.filter(t=>t===query).length;
+   const partialTracks=trackNames.filter(t=>t.includes(query)).length;
+   matched=title.includes(query)||tracks.includes(query)||partialAlbums>0;
+   score=exactAlbums*120+partialAlbums*65+exactTracks*90+partialTracks*35;
+   if(title===query)score+=110;else if(title.startsWith(query))score+=80;else if(title.includes(query))score+=45;
+  }else{
+   const searchable=title+" "+tracks+" "+group;
+   matched=searchable.includes(query)&&(/mix/i.test(query)||/mix/i.test(p[0]+" "+p[4].join(" ")));
+   if(matched){
+    score=(title===query?120:title.startsWith(query)?95:title.includes(query)?65:0);
+    score+=trackNames.filter(t=>t===query).length*80;
+    score+=trackNames.filter(t=>t.includes(query)).length*30;
+    if(group.includes(query))score+=35;
+   }
+  }
+  return {p,score,matched};
+ }).filter(x=>x.matched).sort((a,b)=>b.score-a.score||a.p[0].localeCompare(b.p[0],"es"));
+ if(!ranked.length){out.innerHTML='<div class="empty">No encontramos playlists para “'+$("librarySearchInput").value.trim()+'”. Prueba otro término.</div>';return}
+ out.innerHTML='<div class="empty" style="grid-column:1/-1">'+ranked.length+' playlist(s) encontradas · ordenadas de mayor a menor coincidencia.</div>'+ranked.map(({p})=>{
+  const albumTracks=p[4].map(track=>({track:track.replace(/\s*[×x]\s*\d+.*$/,"").trim(),album:trackAlbum(track)})).filter(x=>x.album);
+  const albumChips=[...new Set(albumTracks.map(x=>x.album))].map(album=>'<span class="chip">Álbum: '+album+'</span>').join("");
+  const albumNotes=albumTracks.length?'<li class="album-track-note"><strong>Solistas por álbum:</strong> '+albumTracks.map(x=>x.track+' — '+x.album).join(' · ')+'</li>':"";
+  return '<article class="playlist"><h3>'+p[0]+'</h3><div class="chips"><span class="chip">'+(p[2]===null?"Duración no indicada":Math.floor(p[2]/60)+" h "+String(p[2]%60).padStart(2,"0")+" min")+'</span><span class="chip">'+p[3]+'</span>'+albumChips+'</div><ul>'+albumNotes+p[4].map(v=>'<li>'+v+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify</a></article>';
+ }).join("");
+ $("libraryMatches").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function attachSuggestions(inputId,listId,getItems,onPick){
+ const input=$(inputId),list=$(listId);let active=-1;
+ const hide=()=>{list.hidden=true;input.setAttribute("aria-expanded","false");active=-1};
+ const draw=()=>{
+  const q=norm(input.value);list.innerHTML="";
+  if(!q){hide();return}
+  const items=[...new Set(getItems())].map(label=>({label,key:norm(label)}))
+   .filter(x=>x.key.includes(q))
+   .sort((a,b)=>(a.key.startsWith(q)?0:1)-(b.key.startsWith(q)?0:1)||a.label.localeCompare(b.label,"es")).slice(0,8);
+  if(!items.length){hide();return}
+  items.forEach((item,i)=>{const b=document.createElement("button");b.type="button";b.className="song-suggestion";b.role="option";b.textContent=item.label;b.addEventListener("click",()=>{input.value=item.label;hide();onPick?.();input.focus()});list.appendChild(b)});
+  list.hidden=false;input.setAttribute("aria-expanded","true");
+ };
+ input.addEventListener("input",()=>{draw();onPick?.()});
+ input.addEventListener("keydown",e=>{
+  const opts=[...list.querySelectorAll(".song-suggestion")];
+  if(e.key==="ArrowDown"&&opts.length){e.preventDefault();active=(active+1)%opts.length}
+  else if(e.key==="ArrowUp"&&opts.length){e.preventDefault();active=(active-1+opts.length)%opts.length}
+  else if(e.key==="Enter"&&active>=0&&opts[active]){e.preventDefault();opts[active].click();return}
+  else if(e.key==="Escape"){hide();return}
+  else return;
+  opts.forEach((o,i)=>o.classList.toggle("active",i===active));opts[active]?.scrollIntoView({block:"nearest"});
+ });
+ document.addEventListener("click",e=>{if(!e.target.closest("#"+inputId)&&!e.target.closest("#"+listId))hide()});
+}
+const librarySuggestions=()=>{
+ const type=$("librarySearchType").value;
+ if(type==="album")return ["ARIRANG","Indigo","MUSE","Sencillo","GOLDEN","ECHO","D-DAY",...Object.values(soloTrackAlbums)];
+ if(type==="artist")return ["BTS","OT7","RM","Jin","SUGA","Agust D","J-Hope","Hoseok","Jimin","V","Jung Kook","Jungkook"];
+ return [...new Set(playlists.flatMap(p=>[p[0],...p[4].filter(t=>/mix/i.test(t))]))];
+};
+attachSuggestions("librarySearchInput","librarySearchSuggestions",librarySuggestions,()=>{});
+attachSuggestions("resetCountrySearch","resetCountrySuggestions",()=>resetZones.flatMap(z=>[z[0],z[1],z[0]+" · "+z[1]]),renderSpotifyResetTimes);
+$("librarySearchType").addEventListener("change",()=>{$("librarySearchInput").value="";$("librarySearchSuggestions").hidden=true;$("librarySearchInput").setAttribute("aria-expanded","false")});
+$("librarySearchButton").addEventListener("click",renderLibrarySearch);
+$("librarySearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")renderLibrarySearch()});
+$("clearHours").addEventListener("click",()=>renderMatches("minutes"));
+$("addRequest").addEventListener("click",()=>{const song=$("songInput").value.trim(),rawPlays=$("playsInput").value.trim(),plays=rawPlays===""?null:Math.max(1,Math.min(100,Number(rawPlays)||1));if(!song){$("songInput").focus();return}const version=norm(song)==="swim"?$("swimVersion").value:"all";const old=requests.find(r=>norm(r.song)===norm(song)&&(r.version||"all")===version&&r.plays===plays);if(old){if(old.plays!==null)old.plays+=plays}else requests.push({song:song,plays:plays,version:version});$("songInput").value="";$("playsInput").value="";hideSongSuggestions();renderRequests();renderMatches("songs");$("songInput").focus()});$("songInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&activeSuggestion<0)$("addRequest").click()});
+$("makeSchedule").addEventListener("click",()=>{const start=$("startTime").value,end=$("endTime").value;if(!start||!end){$("scheduleResult").style.display="block";$("scheduleResult").textContent="Selecciona ambas horas para crear tu horario.";return}let a=Number(start.slice(0,2))*60+Number(start.slice(3)),b=Number(end.slice(0,2))*60+Number(end.slice(3));if(b<=a)b+=1440;const mins=b-a,h=Math.floor(mins/60),m=mins%60;$("scheduleResult").style.display="block";$("scheduleResult").innerHTML=" Tu sesión será de "+start+" a "+end+" · "+(h?h+" h ":"")+(m?m+" min":"")+". ¡A disfrutar tu streaming! <button class=\"action\" id=\"showSchedulePlaylists\" type=\"button\">Ver playlists para esta duración</button>";$("showSchedulePlaylists").addEventListener("click",()=>{renderScheduleMatches(mins);$("scheduleMatches").scrollIntoView({behavior:"smooth",block:"nearest"})})});
+
+
+const resetZones=[
+["México","Ciudad de México","America/Mexico_City","🇲🇽"],["Estados Unidos","Nueva York","America/New_York","🇺🇸"],["Estados Unidos","Los Ángeles","America/Los_Angeles","🇺🇸"],["Canadá","Toronto","America/Toronto","🇨🇦"],["Canadá","Vancouver","America/Vancouver","🇨🇦"],["Brasil","São Paulo","America/Sao_Paulo","🇧🇷"],["Argentina","Buenos Aires","America/Argentina/Buenos_Aires","🇦🇷"],["Chile","Santiago","America/Santiago","🇨🇱"],["Colombia","Bogotá","America/Bogota","🇨🇴"],["Perú","Lima","America/Lima","🇵🇪"],["Venezuela","Caracas","America/Caracas","🇻🇪"],["Reino Unido","Londres","Europe/London","🇬🇧"],["Irlanda","Dublín","Europe/Dublin","🇮🇪"],["España","Madrid","Europe/Madrid","🇪🇸"],["Francia","París","Europe/Paris","🇫🇷"],["Alemania","Berlín","Europe/Berlin","🇩🇪"],["Italia","Roma","Europe/Rome","🇮🇹"],["Países Bajos","Ámsterdam","Europe/Amsterdam","🇳🇱"],["Portugal","Lisboa","Europe/Lisbon","🇵🇹"],["Turquía","Estambul","Europe/Istanbul","🇹🇷"],["Egipto","El Cairo","Africa/Cairo","🇪🇬"],["Sudáfrica","Johannesburgo","Africa/Johannesburg","🇿🇦"],["Nigeria","Lagos","Africa/Lagos","🇳🇬"],["Kenia","Nairobi","Africa/Nairobi","🇰🇪"],["Emiratos Árabes Unidos","Dubái","Asia/Dubai","🇦🇪"],["India","Nueva Delhi","Asia/Kolkata","🇮🇳"],["Pakistán","Karachi","Asia/Karachi","🇵🇰"],["Bangladés","Daca","Asia/Dhaka","🇧🇩"],["Tailandia","Bangkok","Asia/Bangkok","🇹🇭"],["Vietnam","Ciudad Ho Chi Minh","Asia/Ho_Chi_Minh","🇻🇳"],["Indonesia","Yakarta","Asia/Jakarta","🇮🇩"],["Singapur","Singapur","Asia/Singapore","🇸🇬"],["China","Pekín","Asia/Shanghai","🇨🇳"],["Hong Kong","Hong Kong","Asia/Hong_Kong","🇭🇰"],["Taiwán","Taipéi","Asia/Taipei","🇹🇼"],["Filipinas","Manila","Asia/Manila","🇵🇭"],["Malasia","Kuala Lumpur","Asia/Kuala_Lumpur","🇲🇾"],["Japón","Tokio","Asia/Tokyo","🇯🇵"],["Corea del Sur","Seúl","Asia/Seoul","🇰🇷"],["Australia","Sídney","Australia/Sydney","🇦🇺"],["Australia","Perth","Australia/Perth","🇦🇺"],["Nueva Zelanda","Auckland","Pacific/Auckland","🇳🇿"]];
+let resetClockFormat="24";
+function resetNextUtc(now){return new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1,0,0,0))}
+function resetClock(date,zone){return new Intl.DateTimeFormat(resetClockFormat==="24"?"es-MX":"en-US",{timeZone:zone,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:resetClockFormat==="24"?"h23":"h12"}).format(date)}
+function resetCountdown(ms){const total=Math.max(0,Math.floor(ms/1000)),h=Math.floor(total/3600),m=Math.floor(total%3600/60),sec=total%60;return h+" h "+String(m).padStart(2,"0")+" min "+String(sec).padStart(2,"0")+" s"}
+function renderSpotifyResetTimes(){
+ const now=new Date(),next=resetNextUtc(now),remaining=next-now;
+ $("resetGlobalCountdown").textContent="Faltan "+resetCountdown(remaining);
+ const query=norm($("resetCountrySearch").value);
+ const rows=resetZones.filter(([country,city])=>norm(country+" "+city).includes(query)).map(([country,city,zone,flag])=>{
+ const resetTime=resetClock(next,zone),localNow=resetClock(now,zone);
+ return "<article class=\"reset-country-card\"><div class=\"reset-country-name\"><span class=\"reset-flag\" aria-hidden=\"true\">"+flag+"</span>"+country+" · "+city+"</div><div class=\"reset-time-cell\">Ahora <strong>"+localNow+"</strong></div><div class=\"reset-time-cell\">Reinicio <strong>"+resetTime+"</strong></div><div class=\"reset-countdown\">Faltan "+resetCountdown(remaining)+"</div></article>";
+ }).join("");
+ $("spotifyResetRows").innerHTML=rows;
+ $("resetNoResults").hidden=!!rows;
+}
+$("resetCountrySearch").addEventListener("input",renderSpotifyResetTimes);
+$("resetTimeFormat").addEventListener("change",e=>{resetClockFormat=e.target.value;renderSpotifyResetTimes()});
+renderSpotifyResetTimes();
+const spotifyResetTicker=setInterval(renderSpotifyResetTimes,1000);
+</script>
+<script>
+/* Respaldo independiente para los botones de perfiles */
+(function(){
+  const clean=s=>String(s??"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’‘\x60´]/g,"").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
+  const labels={"Combo ARIRANG · 13 B-sides":"BTS · Grupal","Combo RM":"RM","Combo JIN":"Jin","Combo YOONGI":"SUGA","Combo J-HOPE":"J-Hope","Combo JIMIN":"Jimin","Combo V":"V","Combo JUNGKOOK":"Jungkook"};
+  const songs={
+    "Combo ARIRANG · 13 B-sides":["arirang","swim","normal","come over","body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","spring waves","underwater","instrumental","b-sides"],
+    "Combo RM":["nuts","yun","still life","all day","forg_tful","closer","change pt.2","lonely","hectic","wild flower","no.2","indigo","rm mix"],
+    "Combo JIN":["nothing without your love","loser","rope it","with the clouds","background","to me today","don’t say you love me","echo","running wild","i’ll be there","the astronaut","jin mix"],
+    "Combo YOONGI":["haegeum","daechwita","people","people pt.2","amygdala","life goes on","snooze","agust d","give it to me","burn it","moonlight","so far away","agustd suga mix","suga mix"],
+    "Combo J-HOPE":["on the street","more","arson","hope world","jack in the box","neurons","lock / unlock","i wonder","what if","future","killin’ it girl","mona lisa","j hope mix"],
+    "Combo JIMIN":["who","like crazy","set me free pt.2","face-off","alone","promise","with you","filter","serendipity","jimin mix"],
+    "Combo V":["winter ahead","fri(end)s","fris","fri s","slow dancing","love me again","rainy days","blue","for us","singularity","christmas tree","v mix"],
+    "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time","jungkook mix"]
+  };
+  document.querySelectorAll(".profile-shortcut").forEach(old=>{
+    const btn=old.cloneNode(true); old.replaceWith(btn);
+    btn.addEventListener("click",()=>{
+      const panel=document.getElementById("shortcutResults");
+      if(btn.dataset.open==="true"){panel.hidden=true;btn.dataset.open="false";return;}
+      document.querySelectorAll(".profile-shortcut").forEach(b=>b.dataset.open="false");
+      btn.dataset.open="true";
+      const group=btn.dataset.group, aliases=songs[group]||[], groupBts=group==="Combo ARIRANG · 13 B-sides";
+      const list=playlists.filter(p=>Array.isArray(p[4])&&p[4].some(t=>{
+        const track=clean(String(t).replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());
+        return (groupBts&&(track.startsWith("swim")||track.includes("arirang b sides")||/^b sides(?:\s|$)/.test(track)||["body to body","hooligan","aliens","fya","2 0","no 29","merry go round","like animals","they don t know bout us","one more night","please","into the sun","normal","come over"].some(x=>track===x)))||aliases.some(x=>track===clean(x));
+      })||(group==="Combo V"&&String(p[0]).trim()==="Complementaria for V"));
+      document.getElementById("shortcutTitle").textContent="Playlists · "+(labels[group]||group||"BTS · Grupal");
+      document.getElementById("shortcutPlaylists").innerHTML=list.map(p=>'<article class="playlist"><h3>'+p[0]+'</h3><div class="chips">'+(p[2]==null?'':'<span class="chip">'+p[2]+' min aprox.</span>')+'<span class="chip">'+p[1]+'x por canción</span></div><ul>'+p[4].map(t=>'<li>'+t+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5]||"#")+'">Abrir playlist en Spotify</a></article>').join("")||'<div class="empty">Aún no hay playlists con canciones identificadas de este perfil.</div>';
+      panel.hidden=false;
+    });
+  });
+})();
+</script>
+
+</body></html>
