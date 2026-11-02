@@ -312,7 +312,7 @@ const artistSongs={
 };
 const aliases=artistSongs[group]||[];
 const items=playlists.filter(p=>{
- const tracks=p[4].map(t=>norm(t.replace(/\\s*[×x]\\s*\\d+.*$/,"").replace(/\\s*\\(.*?\\)/g,"").trim()));
+ const tracks=p[4].map(t=>norm(t.replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim()));
  if(p[3]===group)return true;
  return aliases.some(song=>tracks.some(track=>track===norm(song)||track.startsWith(norm(song)+" ")));
 });
