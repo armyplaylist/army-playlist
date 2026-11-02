@@ -472,4 +472,40 @@ $("resetCountrySearch").addEventListener("input",renderSpotifyResetTimes);
 $("resetTimeFormat").addEventListener("change",e=>{resetClockFormat=e.target.value;renderSpotifyResetTimes()});
 renderSpotifyResetTimes();
 const spotifyResetTicker=setInterval(renderSpotifyResetTimes,1000);
-</script></body></html>
+</script>
+<script>
+/* Respaldo independiente para los botones de perfiles */
+(function(){
+  const clean=s=>String(s??"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’‘\x60´]/g,"").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
+  const labels={"Combo ARIRANG · 13 B-sides":"BTS · Grupal","Combo RM":"RM","Combo JIN":"Jin","Combo YOONGI":"SUGA","Combo J-HOPE":"J-Hope","Combo JIMIN":"Jimin","Combo V":"V","Combo JUNGKOOK":"Jungkook"};
+  const songs={
+    "Combo ARIRANG · 13 B-sides":["arirang","swim","normal","come over","body to body","hooligan","aliens","fya","2.0","no. 29","merry go round","like animals","they don’t know ’bout us","one more night","please","into the sun","spring waves","underwater","instrumental","b-sides"],
+    "Combo RM":["nuts","yun","still life","all day","forg_tful","closer","change pt.2","lonely","hectic","wild flower","no.2","indigo","rm mix"],
+    "Combo JIN":["nothing without your love","loser","rope it","with the clouds","background","to me today","don’t say you love me","echo","running wild","i’ll be there","the astronaut","jin mix"],
+    "Combo YOONGI":["haegeum","daechwita","people","people pt.2","amygdala","life goes on","snooze","agust d","give it to me","burn it","moonlight","so far away","agustd suga mix","suga mix"],
+    "Combo J-HOPE":["on the street","more","arson","hope world","jack in the box","neurons","lock / unlock","i wonder","what if","future","killin’ it girl","mona lisa","j hope mix"],
+    "Combo JIMIN":["who","like crazy","set me free pt.2","face-off","alone","promise","with you","filter","serendipity","jimin mix"],
+    "Combo V":["winter ahead","fri(end)s","fri s","slow dancing","love me again","rainy days","blue","for us","singularity","christmas tree","v mix"],
+    "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time","jungkook mix"]
+  };
+  document.querySelectorAll(".profile-shortcut").forEach(old=>{
+    const btn=old.cloneNode(true); old.replaceWith(btn);
+    btn.addEventListener("click",()=>{
+      const panel=document.getElementById("shortcutResults");
+      if(btn.dataset.open==="true"){panel.hidden=true;btn.dataset.open="false";return;}
+      document.querySelectorAll(".profile-shortcut").forEach(b=>b.dataset.open="false");
+      btn.dataset.open="true";
+      const group=btn.dataset.group, aliases=songs[group]||[], groupBts=group==="Combo ARIRANG · 13 B-sides";
+      const list=playlists.filter(p=>Array.isArray(p[4])&&p[4].some(t=>{
+        const track=clean(String(t).replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());
+        return (groupBts&&(track.startsWith("swim")||track.includes("arirang b sides")||/^b sides(?:\s|$)/.test(track)||["body to body","hooligan","aliens","fya","2 0","no 29","merry go round","like animals","they don t know bout us","one more night","please","into the sun","normal","come over"].some(x=>track===x)))||aliases.some(x=>track===clean(x));
+      })||(group==="Combo V"&&String(p[0]).trim()==="Complementaria for V"));
+      document.getElementById("shortcutTitle").textContent="Playlists · "+(labels[group]||group||"BTS · Grupal");
+      document.getElementById("shortcutPlaylists").innerHTML=list.map(p=>'<article class="playlist"><h3>'+p[0]+'</h3><div class="chips">'+(p[2]==null?'':'<span class="chip">'+p[2]+' min aprox.</span>')+'<span class="chip">'+p[1]+'x por canción</span></div><ul>'+p[4].map(t=>'<li>'+t+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5]||"#")+'">Abrir playlist en Spotify</a></article>').join("")||'<div class="empty">Aún no hay playlists con canciones identificadas de este perfil.</div>';
+      panel.hidden=false;
+    });
+  });
+})();
+</script>
+
+</body></html>
