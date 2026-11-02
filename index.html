@@ -311,7 +311,8 @@ const artistSongs={
  "Combo JUNGKOOK":["seven","3d","standing next to you","yes or no","please don’t change","hate you","somebody","too sad to dance","still with you","euphoria","my time","jungkook mix"]
 };
 const aliases=artistSongs[group]||[];
-const matchedSongs=p=>p[4].filter(t=>{const track=norm(t.replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());return aliases.some(song=>track===norm(song))||(group==="Combo ARIRANG · 13 B-sides"&&track.startsWith("swim "));});
+const isBtsGroup=group==="Combo ARIRANG · 13 B-sides"||group==="Combo ARIRANG · 12 B-sides";
+const matchedSongs=p=>p[4].filter(t=>{const track=norm(t.replace(/\s*[×x]\s*\d+.*$/,"").replace(/\s*\(.*?\)/g,"").trim());const swim=isBtsGroup&&track.startsWith("swim");const arirangBside=isBtsGroup&&track.includes("arirang b sides");return swim||arirangBside||aliases.some(song=>track===norm(song));});
 const items=playlists.filter(p=>matchedSongs(p).length>0||(group==="Combo V"&&p[0].trim()==="Complementaria for V"));
 $("shortcutTitle").textContent=" Playlists · "+(shortcutNames[group]||group||"BTS · Grupal");
 $("shortcutPlaylists").innerHTML=items.map(p=>{const matched=new Set(matchedSongs(p));return '<article class="playlist"><h3>'+p[0]+'</h3><div class="chips">'+(p[2]===null?'':'<span class="chip"> '+p[2]+' min aprox.</span>')+'<span class="chip"> '+p[1]+'x por canción</span></div><ul>'+p[4].map(s=>'<li'+(matched.has(s)?' class="profile-track-match"':'')+'>'+s+(matched.has(s)?' <span class="chip">Perfil</span>':'')+'</li>').join("")+'</ul><a class="spotify-link" target="_blank" rel="noopener noreferrer" href="'+(Array.isArray(p[5])?p[5][0]:p[5])+'">Abrir playlist en Spotify </a></article>';}).join("")||'<div class="empty">Aún no hay playlists con canciones identificadas de este perfil.</div>';
