@@ -138,7 +138,7 @@
       if (typeof playlists === "undefined" || !Array.isArray(playlists)) throw new Error("No pudimos localizar el catálogo de playlists de esta página.");
       const targets = playlists.map((p, index) => {
         const raw = Array.isArray(p[5]) ? p[5][0] : p[5];
-        const match = String(raw || "").match(/playlist\\/([A-Za-z0-9]+)/);
+        const match = String(raw || "").match(/playlist\/([A-Za-z0-9]+)/);
         return match ? { id: match[1], name: p[0] || ("Playlist " + (index + 1)) } : null;
       }).filter(Boolean);
       const unique = [...new Map(targets.map(p => [p.id,p])).values()];
