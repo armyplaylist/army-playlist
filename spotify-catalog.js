@@ -414,8 +414,24 @@
     profileSyncStarted = true;
     let access = await getToken().catch(() => null);
     if (!access) {
-      // Primera autorización discreta: Spotify mostrará su propia pantalla de permisos.
-      await connect();
+      // Los navegadores móviles bloquean a veces redirecciones OAuth iniciadas al cargar la página.
+      // Mostrar una acción explícita para que el toque de la usuaria habilite la navegación.
+      const prompt = document.createElement("section");
+      prompt.className = "profile-public-section";
+      prompt.innerHTML = '<h2>Conecta tu Spotify 💜</h2><p class="profile-public-intro">Autoriza el acceso para recuperar automáticamente las playlists públicas de este perfil. Tus 38 playlists actuales no se modificarán.</p><button type="button" id="profileSpotifyConnect" class="spotify-link">Conectar con Spotify</button><p id="profileSpotifyConnectError" role="status"></p>';
+      const page = document.querySelector(".page") || document.body;
+      const footer = page.querySelector(".footer");
+      if (footer) page.insertBefore(prompt, footer); else page.appendChild(prompt);
+      $("profileSpotifyConnect").addEventListener("click", async () => {
+        const button = $("profileSpotifyConnect");
+        button.disabled = true;
+        $("profileSpotifyConnectError").textContent = "Abriendo Spotify…";
+        try { await connect(); }
+        catch (error) {
+          button.disabled = false;
+          $("profileSpotifyConnectError").textContent = error.message || "No se pudo abrir Spotify. Inténtalo de nuevo.";
+        }
+      });
       return;
     }
     try {
