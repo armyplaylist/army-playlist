@@ -27,7 +27,8 @@
     const url = new URL("https://accounts.spotify.com/authorize");
     url.search = new URLSearchParams({
       client_id: CLIENT_ID, response_type: "code", redirect_uri: REDIRECT_URI,
-      code_challenge_method: "S256", code_challenge: challenge, state
+      code_challenge_method: "S256", code_challenge: challenge, state,
+      scope: "playlist-read-private playlist-read-collaborative", show_dialog: "true"
     }).toString();
     location.href = url.toString();
   }
@@ -124,6 +125,62 @@
       results.innerHTML='<div class="empty">'+safe(error.message || "Ocurrió un error al buscar.")+'</div>';
     } finally { $("catalogSearchButton").disabled=false; }
   }
+
+
+  // Auditoría local: solo lee metadatos y cuenta repeticiones; nunca modifica playlists.
+  async function auditPlaylists() {
+    const button = $("catalogAuditButton"), output = $("catalogAuditResults"), label = $("catalogAuditStatus");
+    const access = await getToken();
+    if (!access) { label.textContent = "Primero conecta Spotify y acepta los permisos de lectura."; return; }
+    button.disabled = true;
+    output.innerHTML = '<div class="empty">Analizando playlists… Esto puede tardar un poco.</div>';
+    try {
+      if (typeof playlists === "undefined" || !Array.isArray(playlists)) throw new Error("No pudimos localizar el catálogo de playlists de esta página.");
+      const targets = playlists.map((p, index) => {
+        const raw = Array.isArray(p[5]) ? p[5][0] : p[5];
+        const match = String(raw || "").match(/playlist\\/([A-Za-z0-9]+)/);
+        return match ? { id: match[1], name: p[0] || ("Playlist " + (index + 1)) } : null;
+      }).filter(Boolean);
+      const unique = [...new Map(targets.map(p => [p.id,p])).values()];
+      let completed = 0;
+      const reports = [];
+      for (const playlist of unique) {
+        let url = "https://api.spotify.com/v1/playlists/" + encodeURIComponent(playlist.id) + "/items?limit=50&additional_types=track";
+        const counts = new Map();
+        let total = 0;
+        while (url) {
+          const response = await fetch(url, { headers: { Authorization: "Bearer " + access } });
+          if (response.status === 401) throw new Error("La autorización caducó. Pulsa «Conectar con Spotify» y vuelve a autorizar la lectura.");
+          if (response.status === 403) throw new Error("Spotify no permitió leer «" + playlist.name + "». Comprueba que esta cuenta sea propietaria o colaboradora de esa playlist.");
+          if (response.status === 429) throw new Error("Spotify pidió esperar por demasiadas consultas. Inténtalo de nuevo dentro de unos minutos.");
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error?.message || "No se pudo leer «" + playlist.name + "».");
+          for (const entry of (data.items || [])) {
+            const track = entry.item || entry.track;
+            if (!track || track.type !== "track" || !track.id) continue;
+            total++;
+            const previous = counts.get(track.id) || { name: track.name, artists: (track.artists || []).map(a => a.name).join(", "), count: 0 };
+            previous.count++;
+            counts.set(track.id, previous);
+          }
+          url = data.next || null;
+        }
+        reports.push({ name: playlist.name, id: playlist.id, total, songs: [...counts.values()].sort((a,b) => a.name.localeCompare(b.name,"es")) });
+        completed++;
+        label.textContent = "Revisadas " + completed + " de " + unique.length + " playlists…";
+      }
+      const cards = reports.map(report => {
+        const lines = report.songs.map(song => "<li>" + safe(song.name) + (song.artists ? " — " + safe(song.artists) : "") + " <strong>×" + song.count + "</strong></li>").join("");
+        return '<article class="catalog-track audit-card"><div><h3>' + safe(report.name) + '</h3><p><strong>' + report.total + '</strong> reproducciones en <strong>' + report.songs.length + '</strong> canciones distintas</p><details><summary>Ver conteo por canción</summary><ul>' + lines + '</ul></details></div></article>';
+      }).join("");
+      output.innerHTML = '<p class="hint">Resultado: ' + reports.length + ' playlists revisadas. Solo se cuentan canciones disponibles; episodios y elementos eliminados/no disponibles se omiten.</p>' + (cards || '<div class="empty">No encontramos playlists para analizar.</div>');
+      label.textContent = "Auditoría terminada: " + reports.length + " playlists revisadas.";
+    } catch (error) {
+      output.innerHTML = '<div class="empty">' + safe(error.message || "Ocurrió un error al analizar las playlists.") + '</div>';
+      label.textContent = "No se pudo completar la auditoría.";
+    } finally { button.disabled = false; }
+  }
+  $("catalogAuditButton")?.addEventListener("click", auditPlaylists);
 
   $("catalogConnect").addEventListener("click",()=>connect().catch(e=>{status.textContent=e.message;}));
   $("catalogSearchButton").addEventListener("click",search);
