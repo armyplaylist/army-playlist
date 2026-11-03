@@ -178,7 +178,7 @@
     } catch (error) {
       output.innerHTML = '<div class="empty">' + safe(error.message || "Ocurrió un error al analizar las playlists.") + '</div>';
       label.textContent = "No se pudo completar la auditoría.";
-    } finally { button.disabled = false; }
+    }
   }
 
   // Importa las playlists de la cuenta conectada sin alterar el catálogo manual.
@@ -208,18 +208,13 @@
     }).join("") + '</div><p class="hint">Portadas y datos proporcionados por Spotify. Cada tarjeta enlaza a su playlist en Spotify.</p>';
   }
   async function importMySpotifyPlaylists() {
-    const button = $("importSpotifyPlaylistsButton");
-    const label = $("mySpotifyPlaylistsStatus");
     const output = $("mySpotifyPlaylistsResults");
     let access = await getToken();
     if (!access) {
-      label.textContent = "Abriendo autorización segura…";
       await connect();
       return;
     }
-    button.disabled = true;
     output.innerHTML = '<div class="empty">Cargando tus playlists desde Spotify…</div>';
-    label.textContent = "Conectando con Spotify…";
     try {
       const all = new Map();
       let url = "https://api.spotify.com/v1/me/playlists?limit=50";
@@ -234,15 +229,15 @@
         if (!response.ok) throw new Error(data.error?.message || "No se pudieron cargar tus playlists.");
         (data.items || []).forEach(p => { if (p?.id) all.set(p.id,p); });
         url = data.next || null;
-        label.textContent = "Cargando… " + all.size + (data.total ? " de " + data.total : "") + " playlists";
+
       }
       importedPlaylists = [...all.values()].sort((a,b) => (a.name || "").localeCompare(b.name || "", "es"));
       $("mySpotifyPlaylistsTools").hidden = false;
       renderMySpotifyPlaylists();
-      label.textContent = "¡Listo! Se cargaron " + importedPlaylists.length + " playlists. No se modificó ninguna lista de Spotify.";
+
     } catch (error) {
       output.innerHTML = '<div class="empty">' + safe(error.message || "Ocurrió un error al importar las playlists.") + '</div>';
-      label.textContent = "No se pudo completar la carga.";
+
     } finally { button.disabled = false; }
   }
   $("importSpotifyPlaylistsButton")?.addEventListener("click", importMySpotifyPlaylists);
