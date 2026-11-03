@@ -412,8 +412,12 @@
   async function syncPublicProfilePlaylists() {
     if (profileSyncStarted) return;
     profileSyncStarted = true;
-    const access = await getToken().catch(() => null);
-    if (!access) return; // No muestra controles ni interrumpe la página si no hay sesión autorizada.
+    let access = await getToken().catch(() => null);
+    if (!access) {
+      // Primera autorización discreta: Spotify mostrará su propia pantalla de permisos.
+      await connect();
+      return;
+    }
     try {
       const all = new Map();
       let url = "https://api.spotify.com/v1/me/playlists?limit=50";
@@ -422,7 +426,7 @@
         if (!response.ok) throw new Error("Spotify no permitió leer las playlists del perfil.");
         const data = await response.json();
         (data.items || []).forEach(p => {
-          if (p?.id && p.public === true && p.owner?.id === PROFILE_ID) all.set(p.id, p);
+          if (p?.id && p.public !== false && p.owner?.id === PROFILE_ID) all.set(p.id, p);
         });
         url = data.next || null;
       }
