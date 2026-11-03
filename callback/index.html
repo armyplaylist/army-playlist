@@ -19,7 +19,7 @@
   localStorage.setItem("armyPlaylistSpotifyExpiry",String(Date.now()+data.expires_in*1000));
   sessionStorage.removeItem("armySpotifyVerifier");sessionStorage.removeItem("armySpotifyState");
   message.textContent="¡Conexión completada! Volviendo a tu buscador…";
-  location.replace("../spotify.html#catalogSearchPanel");
+  location.replace("../spotify.html#mySpotifyPlaylistsPanel");
  }catch(e){fail(e.message);}
 })();
 </script></body></html>
