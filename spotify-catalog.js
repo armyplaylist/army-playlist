@@ -468,26 +468,7 @@
           '</div></article>';
       }).join("");
     } catch (error) {
-      // Mostrar el problema en la página: no dejar la sincronización fallida en silencio.
       console.warn("No se pudieron sincronizar las playlists públicas del perfil:", error);
-      const section = profilePublicContainer();
-      const grid = $("profilePublicPlaylistGrid");
-      grid.innerHTML = '<p role="status">No pudimos recuperar las playlists de Spotify: ' + safe(error.message || "Error de conexión") + '</p><button type="button" id="profileSpotifyRetry" class="spotify-link">Volver a conectar con Spotify</button>';
-      $("profileSpotifyRetry")?.addEventListener("click", async () => {
-        try {
-          const button = $("profileSpotifyRetry");
-          button.disabled = true;
-          button.textContent = "Abriendo Spotify…";
-          localStorage.removeItem(TOKEN_KEY);
-          localStorage.removeItem(EXPIRY_KEY);
-          await connect();
-        } catch (retryError) {
-          const button = $("profileSpotifyRetry");
-          if (button) { button.disabled = false; button.textContent = "Volver a conectar con Spotify"; }
-          const message = $("profilePublicPlaylistGrid");
-          if (message) message.insertAdjacentText("beforeend", " " + (retryError.message || "No se pudo abrir Spotify."));
-        }
-      });
     }
   }
   if (document.readyState === "loading") {
