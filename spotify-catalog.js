@@ -180,6 +180,73 @@
       label.textContent = "No se pudo completar la auditoría.";
     } finally { button.disabled = false; }
   }
+
+  // Importa las playlists de la cuenta conectada sin alterar el catálogo manual.
+  let importedPlaylists = [];
+  function renderMySpotifyPlaylists() {
+    const query = clean($("mySpotifyPlaylistsSearch")?.value || "").trim();
+    const filtered = importedPlaylists.filter(p => clean(p.name + " " + (p.owner?.display_name || "")).includes(query));
+    const count = $("mySpotifyPlaylistsCount");
+    if (count) count.textContent = filtered.length + " de " + importedPlaylists.length + " playlists";
+    const target = $("mySpotifyPlaylistsResults");
+    if (!filtered.length) {
+      target.innerHTML = '<div class="empty">' + (importedPlaylists.length ? "No hay playlists que coincidan con esa búsqueda." : "No encontramos playlists en esta cuenta.") + '</div>';
+      return;
+    }
+    target.innerHTML = '<div class="my-spotify-grid">' + filtered.map(p => {
+      const cover = p.images?.[0]?.url;
+      const link = p.external_urls?.spotify || (p.id ? "https://open.spotify.com/playlist/" + encodeURIComponent(p.id) : "");
+      const total = p.items?.total ?? p.tracks?.total ?? 0;
+      const visibility = p.public === false ? "Privada" : p.public === true ? "Pública" : "Acceso compartido";
+      const collaboration = p.collaborative ? " · Colaborativa" : "";
+      return '<article class="my-spotify-card">' +
+        (cover ? '<img src="' + safe(cover) + '" alt="Portada de ' + safe(p.name) + '" loading="lazy">' : '<div class="catalog-cover-placeholder"></div>') +
+        '<div class="my-spotify-card-body"><h3>' + safe(p.name || "Playlist sin título") + '</h3>' +
+        '<p>' + safe(p.owner?.display_name || "Spotify") + '</p><p>' + total + ' canciones · ' + visibility + collaboration + '</p>' +
+        (link ? '<a class="spotify-link" href="' + safe(link) + '" target="_blank" rel="noopener noreferrer">Abrir en Spotify</a>' : '') +
+        '</div></article>';
+    }).join("") + '</div><p class="hint">Portadas y datos proporcionados por Spotify. Cada tarjeta enlaza a su playlist en Spotify.</p>';
+  }
+  async function importMySpotifyPlaylists() {
+    const button = $("importSpotifyPlaylistsButton");
+    const label = $("mySpotifyPlaylistsStatus");
+    const output = $("mySpotifyPlaylistsResults");
+    const access = await getToken();
+    if (!access) {
+      label.textContent = 'Primero pulsa “Conectar con Spotify” en Explorar catálogo y acepta los permisos de lectura.';
+      return;
+    }
+    button.disabled = true;
+    output.innerHTML = '<div class="empty">Cargando tus playlists desde Spotify…</div>';
+    label.textContent = "Conectando con Spotify…";
+    try {
+      const all = new Map();
+      let url = "https://api.spotify.com/v1/me/playlists?limit=50";
+      while (url) {
+        const parsed = new URL(url);
+        if (parsed.origin !== "https://api.spotify.com") throw new Error("Spotify devolvió una dirección de página no válida.");
+        const response = await fetch(url, {headers:{Authorization:"Bearer " + access}});
+        if (response.status === 401) throw new Error('La autorización caducó. Pulsa “Conectar con Spotify” y vuelve a autorizar.');
+        if (response.status === 403) throw new Error("Spotify no permitió consultar tus playlists. Vuelve a conectar la cuenta y acepta los permisos de lectura.");
+        if (response.status === 429) throw new Error("Spotify pidió esperar por demasiadas consultas. Inténtalo de nuevo en unos minutos.");
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error?.message || "No se pudieron cargar tus playlists.");
+        (data.items || []).forEach(p => { if (p?.id) all.set(p.id,p); });
+        url = data.next || null;
+        label.textContent = "Cargando… " + all.size + (data.total ? " de " + data.total : "") + " playlists";
+      }
+      importedPlaylists = [...all.values()].sort((a,b) => (a.name || "").localeCompare(b.name || "", "es"));
+      $("mySpotifyPlaylistsTools").hidden = false;
+      renderMySpotifyPlaylists();
+      label.textContent = "¡Listo! Se cargaron " + importedPlaylists.length + " playlists. No se modificó ninguna lista de Spotify.";
+    } catch (error) {
+      output.innerHTML = '<div class="empty">' + safe(error.message || "Ocurrió un error al importar las playlists.") + '</div>';
+      label.textContent = "No se pudo completar la carga.";
+    } finally { button.disabled = false; }
+  }
+  $("importSpotifyPlaylistsButton")?.addEventListener("click", importMySpotifyPlaylists);
+  $("mySpotifyPlaylistsSearch")?.addEventListener("input", renderMySpotifyPlaylists);
+
   $("catalogAuditButton")?.addEventListener("click", auditPlaylists);
 
   $("catalogConnect").addEventListener("click",()=>connect().catch(e=>{status.textContent=e.message;}));
