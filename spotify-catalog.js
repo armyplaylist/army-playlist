@@ -365,4 +365,97 @@
     if (mutations.some(m => [...m.addedNodes].some(n => n.nodeType === 1))) enrichExistingPlaylistCards();
   });
   spotifyMetaObserver.observe(document.body, {childList:true, subtree:true});
+
+  // Sincroniza silenciosamente las playlists públicas propias del perfil indicado.
+  // Usa únicamente la sesión Spotify ya autorizada en este navegador; nunca modifica playlists.
+  const PROFILE_ID = "31nsdpqgcab4lqafjmqjlf5yomjq";
+  let profileSyncStarted = false;
+  function existingPlaylistIds() {
+    return new Set([...document.querySelectorAll('a[href*="open.spotify.com/playlist/"]')]
+      .map(a => playlistIdFromUrl(a.href)).filter(Boolean));
+  }
+  function classifyProfilePlaylist(p) {
+    const value = clean((p.name || "") + " " + (p.description || ""));
+    const rules = [
+      ["BTS · Grupal", /\b(bts|ot7|arirang|group|grupal|방탄소년단)\b/],
+      ["RM", /\b(rm|namjoon)\b/],
+      ["Jin", /\b(jin|seokjin)\b/],
+      ["SUGA", /\b(suga|yoongi|agust d)\b/],
+      ["J-Hope", /\b(j hope|j-hope|hoseok)\b/],
+      ["Jimin", /\b(jimin)\b/],
+      ["V", /\b(v|taehyung|tae)\b/],
+      ["Jungkook", /\b(jungkook|jk)\b/]
+    ];
+    const match = rules.find(([, pattern]) => pattern.test(value));
+    return match ? match[0] : "Otras playlists";
+  }
+  function addProfilePlaylistStyles() {
+    if ($("profilePublicPlaylistStyles")) return;
+    const style = document.createElement("style");
+    style.id = "profilePublicPlaylistStyles";
+    style.textContent = ".profile-public-section{margin:22px 0;padding:clamp(18px,4vw,28px);border:1px solid #ffffffd9;border-radius:28px;background:#ffffffb8;box-shadow:var(--shadow)}.profile-public-section h2{margin:0 0 6px}.profile-public-section .profile-public-intro{margin:0 0 16px;color:var(--muted);font-size:.86rem;font-weight:700}.profile-public-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.profile-public-card{display:flex;gap:12px;min-width:0;padding:13px;border-radius:18px;background:#fff;box-shadow:var(--shadow)}.profile-public-card img{width:88px;height:88px;flex:0 0 88px;object-fit:cover;border-radius:12px}.profile-public-card h3{margin:0 0 5px;font-size:1rem}.profile-public-card p{margin:4px 0;color:var(--muted);font-size:.8rem;font-weight:700;overflow-wrap:anywhere}.profile-public-card .chip{display:inline-block;margin:4px 4px 4px 0}.profile-public-card .spotify-link{margin-top:5px}@media(max-width:720px){.profile-public-grid{grid-template-columns:1fr}}";
+    document.head.appendChild(style);
+  }
+  function profilePublicContainer() {
+    let section = $("profilePublicPlaylists");
+    if (section) return section;
+    addProfilePlaylistStyles();
+    section = document.createElement("section");
+    section.id = "profilePublicPlaylists";
+    section.className = "profile-public-section";
+    section.innerHTML = '<h2>Más playlists públicas de mi perfil 💜</h2><p class="profile-public-intro">Playlists públicas recuperadas de Spotify y organizadas según sus títulos y descripciones.</p><div class="profile-public-grid" id="profilePublicPlaylistGrid"><div class="empty">Buscando playlists públicas…</div></div>';
+    const page = document.querySelector(".page") || document.body;
+    const footer = page.querySelector(".footer");
+    if (footer) page.insertBefore(section, footer); else page.appendChild(section);
+    return section;
+  }
+  async function syncPublicProfilePlaylists() {
+    if (profileSyncStarted) return;
+    profileSyncStarted = true;
+    const access = await getToken().catch(() => null);
+    if (!access) return; // No muestra controles ni interrumpe la página si no hay sesión autorizada.
+    try {
+      const all = new Map();
+      let url = "https://api.spotify.com/v1/me/playlists?limit=50";
+      while (url) {
+        const response = await fetch(url, {headers:{Authorization:"Bearer " + access}});
+        if (!response.ok) throw new Error("Spotify no permitió leer las playlists del perfil.");
+        const data = await response.json();
+        (data.items || []).forEach(p => {
+          if (p?.id && p.public === true && p.owner?.id === PROFILE_ID) all.set(p.id, p);
+        });
+        url = data.next || null;
+      }
+      const known = existingPlaylistIds();
+      const missing = [...all.values()].filter(p => !known.has(p.id))
+        .sort((a,b) => (a.name || "").localeCompare(b.name || "", "es"));
+      if (!missing.length) return;
+      const section = profilePublicContainer();
+      const grid = $("profilePublicPlaylistGrid");
+      grid.innerHTML = missing.map(p => {
+        const cover = p.images?.[0]?.url || "";
+        const link = p.external_urls?.spotify || "https://open.spotify.com/playlist/" + encodeURIComponent(p.id);
+        const category = classifyProfilePlaylist(p);
+        const description = (p.description || "").trim();
+        const total = p.items?.total ?? p.tracks?.total;
+        return '<article class="profile-public-card" data-profile-playlist="' + safe(p.id) + '">' +
+          (cover ? '<img src="' + safe(cover) + '" alt="Portada de ' + safe(p.name) + '" loading="lazy">' : '') +
+          '<div><h3>' + safe(p.name || "Playlist sin título") + '</h3>' +
+          '<span class="chip">' + safe(category) + '</span>' +
+          (description ? '<p>' + safe(description) + '</p>' : '<p>Sin descripción pública disponible.</p>') +
+          '<p>' + (total == null ? "" : total + " canciones") + '</p>' +
+          '<a class="spotify-link" href="' + safe(link) + '" target="_blank" rel="noopener noreferrer">Abrir en Spotify</a>' +
+          '</div></article>';
+      }).join("");
+    } catch (error) {
+      // Sin sesión válida o si Spotify limita el acceso, el catálogo manual permanece intacto.
+      console.warn("No se pudieron sincronizar las playlists públicas del perfil:", error);
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncPublicProfilePlaylists, {once:true});
+  } else {
+    syncPublicProfilePlaylists();
+  }
+  
 })();
