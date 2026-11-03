@@ -258,7 +258,7 @@
   // No crea tarjetas, no cambia la clasificación manual ni modifica playlists.
   const spotifyMetaCache = new Map();
   const playlistIdFromUrl = value => {
-    const match = String(value || "").match(/open\\.spotify\\.com\\/playlist\\/([A-Za-z0-9]+)/);
+    const match = String(value || "").match(/open\.spotify\.com\/playlist\/([A-Za-z0-9]+)/);
     return match ? match[1] : "";
   };
   function addSpotifyMetaStyles() {
