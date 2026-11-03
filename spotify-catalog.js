@@ -7,7 +7,6 @@
   const EXPIRY_KEY = "armyPlaylistSpotifyExpiry";
   const $ = id => document.getElementById(id);
   const status = $("catalogAuthStatus"), results = $("catalogResults");
-  if (!status || !results) return;
 
   const randomString = (length=64) => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -96,6 +95,7 @@
   }
 
   async function search() {
+    if (!$("catalogQuery") || !results) return;
     const query = $("catalogQuery").value.trim();
     if (!query) { results.innerHTML='<div class="empty">Escribe el nombre de una canción para buscar.</div>'; return; }
     const access = await getToken();
@@ -211,9 +211,10 @@
     const button = $("importSpotifyPlaylistsButton");
     const label = $("mySpotifyPlaylistsStatus");
     const output = $("mySpotifyPlaylistsResults");
-    const access = await getToken();
+    let access = await getToken();
     if (!access) {
-      label.textContent = 'Primero pulsa “Conectar con Spotify” en Explorar catálogo y acepta los permisos de lectura.';
+      label.textContent = "Abriendo autorización segura…";
+      await connect();
       return;
     }
     button.disabled = true;
@@ -249,9 +250,12 @@
 
   $("catalogAuditButton")?.addEventListener("click", auditPlaylists);
 
-  $("catalogConnect").addEventListener("click",()=>connect().catch(e=>{status.textContent=e.message;}));
-  $("catalogSearchButton").addEventListener("click",search);
-  $("catalogQuery").addEventListener("keydown",e=>{if(e.key==="Enter")search();});
-  $("catalogAuthStatus").textContent = tokenValid() || localStorage.getItem(REFRESH_KEY) ? "Conexión disponible" : "Necesitas autorizar el acceso";
-  if (location.hash === "#catalogSearchPanel") $("catalogSearchPanel").scrollIntoView({behavior:"smooth",block:"start"});
+  $("catalogConnect")?.addEventListener("click",()=>connect().catch(e=>{if(status)status.textContent=e.message;}));
+  $("catalogSearchButton")?.addEventListener("click",search);
+  $("catalogQuery")?.addEventListener("keydown",e=>{if(e.key==="Enter")search();});
+  if (status) status.textContent = tokenValid() || localStorage.getItem(REFRESH_KEY) ? "Conexión disponible" : "Necesitas autorizar el acceso";
+  if (location.hash === "#mySpotifyPlaylistsPanel") {
+    $("mySpotifyPlaylistsPanel")?.scrollIntoView({behavior:"smooth",block:"start"});
+    if (tokenValid() || localStorage.getItem(REFRESH_KEY)) importMySpotifyPlaylists();
+  }
 })();
