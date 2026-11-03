@@ -253,4 +253,116 @@
     $("mySpotifyPlaylistsPanel")?.scrollIntoView({behavior:"smooth",block:"start"});
     if (tokenValid() || localStorage.getItem(REFRESH_KEY)) importMySpotifyPlaylists();
   }
+
+  // Enriquecimiento silencioso del catálogo existente con metadatos de Spotify.
+  // No crea tarjetas, no cambia la clasificación manual ni modifica playlists.
+  const spotifyMetaCache = new Map();
+  const playlistIdFromUrl = value => {
+    const match = String(value || "").match(/open\\.spotify\\.com\\/playlist\\/([A-Za-z0-9]+)/);
+    return match ? match[1] : "";
+  };
+  function addSpotifyMetaStyles() {
+    if ($("spotifyMetaStyles")) return;
+    const style = document.createElement("style");
+    style.id = "spotifyMetaStyles";
+    style.textContent = ".spotify-live-meta{display:flex;gap:10px;align-items:flex-start;margin:10px 0;padding:9px;border-radius:12px;background:#f7f2fc;color:#735f88;font-size:.78rem;font-weight:700}.spotify-live-meta img{width:58px;height:58px;flex:0 0 58px;object-fit:cover;border-radius:9px}.spotify-live-meta p{margin:0 0 4px}.spotify-live-meta .spotify-live-description{font-weight:600;color:#88799a;line-height:1.4}.spotify-live-meta .spotify-live-title{font-weight:900;color:#65468a}";
+    document.head.appendChild(style);
+  }
+  async function loadSpotifyPlaylistMeta(id) {
+    if (spotifyMetaCache.has(id)) return spotifyMetaCache.get(id);
+    const task = (async () => {
+      let meta = null;
+      const access = await getToken().catch(() => null);
+      if (access) {
+        const response = await fetch("https://api.spotify.com/v1/playlists/" + encodeURIComponent(id) + "?fields=name,description,images,owner(display_name),tracks(total),items(total),external_urls", {
+          headers: { Authorization: "Bearer " + access }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          meta = {
+            name: data.name || "",
+            description: data.description || "",
+            image: data.images?.[0]?.url || "",
+            owner: data.owner?.display_name || "",
+            total: data.tracks?.total ?? data.items?.total ?? null
+          };
+        } else if (response.status === 401) {
+          localStorage.removeItem(TOKEN_KEY);
+          localStorage.removeItem(EXPIRY_KEY);
+        }
+      }
+      // Respaldo público: portada y título de Spotify; no expone la descripción completa.
+      if (!meta || !meta.image) {
+        try {
+          const response = await fetch("https://open.spotify.com/oembed?url=" + encodeURIComponent("https://open.spotify.com/playlist/" + id));
+          if (response.ok) {
+            const data = await response.json();
+            meta = {...(meta || {}), name: meta?.name || data.title || "", image: meta?.image || data.thumbnail_url || ""};
+          }
+        } catch (_) {}
+      }
+      return meta;
+    })();
+    spotifyMetaCache.set(id, task);
+    return task;
+  }
+  async function enrichExistingPlaylistCards(root = document) {
+    addSpotifyMetaStyles();
+    const links = [...root.querySelectorAll('a[href*="open.spotify.com/playlist/"]')];
+    const unique = new Map();
+    for (const link of links) {
+      const id = playlistIdFromUrl(link.href);
+      if (!id) continue;
+      const card = link.closest(".playlist, .combo-entry, .profile, article");
+      if (card && !card.querySelector('[data-spotify-meta="' + id + '"]')) unique.set(id, card);
+    }
+    const entries = [...unique.entries()];
+    for (let i = 0; i < entries.length; i += 3) {
+      await Promise.all(entries.slice(i, i + 3).map(async ([id, card]) => {
+        const meta = await loadSpotifyPlaylistMeta(id);
+        if (!meta || card.querySelector('[data-spotify-meta="' + id + '"]')) return;
+        const block = document.createElement("div");
+        block.className = "spotify-live-meta";
+        block.dataset.spotifyMeta = id;
+        if (meta.image) {
+          const img = document.createElement("img");
+          img.src = meta.image;
+          img.alt = "Portada de Spotify";
+          img.loading = "lazy";
+          block.appendChild(img);
+        }
+        const details = document.createElement("div");
+        if (meta.name) {
+          const title = document.createElement("p");
+          title.className = "spotify-live-title";
+          title.textContent = meta.name;
+          details.appendChild(title);
+        }
+        if (meta.description) {
+          const description = document.createElement("p");
+          description.className = "spotify-live-description";
+          description.textContent = meta.description;
+          details.appendChild(description);
+        }
+        if (meta.owner || meta.total !== null && meta.total !== undefined) {
+          const extra = document.createElement("p");
+          extra.textContent = [meta.owner, meta.total !== null && meta.total !== undefined ? meta.total + " canciones en Spotify" : ""].filter(Boolean).join(" · ");
+          details.appendChild(extra);
+        }
+        block.appendChild(details);
+        const heading = card.querySelector("h3, strong");
+        if (heading?.parentElement) heading.parentElement.insertAdjacentElement("afterend", block);
+        else card.appendChild(block);
+      }));
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => enrichExistingPlaylistCards(), {once:true});
+  } else {
+    enrichExistingPlaylistCards();
+  }
+  const spotifyMetaObserver = new MutationObserver(mutations => {
+    if (mutations.some(m => [...m.addedNodes].some(n => n.nodeType === 1))) enrichExistingPlaylistCards();
+  });
+  spotifyMetaObserver.observe(document.body, {childList:true, subtree:true});
 })();
